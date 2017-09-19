@@ -18,10 +18,9 @@ using Catel.Collections;
 namespace InfConstractions.Models
 {
 #if NET
-[Serializable]
+
 #endif
     [Model]
-    [Serializable]
     public class ProverkaGUModel : ModelBase
     {
         public Configuration Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);

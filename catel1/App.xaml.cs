@@ -33,7 +33,6 @@
             Catel.Logging.LogManager.AddDebugListener();           
 #endif
             MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
-            MessageService.ShowAsync("Старт");
             //new Orc.Controls.Logging.LogViewerLogListener();
             //LogManager. AddListener(Orc.Controls.Logging.LogViewerLogListener);
             //var t = LogManager.GetListeners();

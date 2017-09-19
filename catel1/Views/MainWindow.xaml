@@ -7,22 +7,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"           
     xmlns:catel="clr-namespace:Catel.Windows;assembly=Catel.MVVM"
     xmlns:local="clr-namespace:InfConstractions"
-    xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
     xmlns:xcpt="http://schemas.xceed.com/wpf/xaml/themes"
-    xmlns:localThemes="clr-namespace:Xceed.Wpf.AvalonDock.Themes.Controls;assembly=Xceed.Wpf.AvalonDock.Themes.Aero"
-    xmlns:adControl="clr-namespace:Xceed.Wpf.AvalonDock.Controls;assembly=Xceed.Wpf.AvalonDock"
-    xmlns:adL="clr-namespace:Xceed.Wpf.AvalonDock.Layout;assembly=Xceed.Wpf.AvalonDock"
     xmlns:eo="http://schemas.essentialobjects.com/wpf/"          
     xmlns:Models="clr-namespace:InfConstractions.Models" 
     xmlns:Views="clr-namespace:InfConstractions.Views"
     xmlns:ViewModels="clr-namespace:InfConstractions.ViewModels" 
     xmlns:catel.ex.controls="clr-namespace:Catel.Windows.Controls;assembly=Catel.Extensions.Controls"
-            
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
     mc:Ignorable="d"
     ResizeMode="CanResize"
     WindowStartupLocation="CenterScreen" 
     Drop="mainWindiw_Drop"
-    Visibility="Hidden" IsVisibleChanged="mainWindow_IsVisibleChanged"
+    Visibility="Hidden" 
+    IsVisibleChanged="mainWindow_IsVisibleChanged"
     >
    <!---->
     <catel.ex.controls:StackGrid x:Name="LayoutRoot" Margin="0" >
@@ -35,88 +32,57 @@
 
             <MenuItem Header="MenuItem" Click="MenuItem_Click"/>
         </Menu>
-        <avalonDock:DockingManager x:Name="DockManager" Margin="0,0,0,0" Grid.Row="1" 
-			ActiveContent="{Binding ElementName=Content1}" DocumentClosing="DockManagerDocumentClosing" RenderTransformOrigin="0.5,0.5" >
-            <avalonDock:DockingManager.Theme>
+       
+        <dxdo:DockLayoutManager x:Name="DockManager" Margin="0,0,0,0" Grid.Row="1" RenderTransformOrigin="0.5,0.5" >
+            <!--<avalonDock:DockingManager.Theme>
                 <avalonDock:VS2010Theme />
-            </avalonDock:DockingManager.Theme>
-            <adL:LayoutRoot x:Name="classesContent" >
-               <!--<adL:LayoutRoot.BottomSide>
-                    <adL:LayoutAnchorSide>
-                        <adL:LayoutAnchorGroup>
-                            <adL:LayoutAnchorable>
-                                <TextBox x:Name="text2" Text="{Binding ViewModel.Title, ElementName=vLogger, Mode=OneWay}"/>
-                            </adL:LayoutAnchorable>
-                        </adL:LayoutAnchorGroup>
-                    </adL:LayoutAnchorSide>
-                </adL:LayoutRoot.BottomSide>-->
-                <adL:LayoutPanel x:Name="mainPanel" IsMaximized="True" Orientation="Horizontal">
-                    <adL:LayoutPanel x:Name="leftPanel" IsMaximized="True" Orientation="Horizontal" DockWidth="50"/>
-                    <adL:LayoutPanel x:Name="centerPanel" IsMaximized="True" Orientation="Vertical" DockHeight="Auto" DockWidth="Auto">
-                        <adL:LayoutPanel x:Name="centerTop">
-                            <adL:LayoutAnchorablePaneGroup DockHeight="50">
-                                <adL:LayoutAnchorablePaneGroup/>
-                            </adL:LayoutAnchorablePaneGroup>
-                        </adL:LayoutPanel>
-                        <adL:LayoutPanel x:Name="CenterCenterPanel" Orientation="Horizontal">
-                            <adL:LayoutAnchorablePaneGroup x:Name="leftCenterPanel"/>
-                            <adL:LayoutDocumentPaneGroup>
-                                <adL:LayoutDocumentPane x:Name="DOcPane1" IsMaximized="True" FloatingLeft="20">
-                                    <adL:LayoutAnchorable x:Name="ld_mosgorbti" Title="mosgorbti.ru" IsMaximized="True" >
-                                        <eo:WebControl>
-                                            <eo:WebControl.WebView>
-                                                <eo:WebView Url="http://www.mosgorbti.ru/map.aspx?displayMode=verticalScrollBookmark=0&amp;form_login-form=1&amp;fd_login-form=1&amp;mode=&amp;form_Main=1&amp;back-url=&amp;region=&amp;show-route=&amp;clickableTBTI=1&amp;hideZoom=&amp;rotateBuildingNames=&amp;searchForm=&amp;showSearchForm=1&amp;showStreetPaths=&amp;scale=1&amp;fd_Main=1" >
-                                                </eo:WebView>
-                                            </eo:WebControl.WebView>
-                                        </eo:WebControl>
-                                    </adL:LayoutAnchorable>
-                                    <adL:LayoutAnchorable x:Name="ld_yandex" Title="Yandex.ru" IsMaximized="True" >
-                                        <eo:WebControl>
-                                            <eo:WebControl.WebView>
-                                                <eo:WebView Url="https://yandex.ru/maps/213/moscow">
-                                                </eo:WebView>
-                                            </eo:WebControl.WebView>
-                                        </eo:WebControl>
-                                    </adL:LayoutAnchorable>
-                                    <adL:LayoutAnchorable x:Name="ld_2gis" Title="2ГИС">
-                                        <eo:WebControl>
-                                            <eo:WebControl.WebView>
-                                                <eo:WebView Url="https://2gis.ru/moscow?queryState=zoom%2F11">
-                                                </eo:WebView>
-                                            </eo:WebControl.WebView>
-                                        </eo:WebControl>
-                                    </adL:LayoutAnchorable>
-                                   
-                                   <!-- <adL:LayoutDocument x:Name="startDoc1"  Title="{Binding Mode=OneWay, Source={StaticResource loginTitle}}" IsActive="True" >
-                                        <catel.ex.controls:StackGrid>
-                                            <catel.ex.controls:StackGrid.RowDefinitions>
-                                                <RowDefinition Height="40" MinHeight="10" />
-                                                <RowDefinition Height="100" />
-                                                <RowDefinition Height="*" />
-                                            </catel.ex.controls:StackGrid.RowDefinitions>
-                                            <TextBox x:Name="startDoc1text" Grid.Row="0"/>
-                                            <DataGrid IsReadOnly="True" HorizontalContentAlignment="Stretch" Grid.Row="1" Margin="0,0,0,0"/>
-                                            <Views:AddressAssign Margin="0" Grid.Row="2" d:LayoutOverrides="Width, Height"/>
-                                        </catel.ex.controls:StackGrid>
-                                    </adL:LayoutDocument>-->
-                                </adL:LayoutDocumentPane>
-                            </adL:LayoutDocumentPaneGroup>
-                            <adL:LayoutAnchorablePaneGroup x:Name="rightCenterPanel"/>
-                        </adL:LayoutPanel>
-                        <adL:LayoutPanel x:Name="centerBottom" DockHeight="200" >
-                            <adL:LayoutAnchorablePaneGroup>
-                                <adL:LayoutAnchorablePane>
-                                    <adL:LayoutAnchorable x:Name="la_vLogger" Title="{Binding Mode=OneWay, Source={StaticResource loggerTitle}}" IsMaximized="True">
-                                        <Views:ucLogger x:Name="vLogger" Margin="0,0,0,0" VerticalAlignment="Stretch" d:LayoutOverrides="Width, Height"/>
-                                    </adL:LayoutAnchorable>
-                                    <adL:LayoutAnchorable Title="{Binding Mode=OneWay, Source={StaticResource eventerTitle}}" IsMaximized="True">
-                                    </adL:LayoutAnchorable>
-                                </adL:LayoutAnchorablePane>
-                            </adL:LayoutAnchorablePaneGroup>
-                        </adL:LayoutPanel>
-                    </adL:LayoutPanel>
-                </adL:LayoutPanel>
-            </adL:LayoutRoot>
-        </avalonDock:DockingManager>
+            </avalonDock:DockingManager.Theme>-->
+        <dxdo:LayoutGroup x:Name="classesContent" Orientation="Horizontal" Height="auto" AllowSplitters="True">
+           <dxdo:LayoutGroup x:Name="mainPanel">
+                <dxdo:LayoutPanel x:Name="leftPanel" />
+            <dxdo:LayoutGroup x:Name="centerPanel">
+                
+                    <dxdo:LayoutGroup x:Name="centerTop">                
+                        <dxdo:LayoutPanel ></dxdo:LayoutPanel>
+                    </dxdo:LayoutGroup>
+   
+                <dxdo:LayoutGroup x:Name="CenterCenterPanel" Orientation="Horizontal">
+                            <dxdo:LayoutGroup x:Name="leftCenterPanel"/>
+
+                        <dxdo:LayoutGroup x:Name="rightCenterPanel"/>
+                    <dxdo:DocumentGroup x:Name="docPanel" >
+                        <dxdo:DocumentPanel x:Name="ld_mosgorbti" Caption="mosgorbti.ru" ShowCaption="True">
+                            <eo:WebControl>
+                                <eo:WebControl.WebView>
+                                    <eo:WebView Url="http://www.mosgorbti.ru/map.aspx?displayMode=verticalScrollBookmark=0&amp;form_login-form=1&amp;fd_login-form=1&amp;mode=&amp;form_Main=1&amp;back-url=&amp;region=&amp;show-route=&amp;clickableTBTI=1&amp;hideZoom=&amp;rotateBuildingNames=&amp;searchForm=&amp;showSearchForm=1&amp;showStreetPaths=&amp;scale=1&amp;fd_Main=1" >
+                                    </eo:WebView>
+                                </eo:WebControl.WebView>
+                            </eo:WebControl>
+                        </dxdo:DocumentPanel>
+                        <dxdo:DocumentPanel x:Name="ld_yandex" Caption="Yandex.ru" ShowCaption="True">
+                            <eo:WebControl>
+                                <eo:WebControl.WebView>
+                                    <eo:WebView Url="https://yandex.ru/maps/213/moscow">
+                                    </eo:WebView>
+                                </eo:WebControl.WebView>
+                            </eo:WebControl>
+                        </dxdo:DocumentPanel>
+                        <dxdo:DocumentPanel x:Name="ld_2gis" Caption="2ГИС" ShowCaption="True">
+                            <eo:WebControl>
+                                <eo:WebControl.WebView>
+                                    <eo:WebView Url="https://2gis.ru/moscow?queryState=zoom%2F11">
+                                    </eo:WebView>
+                                </eo:WebControl.WebView>
+                            </eo:WebControl>
+                        </dxdo:DocumentPanel>
+                    </dxdo:DocumentGroup>
+                </dxdo:LayoutGroup>
+                        <dxdo:LayoutPanel x:Name="centerBottom" >
+                            
+                        </dxdo:LayoutPanel>
+                    </dxdo:LayoutGroup>
+                </dxdo:LayoutGroup>
+            </dxdo:LayoutGroup>
+    </dxdo:DockLayoutManager>
     </catel.ex.controls:StackGrid>
 </catel:Window>

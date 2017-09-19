@@ -4,13 +4,12 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
-using Xceed.Wpf.AvalonDock;
-using Xceed.Wpf.AvalonDock.Layout;
-using Xceed.Wpf.AvalonDock.Themes;
 using System.Windows.Data;
 using InfConstractions.ViewModels;
 using Catel.Logging;
 using Catel.Services;
+using DevExpress.Xpf.Layout;
+using DevExpress.Xpf.Docking;
 
 namespace InfConstractions.Views
 {
@@ -19,7 +18,7 @@ namespace InfConstractions.Views
         public MainWindow()
         {
             InitializeComponent();
-        }
+        }            
         private void DockManagerDocumentClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (MessageBox.Show("Close this tab?", ".Net Notepad", MessageBoxButton.YesNo) == MessageBoxResult.No)
@@ -43,15 +42,11 @@ namespace InfConstractions.Views
 
         private void NewProverkaGU()
         {
-            var doc = new LayoutAnchorable();
-            doc.FloatingHeight = 100;
-            doc.FloatingWidth = 200;
-            DOcPane1.Children.Add(doc);
-            doc.Title="ProverkaGU";
+            var doc = new DocumentPanel();          
+            doc.Caption="ProverkaGU";
             ProverkaGUView n = new ProverkaGUView();
             doc.Content = n;
-            //doc.AddToLayout(DockManager,AnchorableShowStrategy.Most);
-            doc.IsSelected = true;
+            DockManager.DockController.AddDocumentPanel(docPanel).Content= n;
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -68,7 +63,7 @@ namespace InfConstractions.Views
 
         private void mainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            NewProverkaGU();
+           // NewProverkaGU();
         }
     }
 

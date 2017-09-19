@@ -18,7 +18,6 @@
         }
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, PleaseWaitService pleaseWaitService, IMessageService messageService)
         {
-            _messageService.ShowAsync("Старт2");
             _uiVisualizerService = uiVisualizerService;
             _pleaseWaitService = pleaseWaitService;
             _messageService = messageService;

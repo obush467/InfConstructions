@@ -4,8 +4,6 @@ using InfConstractions.Models;
 using System;
 using System.Linq;
 using System.Collections.ObjectModel;
-using Xceed.Wpf.AvalonDock.Themes;
-using Xceed.Wpf.AvalonDock;
 using Catel.Data;
 using Catel.Logging;
 

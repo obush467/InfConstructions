@@ -1,0 +1,50 @@
+﻿<dxdo:DocumentGroup>
+                                
+                                    <dxdo:LayoutAnchorable x:Name="ld_mosgorbti" Title="mosgorbti.ru" IsMaximized="True" >
+                                        <eo:WebControl>
+                                            <eo:WebControl.WebView>
+                                                <eo:WebView Url="http://www.mosgorbti.ru/map.aspx?displayMode=verticalScrollBookmark=0&amp;form_login-form=1&amp;fd_login-form=1&amp;mode=&amp;form_Main=1&amp;back-url=&amp;region=&amp;show-route=&amp;clickableTBTI=1&amp;hideZoom=&amp;rotateBuildingNames=&amp;searchForm=&amp;showSearchForm=1&amp;showStreetPaths=&amp;scale=1&amp;fd_Main=1" >
+                                                </eo:WebView>
+                                            </eo:WebControl.WebView>
+                                        </eo:WebControl>
+                                    </dxdo:LayoutAnchorable>
+                                    
+                                   
+                                   <!-- <dxdo:LayoutDocument x:Name="startDoc1"  Title="{Binding Mode=OneWay, Source={StaticResource loginTitle}}" IsActive="True" >
+                                        <catel.ex.controls:StackGrid>
+                                            <catel.ex.controls:StackGrid.RowDefinitions>
+                                                <RowDefinition Height="40" MinHeight="10" />
+                                                <RowDefinition Height="100" />
+                                                <RowDefinition Height="*" />
+                                            </catel.ex.controls:StackGrid.RowDefinitions>
+                                            <TextBox x:Name="startDoc1text" Grid.Row="0"/>
+                                            <DataGrid IsReadOnly="True" HorizontalContentAlignment="Stretch" Grid.Row="1" Margin="0,0,0,0"/>
+                                            <Views:AddressAssign Margin="0" Grid.Row="2" d:LayoutOverrides="Width, Height"/>
+                                        </catel.ex.controls:StackGrid>
+                                    </dxdo:LayoutDocument>-->
+                                </dxdo:DocumentPanel>
+                            </dxdo:DocumentGroup>
+							
+							
+							
+							<dxdo:LayoutAnchorablePaneGroup>
+                                <dxdo:LayoutAnchorablePane>
+                                    <dxdo:LayoutAnchorable x:Name="la_vLogger" Title="{Binding Mode=OneWay, Source={StaticResource loggerTitle}}" IsMaximized="True">
+                                        <Views:ucLogger x:Name="vLogger" Margin="0,0,0,0" VerticalAlignment="Stretch" d:LayoutOverrides="Width, Height"/>
+                                    </dxdo:LayoutAnchorable>
+                                    <dxdo:LayoutAnchorable Title="{Binding Mode=OneWay, Source={StaticResource eventerTitle}}" IsMaximized="True">
+                                    </dxdo:LayoutAnchorable>
+                                </dxdo:LayoutAnchorablePane>
+                            </dxdo:LayoutAnchorablePaneGroup>               
+							
+							
+							
+							<!--<dxdo:LayoutRoot.BottomSide>
+                    <dxdo:LayoutAnchorSide>
+                        <dxdo:LayoutAnchorGroup>
+                            <dxdo:LayoutAnchorable>
+                                <TextBox x:Name="text2" Text="{Binding ViewModel.Title, ElementName=vLogger, Mode=OneWay}"/>
+                            </dxdo:LayoutAnchorable>
+                        </dxdo:LayoutAnchorGroup>
+                    </dxdo:LayoutAnchorSide>
+                </dxdo:LayoutRoot.BottomSide>-->
