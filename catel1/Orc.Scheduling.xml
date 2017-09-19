@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orc.Scheduling</name>
+    </assembly>
+    <members>
+        <member name="T:Orc.Scheduling.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Orc.Scheduling.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Orc.Scheduling.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Orc.Scheduling.Properties.Resources.Scheduling_RunningTasks">
+            <summary>
+              Looks up a localized string similar to Running tasks.
+            </summary>
+        </member>
+        <member name="P:Orc.Scheduling.Properties.Resources.Scheduling_ScheduledTasks">
+            <summary>
+              Looks up a localized string similar to Scheduled tasks.
+            </summary>
+        </member>
+        <member name="T:ModuleInitializer">
+            <summary>
+            Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.
+            </summary>
+        </member>
+        <member name="M:ModuleInitializer.Initialize">
+            <summary>
+            Initializes the module.
+            </summary>
+        </member>
+    </members>
+</doc>

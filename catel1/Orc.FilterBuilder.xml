@@ -1,0 +1,370 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orc.FilterBuilder</name>
+    </assembly>
+    <members>
+        <member name="T:Orc.FilterBuilder.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_AddExpression">
+            <summary>
+              Looks up a localized string similar to Add expression.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_AddGroup">
+            <summary>
+              Looks up a localized string similar to Add group.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_And">
+            <summary>
+              Looks up a localized string similar to And.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_AreYouSure">
+            <summary>
+              Looks up a localized string similar to Are you sure?.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_Contains">
+            <summary>
+              Looks up a localized string similar to contains.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_DeleteItem">
+            <summary>
+              Looks up a localized string similar to Delete item.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_DiscardChanges">
+            <summary>
+              Looks up a localized string similar to The filter has unsaved changes. Are you sure you want to close the editor without saving changes?.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_DoesNotContain">
+            <summary>
+              Looks up a localized string similar to does not contain.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_DoesNotEndWith">
+            <summary>
+              Looks up a localized string similar to does not end with.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_DoesNotMatch">
+            <summary>
+              Looks up a localized string similar to does not match.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_DoesNotStartWith">
+            <summary>
+              Looks up a localized string similar to does not start with.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_EndsWith">
+            <summary>
+              Looks up a localized string similar to ends with.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_EqualTo">
+            <summary>
+              Looks up a localized string similar to is equal to.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_FieldIsRequired">
+            <summary>
+              Looks up a localized string similar to Field is required.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_GreaterThan">
+            <summary>
+              Looks up a localized string similar to is greater than.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_GreaterThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to is greater than or equal to.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_IsEmpty">
+            <summary>
+              Looks up a localized string similar to is empty.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_IsNull">
+            <summary>
+              Looks up a localized string similar to is null.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_LessThan">
+            <summary>
+              Looks up a localized string similar to is less than.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_LessThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to is less than or equal to.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_LivePreview">
+            <summary>
+              Looks up a localized string similar to Live preview.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_Matches">
+            <summary>
+              Looks up a localized string similar to matches.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_Name">
+            <summary>
+              Looks up a localized string similar to Name.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_NotEqualTo">
+            <summary>
+              Looks up a localized string similar to is not equal to.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_NotIsEmpty">
+            <summary>
+              Looks up a localized string similar to is not empty.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_NotIsNull">
+            <summary>
+              Looks up a localized string similar to is not null.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_Or">
+            <summary>
+              Looks up a localized string similar to Or.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_SaveBroken">
+            <summary>
+              Looks up a localized string similar to The filter has some invalid expressions which will be ignored while filtering. Are you sure you want to save this filter?.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_StartsWith">
+            <summary>
+              Looks up a localized string similar to starts with.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_FilterBuilderControl_TextBlock_Text_Broken">
+            <summary>
+              Looks up a localized string similar to broken.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_Generic_TextBlock_Text_DetailsView">
+            <summary>
+              Looks up a localized string similar to Details View.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_Exception_Message_ParameterIsNotSupported_Pattern">
+            <summary>
+              Looks up a localized string similar to Parameter {0} is not supported..
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_Exception_Message_TypeIsNotSupported_Pattern">
+            <summary>
+              Looks up a localized string similar to Type '{0}' is not supported..
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_Exception_Message_ConditionIsNotSupported_Pattern">
+            <summary>
+              Looks up a localized string similar to Condition '{0}' is not supported..
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_ShowAsync_DeleteFilterQuestion_Caption">
+            <summary>
+              Looks up a localized string similar to Delete filterQuestion.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Properties.Resources.FilterBuilder_ShowAsync_Message_AreYouSureYouWantToDeleteFilterQuestion_Pattern">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to delete filter '{0}'?.
+            </summary>
+        </member>
+        <member name="T:Orc.FilterBuilder.EnumExpression`1">
+            <summary>
+            The EnumExpression class.
+            </summary>
+            <typeparam name="TEnum">
+            The enum type parameter.
+            </typeparam>
+        </member>
+        <member name="M:Orc.FilterBuilder.EnumExpression`1.#ctor(System.Boolean)">
+            <summary>
+            Initialize an instance of <see cref="T:Orc.FilterBuilder.EnumExpression`1" />.
+            </summary>
+            <param name="isNullable">Indicates whether the type is nullable.</param>
+        </member>
+        <member name="P:Orc.FilterBuilder.EnumExpression`1.EnumValues">
+            <summary>
+            Gets the enum values.
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.EnumExpression`1.Value">
+            <summary>
+            Gets and sets the value.
+            </summary>
+        </member>
+        <member name="M:Orc.FilterBuilder.EnumExpression`1.CalculateResult(Orc.FilterBuilder.Models.IPropertyMetadata,System.Object)">
+            <summary>
+            Calculates the result
+            </summary>
+            <param name="propertyMetadata">
+            The property metadata
+            </param>
+            <param name="entity">
+            The entity.
+            </param>
+            <returns>
+            <c>True</c> if the entity property value match with the <see cref="P:Orc.FilterBuilder.EnumExpression`1.Value" /> via <see cref="P:Orc.FilterBuilder.DataTypeExpression.SelectedCondition" /> operator, otherwise <c>False</c>.
+            </returns>
+            <exception cref="T:System.NotSupportedException">
+            If <see cref="P:Orc.FilterBuilder.DataTypeExpression.SelectedCondition" /> is not supported.
+            </exception>
+        </member>
+        <member name="M:Orc.FilterBuilder.EnumExpression`1.ToString">
+            <summary>
+            Converts the object to string.
+            </summary>
+            <returns>String representation of the object.</returns>
+        </member>
+        <member name="T:Orc.FilterBuilder.TypeExtensions">
+            <summary>
+            Type class extensions methods
+            </summary>
+        </member>
+        <member name="M:Orc.FilterBuilder.TypeExtensions.GetNonNullable(System.Type)">
+            <summary>
+            Gets non nullable type used to create nullable type.
+            </summary>
+            <param name="type">Nullable Type to retrieve non nullable parameter</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orc.FilterBuilder.TypeExtensions.IsNullable(System.Type)">
+            <summary>
+            Checks if type is instance of nullable struct
+            </summary>
+            <param name="type">Type to check</param>
+            <returns></returns>
+        </member>
+        <member name="T:Orc.FilterBuilder.FilterBuilderMode">
+            <summary>
+            Enumeration of <see cref="T:Orc.FilterBuilder.Views.FilterBuilderControl"/> work modes
+            </summary>
+        </member>
+        <member name="F:Orc.FilterBuilder.FilterBuilderMode.Collection">
+            <summary>
+            <see cref="T:Orc.FilterBuilder.Views.FilterBuilderControl"/> creates filtered collection
+            </summary>
+        </member>
+        <member name="F:Orc.FilterBuilder.FilterBuilderMode.FilteringFunction">
+            <summary>
+            <see cref="T:Orc.FilterBuilder.Views.FilterBuilderControl"/> creates filtering function
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.Models.IPropertyMetadata.DisplayName">
+            <summary>
+            Display name of the property
+            </summary>
+        </member>
+        <member name="E:Orc.FilterBuilder.Services.FilterService.FiltersUpdated">
+            <summary>
+            Occurs when any of the filters has been updated.
+            </summary>
+        </member>
+        <member name="E:Orc.FilterBuilder.Services.FilterService.SelectedFilterChanged">
+            <summary>
+            Occurs when the currently selected filter has changed.
+            </summary>
+        </member>
+        <member name="E:Orc.FilterBuilder.Services.IFilterService.FiltersUpdated">
+            <summary>
+            Occurs when any of the filters has been updated.
+            </summary>
+        </member>
+        <member name="E:Orc.FilterBuilder.Services.IFilterService.SelectedFilterChanged">
+            <summary>
+            Occurs when the currently selected filter has changed.
+            </summary>
+        </member>
+        <member name="T:Orc.FilterBuilder.Converters.TriggerConverter">
+            <summary>
+            Workaround class for bug with non-evaluating commands with command parameters:
+            http://stackoverflow.com/questions/335849/wpf-commandparameter-is-null-first-time-canexecute-is-called
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.ViewModels.FilterBuilderViewModel.Mode">
+            <summary>
+            Current <see cref="T:Orc.FilterBuilder.Views.FilterBuilderControl"/> mode
+            </summary>
+        </member>
+        <member name="P:Orc.FilterBuilder.ViewModels.FilterBuilderViewModel.FilteringFunc">
+            <summary>
+            Filtering function if <see cref="T:Orc.FilterBuilder.Views.FilterBuilderControl"/> mode is 
+            <see cref="F:Orc.FilterBuilder.FilterBuilderMode.FilteringFunction"/>
+            </summary>
+        </member>
+        <member name="T:Orc.FilterBuilder.Views.EditFilterView">
+            <summary>
+            EditFilterView
+            </summary>
+        </member>
+        <member name="M:Orc.FilterBuilder.Views.EditFilterView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Orc.FilterBuilder.Views.EditFilterWindow">
+            <summary>
+            Interaction logic for EditFilterWindow.xaml
+            </summary>
+            <summary>
+            EditFilterWindow
+            </summary>
+        </member>
+        <member name="M:Orc.FilterBuilder.Views.EditFilterWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Orc.FilterBuilder.Views.FilterBuilderControl">
+            <summary>
+            FilterBuilderControl
+            </summary>
+        </member>
+        <member name="M:Orc.FilterBuilder.Views.FilterBuilderControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ModuleInitializer">
+            <summary>
+            Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.
+            </summary>
+        </member>
+        <member name="M:ModuleInitializer.Initialize">
+            <summary>
+            Initializes the module.
+            </summary>
+        </member>
+    </members>
+</doc>

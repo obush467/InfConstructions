@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"           
     xmlns:catel="clr-namespace:Catel.Windows;assembly=Catel.MVVM"
     xmlns:local="clr-namespace:InfConstractions"
-    xmlns:xcpt="http://schemas.xceed.com/wpf/xaml/themes"
     xmlns:eo="http://schemas.essentialobjects.com/wpf/"          
     xmlns:Models="clr-namespace:InfConstractions.Models" 
     xmlns:Views="clr-namespace:InfConstractions.Views"
@@ -33,7 +32,7 @@
             <MenuItem Header="MenuItem" Click="MenuItem_Click"/>
         </Menu>
        
-        <dxdo:DockLayoutManager x:Name="DockManager" Margin="0,0,0,0" Grid.Row="1" RenderTransformOrigin="0.5,0.5" >
+        <dxdo:DockLayoutManager x:Name="dockManager_main" Margin="0,0,0,0" Grid.Row="1" >
             <!--<avalonDock:DockingManager.Theme>
                 <avalonDock:VS2010Theme />
             </avalonDock:DockingManager.Theme>-->
@@ -49,8 +48,8 @@
                 <dxdo:LayoutGroup x:Name="CenterCenterPanel" Orientation="Horizontal">
                             <dxdo:LayoutGroup x:Name="leftCenterPanel"/>
 
-                        <dxdo:LayoutGroup x:Name="rightCenterPanel"/>
-                    <dxdo:DocumentGroup x:Name="docPanel" >
+                    <dxdo:LayoutGroup x:Name="rightCenterPanel" Orientation="Horizontal"/>
+                    <dxdo:DocumentGroup x:Name="docPanel" Orientation="Horizontal">
                         <dxdo:DocumentPanel x:Name="ld_mosgorbti" Caption="mosgorbti.ru" ShowCaption="True">
                             <eo:WebControl>
                                 <eo:WebControl.WebView>
@@ -59,7 +58,7 @@
                                 </eo:WebControl.WebView>
                             </eo:WebControl>
                         </dxdo:DocumentPanel>
-                        <dxdo:DocumentPanel x:Name="ld_yandex" Caption="Yandex.ru" ShowCaption="True">
+                        <!--<dxdo:DocumentPanel x:Name="ld_yandex" Caption="Yandex.ru" ShowCaption="True">
                             <eo:WebControl>
                                 <eo:WebControl.WebView>
                                     <eo:WebView Url="https://yandex.ru/maps/213/moscow">
@@ -74,10 +73,10 @@
                                     </eo:WebView>
                                 </eo:WebControl.WebView>
                             </eo:WebControl>
-                        </dxdo:DocumentPanel>
+                        </dxdo:DocumentPanel>-->
                     </dxdo:DocumentGroup>
                 </dxdo:LayoutGroup>
-                        <dxdo:LayoutPanel x:Name="centerBottom" >
+                <dxdo:LayoutPanel x:Name="centerBottom">
                             
                         </dxdo:LayoutPanel>
                     </dxdo:LayoutGroup>

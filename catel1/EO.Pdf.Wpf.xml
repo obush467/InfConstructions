@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>EO.Pdf.Wpf</name>
+  </assembly>
+  <members>
+    <member name="T:EO.Wpf.PdfViewer">
+      <summary>
+            A control to display PDF file.
+            </summary>
+    </member>
+    <member name="M:EO.Wpf.PdfViewer.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:EO.Wpf.PdfViewer" /> control.
+            </summary>
+    </member>
+    <member name="P:EO.Wpf.PdfViewer.EmptyHtml">
+      <summary>
+            Gets or sets the HTML to be displayed when the <see cref="T:EO.Wpf.PdfViewer" /> is empty.
+            </summary>
+    </member>
+    <member name="P:EO.Wpf.PdfViewer.IsEmpty">
+      <summary>
+            Gets a value indicating whether the <see cref="T:EO.Wpf.PdfViewer" /> is empty.
+            </summary>
+    </member>
+    <member name="E:EO.Wpf.PdfViewer.LaunchUrl">
+    </member>
+    <member name="M:EO.Wpf.PdfViewer.Load(System.String)">
+      <summary>
+            Load a PDF resource.
+            </summary>
+      <param name="url">The Url of the PDF resource.</param>
+    </member>
+    <member name="M:EO.Wpf.PdfViewer.Load(System.Byte[],System.String)">
+      <summary>
+            Load a PDF file in raw binary form.
+            </summary>
+      <param name="pdfData">The raw binary PDF data.</param>
+      <param name="fileName">Optional file name for the PDF.</param>
+    </member>
+    <member name="M:EO.Wpf.PdfViewer.Clear">
+      <summary>
+            Clear the <see cref="T:EO.Wpf.PdfViewer" />.
+            </summary>
+    </member>
+    <member name="M:EO.Wpf.PdfViewer.Print(System.Drawing.Printing.PrinterSettings,System.Drawing.Printing.PageSettings)">
+      <summary>
+            Print the PDF file that is currently loaded in the <see cref="T:EO.Wpf.PdfViewer" />.
+            </summary>
+      <param name="printerSettings">Set the default printer settings. Pass <b>null</b> to display the print dialog to ask user for the settings.</param>
+      <param name="pageSettings">Set the default page settings. Pass <b>null</b> to use <see cref="P:System.Drawing.Printing.PrinterSettings.DefaultPageSettings" />
+            of the <i>printerSettings</i> argument.
+            </param>
+      <remarks>
+            If a valid <i>printerSettings</i> value is supplied, then the print dialog will not be shown.
+            The following code demonstrates how to "silent print" with the default printer:
+            <code lang="cs">
+            PdfViewer1.Print(EO.WebBrowser.WebView.GetDefaultPrinterSettings());
+            </code><code lang="vb">
+            PdfViewer1.Print(EO.WebBrowser.WebView.GetDefaultPrinterSettings())
+            </code></remarks>
+    </member>
+    <member name="M:EO.Wpf.PdfViewer.StartFindSession(System.String,System.Boolean)">
+      <summary>
+            Starts a new find session.
+            </summary>
+      <param name="text">The text to be searched for.</param>
+      <param name="matchCase">Whether to match case.</param>
+      <returns>
+            Returns a <see cref="T:EO.WebBrowser.FindSession" /> object that can be used to
+            navigate the find result.
+            </returns>
+    </member>
+  </members>
+</doc>

@@ -32,13 +32,13 @@
 #if DEBUG
             Catel.Logging.LogManager.AddDebugListener();           
 #endif
-            MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
+            
             //new Orc.Controls.Logging.LogViewerLogListener();
             //LogManager. AddListener(Orc.Controls.Logging.LogViewerLogListener);
             //var t = LogManager.GetListeners();
             Log.Info((string)Current.FindResource("startMessage"));           
             uiVisualizerService = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
-           
+            MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
 
             // To force the loading of all assemblies at startup, uncomment the lines below:
 
@@ -79,7 +79,7 @@
             {
                 Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 _mainDBContext = new Entities(vm.efConnection);
-                uiVisualizerService.ShowOrActivateAsync<MainWindowViewModel>(_mainDBContext, null, null);
+                uiVisualizerService.ShowAsync<MainWindowViewModel>();
             }
             else {Current.Shutdown(-1); }
         }
