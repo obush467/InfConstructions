@@ -46,7 +46,7 @@ namespace InfConstractions.Views
             doc.Caption="ProverkaGU";
             ProverkaGUView n = new ProverkaGUView();
             doc.Content = n;
-            DockManager.DockController.AddDocumentPanel(docPanel).Content= n;
+            dockManager_main.DockController.AddDocumentPanel(docPanel).Content= n;
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

@@ -10,7 +10,7 @@
        <Types>
         <Type Name="ProverkaGUModel" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2017-09-19 16:21:18Z" FixCategory="NonBreaking">
+          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2017-09-19 16:37:22Z" FixCategory="NonBreaking">
            <Issue Certainty="75" Level="Warning">Добавьте [Serializable] к 'ProverkaGUModel', так как этот тип реализует ISerializable.</Issue>
           </Message>
          </Messages>
