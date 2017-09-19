@@ -1,4 +1,18 @@
-﻿namespace catel1.Views
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using Microsoft.Win32;
+using Xceed.Wpf.AvalonDock;
+using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Themes;
+using System.Windows.Data;
+using InfConstractions.ViewModels;
+using Catel.Logging;
+using Catel.Services;
+
+namespace InfConstractions.Views
 {
     public partial class MainWindow
     {
@@ -6,5 +20,56 @@
         {
             InitializeComponent();
         }
+        private void DockManagerDocumentClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (MessageBox.Show("Close this tab?", ".Net Notepad", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            {e.Cancel = true;}
+        }
+        private void NewDocument()
+        {
+            //Title = "New1";
+            //var doc = new LayoutDocument();
+            //DOcPane1.Children.Add(doc);
+            //ucLoggerViewModel VM = new ucLoggerViewModel();
+            //Binding myBinding = new Binding("Text");
+            //myBinding.Source=mainWindow.text2;
+            //myBinding.Mode = BindingMode.TwoWay;
+            //mainWindow.la_vLogger.SetBinding(LayoutAnchorable.TitleProperty, myBinding);
+            //BindingOperations.SetBinding(mainWindow.la_vLogger, LayoutAnchorable.TitleProperty, myBinding);
+            //BindingOperations.SetBinding(doc, LayoutDocument.TitleProperty, myBinding);
+            //ViewModels.AssignAddressViewModel vm2 = new AssignAddressViewModel();
+            //vm2.Sel1();
+        }
+
+        private void NewProverkaGU()
+        {
+            var doc = new LayoutAnchorable();
+            doc.FloatingHeight = 100;
+            doc.FloatingWidth = 200;
+            DOcPane1.Children.Add(doc);
+            doc.Title="ProverkaGU";
+            ProverkaGUView n = new ProverkaGUView();
+            doc.Content = n;
+            //doc.AddToLayout(DockManager,AnchorableShowStrategy.Most);
+            doc.IsSelected = true;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            NewProverkaGU();
+            App.Log.Info("Открыт новый документ");
+
+        }
+
+        private void mainWindiw_Drop(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void mainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            NewProverkaGU();
+        }
     }
+
 }

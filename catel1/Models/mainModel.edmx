@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Models" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "GBUMATC.dbo.proverkaGU" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="proverkaGU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Num" Type="nvarchar" MaxLength="50" />
+          <Property Name="Okrug" Type="nvarchar" MaxLength="50" />
+          <Property Name="Raion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dom" Type="nvarchar" MaxLength="50" />
+          <Property Name="ErrorAdress" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Fakt" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Maket" Type="bit" />
+          <Property Name="Passport" Type="bit" />
+          <Property Name="Prim" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Checking" Type="bit" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Plash" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <Function Name="updateProverkaGU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="Ошибки_в_адресации_ГУ" Type="nvarchar" Mode="In" />
+          <Parameter Name="Fact" Type="nvarchar" Mode="In" />
+          <Parameter Name="Плашки" Type="nvarchar" Mode="In" />
+          <Parameter Name="Наличие_согласованного_макета" Type="bit" Mode="In" />
+          <Parameter Name="Наличие_согласованного_паспорта" Type="bit" Mode="In" />
+          <Parameter Name="Примечание" Type="nvarchar" Mode="In" />
+          <Parameter Name="Проверено" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище ModelsContainer">
+          <EntitySet Name="proverkaGU" EntityType="Self.proverkaGU" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [proverkaGU].[Num] AS [Num], 
+    [proverkaGU].[Okrug] AS [Okrug], 
+    [proverkaGU].[Raion] AS [Raion], 
+    [proverkaGU].[Street] AS [Street], 
+    [proverkaGU].[Dom] AS [Dom], 
+    [proverkaGU].[ErrorAdress] AS [ErrorAdress], 
+    [proverkaGU].[Fakt] AS [Fakt], 
+    [proverkaGU].[Maket] AS [Maket], 
+    [proverkaGU].[Passport] AS [Passport], 
+    [proverkaGU].[Prim] AS [Prim], 
+    [proverkaGU].[Checking] AS [Checking], 
+    [proverkaGU].[ID] AS [ID], 
+    [proverkaGU].[Plash] AS [Plash]
+    FROM [dbo].[proverkaGU] AS [proverkaGU]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="proverkaGU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Okrug" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Raion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorAdress" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Fakt" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Maket" Type="Boolean" />
+          <Property Name="Passport" Type="Boolean" />
+          <Property Name="Prim" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Checking" Type="Boolean" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Plash" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="proverkaGU" EntityType="Self.proverkaGU" />
+          <FunctionImport Name="updateProverkaGU">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="Ошибки_в_адресации_ГУ" Mode="In" Type="String" />
+            <Parameter Name="Fact" Mode="In" Type="String" />
+            <Parameter Name="Плашки" Mode="In" Type="String" />
+            <Parameter Name="Наличие_согласованного_макета" Mode="In" Type="Boolean" />
+            <Parameter Name="Наличие_согласованного_паспорта" Mode="In" Type="Boolean" />
+            <Parameter Name="Примечание" Mode="In" Type="String" />
+            <Parameter Name="Проверено" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelsContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="proverkaGU">
+            <EntityTypeMapping TypeName="Models.proverkaGU">
+              <MappingFragment StoreEntitySet="proverkaGU">
+                <ScalarProperty Name="Plash" ColumnName="Plash" />
+                <ScalarProperty Name="Num" ColumnName="Num" />
+                <ScalarProperty Name="Okrug" ColumnName="Okrug" />
+                <ScalarProperty Name="Raion" ColumnName="Raion" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Dom" ColumnName="Dom" />
+                <ScalarProperty Name="ErrorAdress" ColumnName="ErrorAdress" />
+                <ScalarProperty Name="Fakt" ColumnName="Fakt" />
+                <ScalarProperty Name="Maket" ColumnName="Maket" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Prim" ColumnName="Prim" />
+                <ScalarProperty Name="Checking" ColumnName="Checking" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Models.proverkaGU">
+              <ModificationFunctionMapping>
+                <UpdateFunction FunctionName="Хранилище Models.updateProverkaGU" >
+                  <ScalarProperty Name="Plash" ParameterName="Плашки" Version="Current" />
+                  <ScalarProperty Name="Fakt" ParameterName="Fact" Version="Current" />
+                  <ScalarProperty Name="Checking" ParameterName="Проверено" Version="Current" />
+                  <ScalarProperty Name="Prim" ParameterName="Примечание" Version="Current" />
+                  <ScalarProperty Name="Passport" ParameterName="Наличие_согласованного_паспорта" Version="Current" />
+                  <ScalarProperty Name="Maket" ParameterName="Наличие_согласованного_макета" Version="Current" />
+                  <ScalarProperty Name="ErrorAdress" ParameterName="Ошибки_в_адресации_ГУ" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="id" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="updateProverkaGU" FunctionName="Хранилище Models.updateProverkaGU" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="SynchronizePropertyFacets" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

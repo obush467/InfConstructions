@@ -3,7 +3,7 @@ Catel project template readme
 
 Congratulations with creating a new Catel project:
 
-catel1
+InfConstractions
 
 To get this project up and running, perform the following actions:
 
