@@ -9,11 +9,15 @@
       <Namespace Name="InfConstractions.Models">
        <Types>
         <Type Name="ProverkaGUModel" Kind="Class" Accessibility="Public" ExternallyVisible="True">
-         <Messages>
-          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2017-09-19 16:37:22Z" FixCategory="NonBreaking">
-           <Issue Certainty="75" Level="Warning">Добавьте [Serializable] к 'ProverkaGUModel', так как этот тип реализует ISerializable.</Issue>
-          </Message>
-         </Messages>
+         <Members>
+          <Member Name="#.ctor(InfConstractions.Models.Entities)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2017-09-20 13:19:32Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="E:\bushmakinoy\Visual Studio 2015\Projects\catel1\catel1\Models" File="ProverkaGUModel.cs" Line="30">'ProverkaGUModel.ProverkaGUModel(Entities)' содержит цепочку вызовов, которая приводит к вызову виртуального метода, определенного классом. Просмотрите следующий стек вызовов для обнаружения непреднамеренных последствий: &#xD;&#xA;&#xD;&#xA;ProverkaGUModel..ctor(Entities)&#xD;&#xA;ValidatableModelBase.SuspendValidations(Boolean):IDisposable&#xD;&#xA;ProverkaGUModel.set_Context(Entities):Void&#xD;&#xA;ModelBase.&#xD;&#xA;ProverkaGUModel.get_Context():Entities&#xD;&#xA;ModelBa&#xD;&#xA;ValidatableModelBase.Validate(Boolean):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
         </Type>
        </Types>
       </Namespace>
@@ -23,14 +27,14 @@
   </Target>
  </Targets>
  <Rules>
-  <Rule TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237">
-   <Name>Пометьте типы ISerializable атрибутом SerializableAttribute</Name>
-   <Description>Интерфейс System.Runtime.Serialization.ISerializable дает возможность типу настраивать свою сериализацию, в то время как атрибут Serializable дает возможность исполняющей среде опознавать этот тип как сериализуемый.</Description>
-   <Resolution Name="Default">Добавьте [Serializable] к {0}, так как этот тип реализует ISerializable.</Resolution>
+  <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
+   <Name>Не вызывайте переопределяемые методы в конструкторах</Name>
+   <Description>Виртуальные методы, определенные в классе, не следует вызывать из конструкторов. Если производный класс переопределил метод, будет вызвана версия производного класса (до вызова конструктора производного класса).</Description>
+   <Resolution Name="Default">{0} содержит цепочку вызовов, которая приводит к вызову виртуального метода, определенного классом. Просмотрите следующий стек вызовов для обнаружения непреднамеренных последствий: {1}</Resolution>
    <Owner />
-   <Url>http://msdn.microsoft.com/library/ms182350.aspx</Url>
+   <Url>http://msdn.microsoft.com/library/ms182331.aspx</Url>
    <Email>[none]</Email>
-   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <MessageLevel Certainty="95">CriticalWarning</MessageLevel>
    <File Name="usagerules.dll" Version="14.0.0.0" />
   </Rule>
  </Rules>

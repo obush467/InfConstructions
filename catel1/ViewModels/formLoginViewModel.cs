@@ -21,12 +21,12 @@ namespace InfConstractions.ViewModels
         #region Constructors
         public formLoginViewModel(SqlConnection connection) : this()
         {
+            Argument.IsNotNull(()=> connection);
             Connection = connection;
         }
         public formLoginViewModel(formLoginModel _formLoginModel)
         {
             Argument.IsNotNull("Model", _formLoginModel);
-
             Model = _formLoginModel;
         }
         public formLoginViewModel ():this(new formLoginModel())

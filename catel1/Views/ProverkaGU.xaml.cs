@@ -7,9 +7,11 @@ namespace InfConstractions.Views
     using InfConstractions.ViewModels;
     using System.Data.SqlClient;
     using Catel.MVVM;
+    using Models;
+
     public partial class ProverkaGUView
     {
-        public ProverkaGUView():base(new ProverkaGUViewModel())
+        public ProverkaGUView(Entities context):base(new ProverkaGUViewModel(context))
         {
             InitializeComponent();
             this.CloseViewModelOnUnloaded = false;

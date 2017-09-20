@@ -279,6 +279,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>mainModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MainWindowModel.cs" />
     <Compile Include="Models\proverkaGU.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
@@ -435,8 +436,6 @@
       <DependentUpon>mainModel.edmx</DependentUpon>
       <LastGenOutput>mainModel.cs</LastGenOutput>
     </Content>
-    <Content Include="NDP462-KB3151800-x86-x64-AllOS-ENU.exe" />
-    <Content Include="NDP462-KB3151800-x86-x64-AllOS-RUS.exe" />
     <Resource Include="Temp.txt" />
     <Content Include="Templates\html\poisk.html" />
     <Content Include="Templates\html\poiskgu.html" />

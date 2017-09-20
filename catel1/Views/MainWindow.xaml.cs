@@ -10,6 +10,9 @@ using Catel.Logging;
 using Catel.Services;
 using DevExpress.Xpf.Layout;
 using DevExpress.Xpf.Docking;
+using System.Data.SqlClient;
+using InfConstractions.Models;
+using Catel.IoC;
 
 namespace InfConstractions.Views
 {
@@ -18,7 +21,12 @@ namespace InfConstractions.Views
         public MainWindow()
         {
             InitializeComponent();
-        }            
+           // Visibility = Visibility.Visible;        
+        }
+
+
+
+
         private void DockManagerDocumentClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (MessageBox.Show("Close this tab?", ".Net Notepad", MessageBoxButton.YesNo) == MessageBoxResult.No)
@@ -42,11 +50,10 @@ namespace InfConstractions.Views
 
         private void NewProverkaGU()
         {
-            var doc = new DocumentPanel();          
+            ProverkaGUView n = new ProverkaGUView(((MainWindowViewModel)ViewModel).mainContext);
+            var doc = dockManager_main.DockController.AddDocumentPanel(docPanel); 
             doc.Caption="ProverkaGU";
-            ProverkaGUView n = new ProverkaGUView();
-            doc.Content = n;
-            dockManager_main.DockController.AddDocumentPanel(docPanel).Content= n;
+            doc.Content = n;    
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -58,12 +65,26 @@ namespace InfConstractions.Views
 
         private void mainWindiw_Drop(object sender, DragEventArgs e)
         {
-
+            Close();
         }
 
         private void mainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
            // NewProverkaGU();
+        }
+
+        private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //Close();
+        }
+
+        private void mainWindow_Closed(object sender, EventArgs e)
+        {
+            var dependencyResolver = this.GetDependencyResolver();
+            var navigationService = dependencyResolver.Resolve<INavigationService>();
+            //navigationService.CloseApplication();
+
+
         }
     }
 

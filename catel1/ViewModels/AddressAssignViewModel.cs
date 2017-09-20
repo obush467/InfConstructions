@@ -6,13 +6,14 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using Catel.Data;
 using Catel.Logging;
+using Catel.IoC;
 
 namespace InfConstractions.ViewModels
 {
     public class AssignAddressViewModel : ViewModelBase
     {
         #region Fields
-        public Entities Context = App._mainDBContext;
+        public Entities Context = ServiceLocator.Default.ResolveType<MainWindowModel>().mainContext;
 
         #endregion
         #region Constructors

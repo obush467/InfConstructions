@@ -14,29 +14,31 @@ using Catel.MVVM;
 using System.Data.Entity;
 using System.Linq;
 using Catel.Collections;
+using Catel.IoC;
 
 namespace InfConstractions.Models
 {
 #if NET
 
 #endif
+    [ServiceLocatorRegistration(typeof(ProverkaGUModel))]
     [Model]
-    public class ProverkaGUModel : ModelBase
+    public class ProverkaGUModel : ValidatableModelBase
     {
-        public Configuration Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        public Configuration Config ;
         public Config.DefaultConnectionConfig _config_connection { get; set; }
-        public ProverkaGUModel()
+        public ProverkaGUModel(Entities _context)
         {
-            //SuspendValidations(true);
+            Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            SuspendValidations(true);
             #region CONFIGURATION
             LoadConfig();
             #endregion
-            Context = App._mainDBContext;
+            Context = _context;
             Context.proverkaGU.Load();
-            ProverkaGU = new FastObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);
-            
-            //SuspendValidations(false);
-            //Validate(true);            
+            ProverkaGU = new FastObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);           
+            SuspendValidations(false);
+            Validate(true);            
         }
 
 #if NET

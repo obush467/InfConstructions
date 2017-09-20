@@ -3,15 +3,17 @@
     using Catel;
     using Catel.Collections;
     using Catel.Data;
+    using Catel.IoC;
     using Catel.MVVM;
     using Models;
     using System.Collections.ObjectModel;
     using System.Threading.Tasks;
 
+    [ServiceLocatorRegistration(typeof(ProverkaGUViewModel))]
     public class ProverkaGUViewModel : ViewModelBase
     {
         #region Constractors
-        public ProverkaGUViewModel():this(new ProverkaGUModel())
+        public ProverkaGUViewModel(Entities context):this(new ProverkaGUModel(context))
         {      }
         public ProverkaGUViewModel(ProverkaGUModel _proverkaGUModel)
         {

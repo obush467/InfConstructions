@@ -9,6 +9,7 @@
     using Catel.IoC;
     using Catel.ApiCop;
     using Catel.ApiCop.Listeners;
+    using Catel;
 
 
 
@@ -20,29 +21,26 @@
 
     public partial class App : Application
     {
-        public static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        
-        public static SqlConnection Connection = new SqlConnection();
+        public static readonly ILog Log = LogManager.GetCurrentClassLogger();      
         public static IUIVisualizerService uiVisualizerService;
         public static IMessageService MessageService;
-        public static formLoginViewModel vm = new formLoginViewModel(Connection);
-        public static Entities _mainDBContext;
+        public static formLoginViewModel vm;
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
-            Catel.Logging.LogManager.AddDebugListener();           
+            LogManager.AddDebugListener();
 #endif
-            
+
             //new Orc.Controls.Logging.LogViewerLogListener();
             //LogManager. AddListener(Orc.Controls.Logging.LogViewerLogListener);
             //var t = LogManager.GetListeners();
-            Log.Info((string)Current.FindResource("startMessage"));           
+            Log.Info((string)Current.FindResource("startMessage"));
             uiVisualizerService = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
             MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
 
             // To force the loading of all assemblies at startup, uncomment the lines below:
 
-           // Log.Debug((string)Current.FindResource("Preloading_assemblies"));
+            // Log.Debug((string)Current.FindResource("Preloading_assemblies"));
             //AppDomain.CurrentDomain.PreloadAssemblies();
 
 
@@ -63,26 +61,12 @@
             //serviceLocator.RegisterType<IMyInterface, IMyClass>();
 
             //StyleHelper.CreateStyleForwardersForDefaultStyles();
-
+            //uiVisualizerService.Register<MainWindowViewModel, Views.MainWindow>();
             base.OnStartup(e);
-            Log.Debug((string)Current.FindResource("App_base_OnStartup"));          
-        }
-        public void Login(object sender, StartupEventArgs e)
-        {
-            Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            uiVisualizerService.ShowDialogAsync(vm, completeLogin);          
+            Log.Debug((string)Current.FindResource("App_base_OnStartup"));
+            Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
         }
 
-        private void completeLogin(object sender, UICompletedEventArgs e)
-        {
-            if (e.Result == true)
-            {
-                Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-                _mainDBContext = new Entities(vm.efConnection);
-                uiVisualizerService.ShowAsync<MainWindowViewModel>();
-            }
-            else {Current.Shutdown(-1); }
-        }
 
         protected override void OnExit(ExitEventArgs e)
         {
