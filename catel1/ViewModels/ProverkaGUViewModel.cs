@@ -8,21 +8,33 @@
     using Models;
     using System.Collections.ObjectModel;
     using System.Threading.Tasks;
+    using System.Windows;
 
     [ServiceLocatorRegistration(typeof(ProverkaGUViewModel))]
     public class ProverkaGUViewModel : ViewModelBase
     {
         #region Constractors
+        [InjectionConstructor]
+        public ProverkaGUViewModel() 
+        {
+            App.MessageService.ShowAsync(" before 1"); }
+        [InjectionConstructor]
         public ProverkaGUViewModel(Entities context):this(new ProverkaGUModel(context))
-        {      }
+        { MessageBox.Show(" before ");
+            App.MessageService.ShowAsync(" before 1");
+        }
+        [InjectionConstructor]
         public ProverkaGUViewModel(ProverkaGUModel _proverkaGUModel)
         {
+            App.MessageService.ShowAsync(" before 1");
             Argument.IsNotNull("proverkaGUModel", _proverkaGUModel);
             proverkaGUModel = _proverkaGUModel;
+            MessageBox.Show(" before Initialize");
             Initialize();
         }
-        public void Initialize()
+        public void  Initialize()
         {
+            MessageBox.Show("Initialize");
             cmSaveChanges = new Command(OncmSaveChangesExecute, OncmSaveChangesCanExecute);
             cmRefresh = new Command(OncmRefreshExecute, OncmRefreshCanExecute);
         }
@@ -47,7 +59,7 @@
 
             await base.CloseAsync();
         }
-
+        [Inject]
         [Model]
         public ProverkaGUModel proverkaGUModel
         {
@@ -56,7 +68,7 @@
         }
 
         public static readonly PropertyData proverkaGUModelProperty = RegisterProperty(nameof(proverkaGUModel), typeof(ProverkaGUModel));
-
+        [Inject]
         [ViewModelToModel("proverkaGUModel")]
         public Entities Context
         {
@@ -66,7 +78,7 @@
 
         public static readonly PropertyData ContextProperty = RegisterProperty(nameof(Context), typeof(Entities));
 
-
+        [Inject]
         [ViewModelToModel("proverkaGUModel")]
         public FastObservableCollection<proverkaGU> ProverkaGU
         {
@@ -76,8 +88,7 @@
 
         public static readonly PropertyData ProverkaGUProperty = RegisterProperty(nameof(ProverkaGU), typeof(FastObservableCollection<proverkaGU>), null);
 
-       #region Commands
-
+        #region Commands
         public Command cmSaveChanges { get; private set; }
 
         private bool OncmSaveChangesCanExecute()
@@ -90,17 +101,15 @@
             Context.SaveChanges();
         }
 
-
         public Command cmRefresh { get; private set; }
         private bool OncmRefreshCanExecute()
-        {
-            
+        {           
             return true;
         }
-
         private void OncmRefreshExecute()
         {
             Context.SaveChanges();
+            MessageBox.Show("sdfsdfdsfsfsfsdf99999999999999999");
             proverkaGUModel.Refresh();
         }
         #endregion

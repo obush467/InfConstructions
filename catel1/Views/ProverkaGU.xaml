@@ -1,4 +1,4 @@
-﻿<cwusercontrol:UserControl 
+﻿<cwusercontrol:UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  
     xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"  
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"  
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
@@ -23,33 +23,30 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnSave" Grid.Row="0" Grid.Column="0" Content="Сохранить" Command="{Binding cmSaveChanges}" />
-        <dxg:GridControl x:Name="gridMain" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=ProverkaGU}" Margin="2" AutoGenerateColumns="None">
+        <dx:SimpleButton x:Name="btnSave" Grid.Row="0" Grid.Column="0" Content="Обновить" Command="{Binding cmRefresh}"/>
+        <dxg:GridControl x:Name="gridMain" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ProverkaGU}" Margin="2" AutoGenerateColumns="None">
             <dxg:GridControl.View>
                 <dxg:TableView PropertyChanged="TableView_PropertyChanged"/>
             </dxg:GridControl.View>
-            <dxg:GridControl.Columns>
-                <dxg:GridColumn FieldName="Link" Header="Номер" ReadOnly="True">
-                    <dxg:GridColumn.CellTemplate>
-                        <DataTemplate>
-                            <dxe:HyperlinkEdit Name="PART_Editor" AllowAutoNavigate="True" Text="{Binding RowData.Row.Num}" />
-                        </DataTemplate>
-                    </dxg:GridColumn.CellTemplate>
-                </dxg:GridColumn>
-                <dxg:GridColumn FieldName="Okrug"  Header="Округ" ReadOnly="True" Width="auto"/>
-                <dxg:GridColumn FieldName="Raion"  Header="Район" ReadOnly="True" Width="auto"/>
-                <dxg:GridColumn FieldName="Street"  Header="Улица" ReadOnly="True" Width="auto"/>
-                <dxg:GridColumn FieldName="Dom"  Header="Дом" ReadOnly="True" Width="auto"/>
-                <dxg:GridColumn FieldName="ErrorAdress"  Header="Ошибки в адресации ГУ" />
-                <dxg:GridColumn FieldName="Fakt"  Header="Cоответствие фактического места установки паспортному" />
-                <dxg:GridColumn FieldName="Plash"  Header="Соответствие реальных плашек, макета и паспортных плашек" />
-                <dxg:GridColumn FieldName="Passport"  Header="Наличие согласованного паспорта" Width="auto"/>
-                <dxg:GridColumn FieldName="Maket"  Header="Наличие согласованного макета" Width="auto"/>
-                <dxg:GridColumn FieldName="Prim"  Header="Примечание" />
-                <dxg:GridColumn FieldName="Checking"  Header="Проверено" Width="auto"/>
-            </dxg:GridControl.Columns>
+            <dxg:GridColumn FieldName="Link" Header="Номер" ReadOnly="True">
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <dxe:HyperlinkEdit x:Name="PART_Editor" AllowAutoNavigate="True" Text="{Binding RowData.Row.Num}" />
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Okrug"  Header="Округ" ReadOnly="True" Width="auto"/>
+            <dxg:GridColumn FieldName="Raion"  Header="Район" ReadOnly="True" Width="auto"/>
+            <dxg:GridColumn FieldName="Street"  Header="Улица" ReadOnly="True" Width="auto"/>
+            <dxg:GridColumn FieldName="Dom"  Header="Дом" ReadOnly="True" Width="auto"/>
+            <dxg:GridColumn FieldName="ErrorAdress"  Header="Ошибки в адресации ГУ" />
+            <dxg:GridColumn FieldName="Fakt"  Header="Cоответствие фактического места установки паспортному" />
+            <dxg:GridColumn FieldName="Plash"  Header="Соответствие реальных плашек, макета и паспортных плашек" />
+            <dxg:GridColumn FieldName="Passport"  Header="Наличие согласованного паспорта" Width="auto"/>
+            <dxg:GridColumn FieldName="Maket"  Header="Наличие согласованного макета" Width="auto"/>
+            <dxg:GridColumn FieldName="Prim"  Header="Примечание" />
+            <dxg:GridColumn FieldName="Checking"  Header="Проверено" Width="auto"/>
         </dxg:GridControl>
     </Grid>
 

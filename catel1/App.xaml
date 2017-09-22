@@ -4,8 +4,7 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib" 
              x:Class="InfConstractions.App"
              xmlns:uc="http://www.quickzip.org/UserControls"
-             StartupUri="/Views/MainWindow.xaml"
-             Startup="Login">
+             StartupUri="/Views/MainWindow.xaml">
     <Application.Resources>
 
         <!-- Generic Catel theme -->

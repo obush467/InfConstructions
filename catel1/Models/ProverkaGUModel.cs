@@ -15,6 +15,8 @@ using System.Data.Entity;
 using System.Linq;
 using Catel.Collections;
 using Catel.IoC;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Objects;
 
 namespace InfConstractions.Models
 {
@@ -22,23 +24,28 @@ namespace InfConstractions.Models
 
 #endif
     [ServiceLocatorRegistration(typeof(ProverkaGUModel))]
+
     [Model]
     public class ProverkaGUModel : ValidatableModelBase
     {
         public Configuration Config ;
         public Config.DefaultConnectionConfig _config_connection { get; set; }
-        public ProverkaGUModel(Entities _context)
+        [InjectionConstructor]
+        public ProverkaGUModel(Entities _context):this()
         {
-            Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            SuspendValidations(true);
-            #region CONFIGURATION
-            LoadConfig();
-            #endregion
             Context = _context;
             Context.proverkaGU.Load();
             ProverkaGU = new FastObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);           
             SuspendValidations(false);
             Validate(true);            
+        }
+        [InjectionConstructor]
+        public ProverkaGUModel()
+        {
+            SuspendValidations(true);
+            #region CONFIGURATION
+            LoadConfig();
+            #endregion
         }
 
 #if NET
@@ -47,7 +54,6 @@ namespace InfConstractions.Models
 #endif
 
         #region PROPERTIES
-
         public Entities Context
         {
             get { return GetValue<Entities>(ContextProperty); }
@@ -55,7 +61,6 @@ namespace InfConstractions.Models
         }
 
         public static readonly PropertyData ContextProperty = RegisterProperty(nameof(Context), typeof(Entities), null);
-
         public ObservableCollection<proverkaGU> ProverkaGU
         {
             get { return GetValue<ObservableCollection<proverkaGU>>(ProverkaGUProperty); }
@@ -67,9 +72,8 @@ namespace InfConstractions.Models
         #endregion
 
         public void LoadConfig()
-        {           
-            
-               
+        {
+            Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         }
         
         public void SaveConfig()
@@ -77,7 +81,12 @@ namespace InfConstractions.Models
             Config.Save(ConfigurationSaveMode.Full);
         }
         public void Refresh()
-        { ProverkaGU.ToList();}
+        {
+            Context.SaveChangesAsync();
+            MessageBox.Show("sdfsdfdsfsfsfsdf");
+            var ctx = ((IObjectContextAdapter)Context).ObjectContext;
+            ctx.Refresh(RefreshMode.StoreWins, (from o in Context.proverkaGU select o));
+            ProverkaGU = new FastObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);}
     }
 }
 

@@ -11,6 +11,9 @@
     using Models;
     using System.Data.Entity.Core.EntityClient;
     using Catel.IoC;
+    using Views;
+    using System;
+    using DevExpress.Xpf.Docking;
 
     public class MainWindowViewModel : ViewModelBase
     {
@@ -22,6 +25,7 @@
         public MainWindowViewModel()
         {
             //InitializeAsync();
+            vmVisibility = Visibility.Hidden;
             var dependencyResolver = this.GetDependencyResolver();
             _uiVisualizerService = dependencyResolver.Resolve<IUIVisualizerService>();
             _pleaseWaitService = dependencyResolver.Resolve<IPleaseWaitService>();
@@ -29,8 +33,10 @@
             _navigationService = dependencyResolver.Resolve<INavigationService>();
             mainWindowModel = new MainWindowModel();
             _uiVisualizerService.ShowDialogAsync(vm, completeLogin);
-            #region Commands
+            
+            #region CommandsCreate
             cmClose = new Command(OncmCloseExecute, OncmCloseCanExecute);
+            cmProverkaGU = new Command(OncmProverkaGUExecute, OncmProverkaGUCanExecute);
             #endregion
         }
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, PleaseWaitService pleaseWaitService, IMessageService messageService)
@@ -62,6 +68,7 @@
             {
                 mainWindowModel.sqlConnection = vm.Connection;
                 mainWindowModel.efConnection= vm.efConnection;
+                vmVisibility = Visibility.Visible;
             }
             else { App.Current.Shutdown(-1); }
         }
@@ -117,12 +124,18 @@
         public static readonly PropertyData efConnectionProperty = RegisterProperty(nameof(efConnection), typeof(EntityConnection));
 
 
+
+        public Visibility vmVisibility
+        {
+            get { return GetValue<System.Windows.Visibility>(vmVisibilityProperty); }
+            set { SetValue(vmVisibilityProperty, value); }
+        }
+
+        public static readonly PropertyData vmVisibilityProperty = RegisterProperty(nameof(vmVisibility), typeof(Visibility), null);
+
         #region Commands
 
         public Command cmClose { get; private set; }
-
-
-
         private bool OncmCloseCanExecute()
         {
             return true;
@@ -131,6 +144,37 @@
         private async void OncmCloseExecute()
         {
             await this.SaveAndCloseViewModelAsync();
+            _navigationService.CloseApplication();
+        }
+
+
+        public Command cmProverkaGU { get; private set; }
+
+        // TODO: Move code below to constructor
+        
+        // TODO: Move code above to constructor
+
+        private bool OncmProverkaGUCanExecute()
+        {
+            if (efConnection.State != System.Data.ConnectionState.Closed)
+            { return true; }
+            else
+            { return false; }
+        }
+
+        private async void OncmProverkaGUExecute()
+        {
+            await App.MessageService.ShowAsync("Неудачная попытка соединения с сервером. Попробовать повторно?" , "Ошибка", MessageButton.YesNo);
+            var s = Guid.NewGuid().ToString();
+            ProverkaGUView n = ServiceLocator.Default.ResolveTypeUsingParameters<ProverkaGUView>(new object[] { mainContext }, null);
+            var dependencyResolver = this.GetDependencyResolver();
+            MainWindow mw = (MainWindow)App.Current.MainWindow;
+            DocumentPanel doc = (mw).dockManager_main.DockController.AddDocumentPanel(mw.docPanel);
+            doc.Caption = "Проверка ГУ";
+            doc.Content = n;
+            App.MessageService.ShowWarningAsync("xvsddsfsfsdf");
+            doc.IsActive = true;
+            
         }
 
         #endregion

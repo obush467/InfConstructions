@@ -50,7 +50,6 @@
         <PasswordBox x:Name="tbPassword"  Margin="5" Grid.Row="5" IsManipulationEnabled="True" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
             <i:Interaction.Behaviors>
                 <Catel.Windows.Interactivity:UpdateBindingOnPasswordChanged Password="{Binding Password, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
-
             </i:Interaction.Behaviors>
         </PasswordBox>
 

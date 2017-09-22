@@ -6,11 +6,12 @@ namespace InfConstractions.Views
     using System.Windows.Input;
     using InfConstractions.ViewModels;
     using System.Data.SqlClient;
-    using Catel.MVVM;
+    using Catel.IoC;
     using Models;
-
+    [ServiceLocatorRegistration(typeof(ProverkaGUView))]
     public partial class ProverkaGUView
     {
+        [InjectionConstructor]
         public ProverkaGUView(Entities context):base(new ProverkaGUViewModel(context))
         {
             InitializeComponent();

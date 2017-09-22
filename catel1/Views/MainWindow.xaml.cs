@@ -13,6 +13,9 @@ using DevExpress.Xpf.Docking;
 using System.Data.SqlClient;
 using InfConstractions.Models;
 using Catel.IoC;
+using Catel.Windows;
+using Orchestra.Services;
+using Orchestra;
 
 namespace InfConstractions.Views
 {
@@ -20,8 +23,17 @@ namespace InfConstractions.Views
     {
         public MainWindow()
         {
+            //Orchestra.StyleHelper.CreateStyleForwardersForDefaultStyles("Office2016Black");
+           // Catel.ThemeHelper.EnsureCatelMvvmThemeIsLoaded();
+
+            //var serviceLocator = ServiceLocator.Default;
+
+           // IThemeService themeService = serviceLocator.ResolveType<IThemeService>();
+           // ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
+           // Orchestra.ApplicationExtensions.ApplyTheme(App.Current);
+
             InitializeComponent();
-           // Visibility = Visibility.Visible;        
+            Visibility = Visibility.Hidden;        
         }
 
 
@@ -50,7 +62,7 @@ namespace InfConstractions.Views
 
         private void NewProverkaGU()
         {
-            ProverkaGUView n = new ProverkaGUView(((MainWindowViewModel)ViewModel).mainContext);
+            ProverkaGUView n = new ProverkaGUView(((MainWindowViewModel)DataContext).mainContext);
             var doc = dockManager_main.DockController.AddDocumentPanel(docPanel); 
             doc.Caption="ProverkaGU";
             doc.Content = n;    
@@ -63,29 +75,14 @@ namespace InfConstractions.Views
 
         }
 
-        private void mainWindiw_Drop(object sender, DragEventArgs e)
-        {
-            Close();
-        }
-
         private void mainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
            // NewProverkaGU();
         }
 
-        private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //Close();
-        }
-
-        private void mainWindow_Closed(object sender, EventArgs e)
-        {
-            var dependencyResolver = this.GetDependencyResolver();
-            var navigationService = dependencyResolver.Resolve<INavigationService>();
-            //navigationService.CloseApplication();
-
-
-        }
+           if (mainWindowviewModel.cmProverkaGU.CanExecute()) mainWindowviewModel.cmProverkaGU.Execute();        }
     }
 
 }

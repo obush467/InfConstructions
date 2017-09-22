@@ -1,89 +1,72 @@
-﻿<catel:Window
-    x:Name="mainWindow" 
-    x:Class="InfConstractions.Views.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"            
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"           
-    xmlns:catel="clr-namespace:Catel.Windows;assembly=Catel.MVVM"
-    xmlns:local="clr-namespace:InfConstractions"
-    xmlns:eo="http://schemas.essentialobjects.com/wpf/"          
-    xmlns:Models="clr-namespace:InfConstractions.Models" 
-    xmlns:Views="clr-namespace:InfConstractions.Views"
+﻿<dx:DXWindow xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  x:Name="mainWindow" x:Class="InfConstractions.Views.MainWindow"  
+             mc:Ignorable="d" ResizeMode="CanResize" WindowStartupLocation="CenterScreen"  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:InfConstractions" 
+    xmlns:eo="http://schemas.essentialobjects.com/wpf/" 
     xmlns:ViewModels="clr-namespace:InfConstractions.ViewModels" 
-    xmlns:catel.ex.controls="clr-namespace:Catel.Windows.Controls;assembly=Catel.Extensions.Controls"
-    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
-    xmlns:dxcore="http://schemas.devexpress.com/winfx/2008/xaml/core"
-    dxcore:ThemeManager.ThemeName="Office2016Black"
-    mc:Ignorable="d"
-    ResizeMode="CanResize"
-    WindowStartupLocation="CenterScreen" 
-    Visibility="Visible"
-    IsVisibleChanged="mainWindow_IsVisibleChanged" 
-    Closing="mainWindow_Closing" 
-    Closed="mainWindow_Closed"
-    >
-    <catel:Window.DataContext>
-        <ViewModels:MainWindowViewModel x:Name="mainWindowviewModel"/>
-    </catel:Window.DataContext>
-    <catel.ex.controls:StackGrid x:Name="LayoutRoot" Margin="0" >
-
-        <catel.ex.controls:StackGrid.RowDefinitions>
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    Title="{Binding Title}"
+    Visibility="{Binding vmVisibility,Mode=TwoWay}" Loaded="mainWindow_Loaded"
+             >
+    <!--xmlns:catel="clr-namespace:Catel.Windows;assembly=Catel.MVVM"
+    xmlns:catel.ex.controls="clr-namespace:Catel.Windows.Controls;assembly=Catel.Extensions.Controls" -->
+    <dx:DXWindow.DataContext>
+        <ViewModels:MainWindowViewModel x:Name="mainWindowviewModel" />
+    </dx:DXWindow.DataContext>
+    <Grid x:Name="LayoutRoot" Margin="0">
+        <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="10" />
             <RowDefinition Height="*" />
-        </catel.ex.controls:StackGrid.RowDefinitions>
-        <Menu x:Name="menu" Height="36" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="1">
-            <MenuItem Header="Проверка ГУ" Click="MenuItem_Click"/>
-            <MenuItem Header="Окна" x:Name="miWindows" ItemsSource="{Binding ProverkaGU}"/>
-        </Menu>
-        <dxdo:DockLayoutManager x:Name="dockManager_main" Margin="0,0,0,0" Grid.Row="1" dxcore:ThemeManager.ThemeName="Office2007Blue">
-          
+        </Grid.RowDefinitions>
+        <dxb:MainMenuControl x:Name="menu" Height="36" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="0">
+            <dxb:BarButtonItem Content="Выход" Command="{Binding cmClose}"/>
+            <dxb:BarButtonItem Content="Окна" x:Name="miWindows" />
+        </dxb:MainMenuControl>
+        <dxdo:DockLayoutManager x:Name="dockManager_main" Margin="0,0,0,0" Grid.Row="1">
             <dxdo:LayoutGroup x:Name="classesContent" Orientation="Horizontal" Height="auto" AllowSplitters="True">
-                <dxdo:LayoutGroup x:Name="mainPanel">
-                    <dxdo:LayoutPanel x:Name="leftPanel" />
-                    <dxdo:LayoutGroup x:Name="centerPanel">
-
-                        <dxdo:LayoutGroup x:Name="centerTop">
-                            <dxdo:LayoutPanel ></dxdo:LayoutPanel>
-                        </dxdo:LayoutGroup>
-
+                <dxdo:LayoutGroup x:Name="mainPanel" Orientation="Horizontal">
+                    <dxdo:LayoutPanel x:Name="leftPanel" ItemWidth="100" />
+                    <dxdo:LayoutGroup x:Name="centerPanel" Orientation="Vertical">
+                        <dxdo:TabbedGroup x:Name="centerTop" Visibility="Collapsed" Expanded="False">
+                            <dxdo:LayoutPanel />
+                        </dxdo:TabbedGroup>
                         <dxdo:LayoutGroup x:Name="CenterCenterPanel" Orientation="Horizontal">
-                            <dxdo:LayoutGroup x:Name="leftCenterPanel"/>
-
-                            <dxdo:LayoutGroup x:Name="rightCenterPanel" Orientation="Horizontal"/>
+                            <dxdo:LayoutGroup x:Name="leftCenterPanel" Caption="leftCenterPanel" Visibility="Hidden"/>
+                            <dxdo:LayoutGroup x:Name="rightCenterPanel" Caption="rightCenterPanel" Orientation="Horizontal" Visibility="Hidden"/>
                             <dxdo:DocumentGroup x:Name="docPanel" Orientation="Horizontal">
-                                <dxdo:DocumentPanel x:Name="ld_mosgorbti" Caption="mosgorbti.ru" ShowCaption="True" >
+                                <dxdo:DocumentPanel x:Name="ld_mosgorbti" Caption="mosgorbti.ru" ShowCaption="True">
                                     <eo:WebControl>
-                                                <eo:WebControl.WebView>
-                                                    <eo:WebView Url="http://www.mosgorbti.ru/map.aspx?displayMode=verticalScrollBookmark=0&amp;form_login-form=1&amp;fd_login-form=1&amp;mode=&amp;form_Main=1&amp;back-url=&amp;region=&amp;show-route=&amp;clickableTBTI=1&amp;hideZoom=&amp;rotateBuildingNames=&amp;searchForm=&amp;showSearchForm=1&amp;showStreetPaths=&amp;scale=1&amp;fd_Main=1" >
-                                                    </eo:WebView>
-                                                </eo:WebControl.WebView>
-                                            </eo:WebControl>
+                                        <eo:WebControl.WebView>
+                                            <eo:WebView Url="http://www.mosgorbti.ru/map.aspx?displayMode=verticalScrollBookmark=0&amp;form_login-form=1&amp;fd_login-form=1&amp;mode=&amp;form_Main=1&amp;back-url=&amp;region=&amp;show-route=&amp;clickableTBTI=1&amp;hideZoom=&amp;rotateBuildingNames=&amp;searchForm=&amp;showSearchForm=1&amp;showStreetPaths=&amp;scale=1&amp;fd_Main=1"></eo:WebView>
+                                        </eo:WebControl.WebView>
+                                    </eo:WebControl>
                                 </dxdo:DocumentPanel>
-                                <dxdo:LayoutPanel x:Name="ld_yandex" Caption="Yandex.ru" ShowCaption="True">
-                            <eo:WebControl>
-                                <eo:WebControl.WebView>
-                                    <eo:WebView Url="https://yandex.ru/maps/213/moscow">
-                                    </eo:WebView>
-                                </eo:WebControl.WebView>
-                            </eo:WebControl>
-                        </dxdo:LayoutPanel>
+                                <dxdo:DocumentPanel x:Name="ld_yandex" Caption="Yandex.ru" ShowCaption="True">
+                                    <eo:WebControl>
+                                        <eo:WebControl.WebView>
+                                        <eo:WebView Url="https://yandex.ru/maps/213/moscow"></eo:WebView>
+                                        </eo:WebControl.WebView>
+                                    </eo:WebControl>
+                                </dxdo:DocumentPanel>
                                 <dxdo:LayoutPanel x:Name="ld_2gis" Caption="2ГИС" ShowCaption="True">
-                            <eo:WebControl>
-                                <eo:WebControl.WebView>
-                                    <eo:WebView Url="https://2gis.ru/moscow?queryState=zoom%2F11">
-                                    </eo:WebView>
-                                </eo:WebControl.WebView>
-                            </eo:WebControl>
-                        </dxdo:LayoutPanel>
+                                    <eo:WebControl>
+                                        <eo:WebControl.WebView>
+                                            <eo:WebView Url="https://2gis.ru/moscow?queryState=zoom%2F11"></eo:WebView>
+                                        </eo:WebControl.WebView>
+                                    </eo:WebControl>
+                                </dxdo:LayoutPanel>
                             </dxdo:DocumentGroup>
                         </dxdo:LayoutGroup>
-                        <dxdo:LayoutPanel x:Name="centerBottom">
-
+                        <dxdo:LayoutPanel x:Name="centerBottom" Visibility="Collapsed">
                         </dxdo:LayoutPanel>
                     </dxdo:LayoutGroup>
                 </dxdo:LayoutGroup>
-            </dxdo:LayoutGroup>
+                <dxdo:TabbedGroup x:Name="mainBottom" Caption="mainBottom"/>
+            </dxdo:LayoutGroup >
         </dxdo:DockLayoutManager>
-    </catel.ex.controls:StackGrid>
-</catel:Window>
+    </Grid>
+</dx:DXWindow>

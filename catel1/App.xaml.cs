@@ -9,7 +9,10 @@
     using Catel.IoC;
     using Catel.ApiCop;
     using Catel.ApiCop.Listeners;
-    using Catel;
+    using Catel.Extensions.Controls;
+    using Catel.Extensions;
+    using Catel.Windows;
+    using Views;
 
 
 
@@ -24,19 +27,11 @@
         public static readonly ILog Log = LogManager.GetCurrentClassLogger();      
         public static IUIVisualizerService uiVisualizerService;
         public static IMessageService MessageService;
-        public static formLoginViewModel vm;
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
             LogManager.AddDebugListener();
 #endif
-
-            //new Orc.Controls.Logging.LogViewerLogListener();
-            //LogManager. AddListener(Orc.Controls.Logging.LogViewerLogListener);
-            //var t = LogManager.GetListeners();
-            Log.Info((string)Current.FindResource("startMessage"));
-            uiVisualizerService = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
-            MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
 
             // To force the loading of all assemblies at startup, uncomment the lines below:
 
@@ -62,6 +57,13 @@
 
             //StyleHelper.CreateStyleForwardersForDefaultStyles();
             //uiVisualizerService.Register<MainWindowViewModel, Views.MainWindow>();
+            //Catel.Windows.StyleHelper.CreateStyleForwardersForDefaultStyles("Office2016Black");
+            var serviceLocator = ServiceLocator.Default;
+            serviceLocator.AutoRegisterTypesViaAttributes = true;
+            Log.Info((string)Current.FindResource("startMessage"));
+            uiVisualizerService = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
+            MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
+            App.MessageService.ShowWarningAsync("xvsddsfsfsdf");
             base.OnStartup(e);
             Log.Debug((string)Current.FindResource("App_base_OnStartup"));
             Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
