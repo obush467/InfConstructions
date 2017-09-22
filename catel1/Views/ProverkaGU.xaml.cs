@@ -18,6 +18,20 @@ namespace InfConstractions.Views
             this.CloseViewModelOnUnloaded = false;
         }
 
+        [InjectionConstructor]
+        public ProverkaGUView() : base(new ProverkaGUViewModel())
+        {
+            InitializeComponent();
+            this.CloseViewModelOnUnloaded = false;
+        }
+
+        public ProverkaGUView(ProverkaGUViewModel viewmodel)
+        {
+            DataContext = viewmodel;
+            InitializeComponent();
+            this.CloseViewModelOnUnloaded = false;
+        }
+
         private void rrrButt_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ProverkaGUViewModel vm = (ProverkaGUViewModel)ViewModel;

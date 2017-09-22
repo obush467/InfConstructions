@@ -14,14 +14,18 @@
     using Views;
     using System;
     using DevExpress.Xpf.Docking;
+    using DevExpress.Mvvm;
+    using DevExpress.Mvvm.ViewModel;
+    using DevExpress.Mvvm.POCO;
 
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : Catel.MVVM.ViewModelBase
     {
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IPleaseWaitService _pleaseWaitService;
         private readonly IMessageService _messageService;
-        private readonly INavigationService _navigationService;
+        private readonly Catel.Services.INavigationService _navigationService;
         formLoginViewModel vm = new formLoginViewModel(new SqlConnection());
+        protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
         public MainWindowViewModel()
         {
             //InitializeAsync();
@@ -30,13 +34,14 @@
             _uiVisualizerService = dependencyResolver.Resolve<IUIVisualizerService>();
             _pleaseWaitService = dependencyResolver.Resolve<IPleaseWaitService>();
             _messageService = dependencyResolver.Resolve<IMessageService>();
-            _navigationService = dependencyResolver.Resolve<INavigationService>();
+            _navigationService = dependencyResolver.Resolve<Catel.Services.INavigationService>();
             mainWindowModel = new MainWindowModel();
             _uiVisualizerService.ShowDialogAsync(vm, completeLogin);
             
             #region CommandsCreate
             cmClose = new Command(OncmCloseExecute, OncmCloseCanExecute);
             cmProverkaGU = new Command(OncmProverkaGUExecute, OncmProverkaGUCanExecute);
+            cmP = new Command(OncmPExecute);
             #endregion
         }
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, PleaseWaitService pleaseWaitService, IMessageService messageService)
@@ -164,7 +169,7 @@
 
         private async void OncmProverkaGUExecute()
         {
-            await App.MessageService.ShowAsync("Неудачная попытка соединения с сервером. Попробовать повторно?" , "Ошибка", MessageButton.YesNo);
+            await App.MessageService.ShowAsync("Неудачная попытка соединения с сервером. Попробовать повторно?" , "Ошибка", Catel.Services.MessageButton.YesNo);
             var s = Guid.NewGuid().ToString();
             ProverkaGUView n = ServiceLocator.Default.ResolveTypeUsingParameters<ProverkaGUView>(new object[] { mainContext }, null);
             var dependencyResolver = this.GetDependencyResolver();
@@ -172,9 +177,26 @@
             DocumentPanel doc = (mw).dockManager_main.DockController.AddDocumentPanel(mw.docPanel);
             doc.Caption = "Проверка ГУ";
             doc.Content = n;
-            App.MessageService.ShowWarningAsync("xvsddsfsfsdf");
+            IDocument doc1;
+            doc1 = DocumentManagerService.CreateDocument("Page1", this);
+            doc1.Id = DocumentManagerService.Documents.Count<IDocument>();
+            doc1.Show();
             doc.IsActive = true;
             
+        }
+
+
+        public Command cmP { get; private set; }
+
+
+        private void OncmPExecute()
+        {
+            Title="xvsddsfsfsdf";
+            _messageService.ShowAsync("xvsddsfsfsdf");
+            IDocument doc;
+                doc = DocumentManagerService.CreateDocument("PageView", this);
+                doc.Id = DocumentManagerService.Documents.Count<IDocument>();
+                doc.Show();
         }
 
         #endregion
