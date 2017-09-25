@@ -35,7 +35,7 @@ namespace InfConstractions.Models
         {
             Context = _context;
             Context.proverkaGU.Load();
-            ProverkaGU = new FastObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);           
+            ProverkaGU = new ObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);           
             SuspendValidations(false);
             Validate(true);            
         }
@@ -82,11 +82,11 @@ namespace InfConstractions.Models
         }
         public void Refresh()
         {
-            Context.SaveChangesAsync();
-            MessageBox.Show("sdfsdfdsfsfsfsdf");
+            Context.SaveChanges();
             var ctx = ((IObjectContextAdapter)Context).ObjectContext;
             ctx.Refresh(RefreshMode.StoreWins, (from o in Context.proverkaGU select o));
-            ProverkaGU = new FastObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);}
+            ProverkaGU = new ObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);
+        }
     }
 }
 

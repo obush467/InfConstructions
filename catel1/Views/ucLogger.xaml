@@ -7,7 +7,7 @@
                    xmlns:Catel.Windows.Controls="clr-namespace:Catel.Windows.Controls;assembly=Catel.MVVM" xmlns:Logging="clr-namespace:Orc.Controls.Logging;assembly=Orc.Controls" 
                    x:Name="ucLogger1" 
                    x:Class="InfConstractions.Views.ucLogger"
-                   Height="200"
+                   Height="auto"
                    Width="auto"   
                    >
     <Catel.Windows.Controls:UserControl.DataContext>

@@ -1,4 +1,4 @@
-﻿<cwusercontrol:UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  
+﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  
     xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"  
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"  
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
@@ -10,11 +10,15 @@
     xmlns:ViewModels="clr-namespace:InfConstractions.ViewModels"    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking" 
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:vm="clr-namespace:InfConstractions.ViewModels"
     mc:Ignorable="d"
     x:Class="InfConstractions.Views.ProverkaGUView"    
     x:Name="ucProverkaGU" 
     Margin="0" d:DesignWidth="900" d:DesignHeight="797"
     Width="auto"
+      
 >
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
@@ -24,7 +28,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <dx:SimpleButton x:Name="btnSave" Grid.Row="0" Grid.Column="0" Content="Обновить" Command="{Binding cmRefresh}"/>
+        <dx:SimpleButton x:Name="btnSave" Grid.Row="0" Grid.Column="0" Content="Обновить" Command="{Binding RefreshCommand}"/>
         <dxg:GridControl x:Name="gridMain" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ProverkaGU}" Margin="2" AutoGenerateColumns="None">
             <dxg:GridControl.View>
                 <dxg:TableView PropertyChanged="TableView_PropertyChanged"/>
@@ -50,4 +54,4 @@
         </dxg:GridControl>
     </Grid>
 
-</cwusercontrol:UserControl>
+</UserControl>

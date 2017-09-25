@@ -13,12 +13,8 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     Title="{Binding Title}"
     Visibility="{Binding vmVisibility,Mode=TwoWay}" Loaded="mainWindow_Loaded"
+    DataContext="{dxmvvm:ViewModelSource Type=vm:MainWindowViewModel}"  
              >
-    <!--xmlns:catel="clr-namespace:Catel.Windows;assembly=Catel.MVVM"
-    xmlns:catel.ex.controls="clr-namespace:Catel.Windows.Controls;assembly=Catel.Extensions.Controls" -->
-    <dx:DXWindow.DataContext>
-        <vm:MainWindowViewModel x:Name="mainWindowviewModel" />
-    </dx:DXWindow.DataContext>
     <Grid x:Name="LayoutRoot" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="10" />
@@ -26,7 +22,7 @@
         </Grid.RowDefinitions>
         <dxb:MainMenuControl x:Name="menu" Height="36" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="0">
             <dxb:BarButtonItem Content="Выход" Command="{Binding cmClose}"/>
-            <dxb:BarButtonItem Content="Окна" x:Name="miWindows" Command="{Binding cmP}" />
+            <dxb:BarButtonItem Content="Окна" x:Name="miWindows" Command="{Binding ProverkaGUCommand}" />
         </dxb:MainMenuControl>
         <dxdo:DockLayoutManager x:Name="dockManager_main" Margin="0,0,0,0" Grid.Row="1">
             <dxdo:LayoutGroup x:Name="classesContent" Orientation="Horizontal" Height="auto" AllowSplitters="True">
@@ -38,23 +34,23 @@
                         </dxdo:DockLayoutManager>
                     </dxdo:LayoutPanel>
                     <dxdo:LayoutGroup x:Name="centerPanel" Orientation="Vertical">
-                        <dxdo:TabbedGroup x:Name="centerTop" Visibility="Collapsed" Expanded="False">
+                        <dxdo:TabbedGroup x:Name="centerTop" Visibility="Collapsed" Expanded="False" ShowCaption="True">
+                            <dxdo:LayoutPanel />
+                            <dxdo:LayoutPanel />
                             <dxdo:LayoutPanel />
                         </dxdo:TabbedGroup>
                         <dxdo:LayoutGroup x:Name="CenterCenterPanel" Orientation="Horizontal">
+                            <dxmvvm:Interaction.Behaviors>
+                                <dxdo:TabbedDocumentUIService DocumentGroup="{Binding ElementName=docPanel}" />
+                            </dxmvvm:Interaction.Behaviors>
                             <dxdo:LayoutPanel>
-                                <v:Page1>
-                                    <dxmvvm:Interaction.Behaviors>
-                                    <dxdo:TabbedDocumentUIService DocumentGroup="{Binding ElementName=docPanel}"/>
-                                    </dxmvvm:Interaction.Behaviors>
-                                </v:Page1>
                             </dxdo:LayoutPanel>
                             <dxdo:LayoutGroup x:Name="leftCenterPanel" Caption="leftCenterPanel" Visibility="Hidden"/>
                             <dxdo:LayoutGroup x:Name="rightCenterPanel" Caption="rightCenterPanel" Orientation="Horizontal" Visibility="Hidden"/>
                             <dxdo:DocumentGroup x:Name="docPanel" Orientation="Horizontal">
                                 
                                 <dxdo:DocumentPanel x:Name="ld_mosgorbti" Caption="mosgorbti.ru" ShowCaption="True">
-                                    <eo:WebControl>
+                                    <eo:WebControl x:Name="w1">
                                         <eo:WebControl.WebView>
                                             <eo:WebView Url="http://www.mosgorbti.ru/map.aspx?displayMode=verticalScrollBookmark=0&amp;form_login-form=1&amp;fd_login-form=1&amp;mode=&amp;form_Main=1&amp;back-url=&amp;region=&amp;show-route=&amp;clickableTBTI=1&amp;hideZoom=&amp;rotateBuildingNames=&amp;searchForm=&amp;showSearchForm=1&amp;showStreetPaths=&amp;scale=1&amp;fd_Main=1"></eo:WebView>
                                         </eo:WebControl.WebView>
@@ -76,11 +72,14 @@
                                 </dxdo:LayoutPanel>
                             </dxdo:DocumentGroup>
                         </dxdo:LayoutGroup>
-                        <dxdo:LayoutPanel x:Name="centerBottom" Visibility="Collapsed">
-                        </dxdo:LayoutPanel>
+                            <dxdo:TabbedGroup x:Name="centerBottom" Caption="mainBottom">
+                                <dxdo:LayoutPanel Caption="Журнал">
+                                    <v:ucLogger></v:ucLogger>
+                                </dxdo:LayoutPanel>
+                            </dxdo:TabbedGroup>
                     </dxdo:LayoutGroup>
                 </dxdo:LayoutGroup>
-                <dxdo:TabbedGroup x:Name="mainBottom" Caption="mainBottom"/>
+
             </dxdo:LayoutGroup >
         </dxdo:DockLayoutManager>
     </Grid>

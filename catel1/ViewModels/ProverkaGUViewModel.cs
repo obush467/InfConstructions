@@ -1,117 +1,79 @@
 ﻿namespace InfConstractions.ViewModels
 {
-    using Catel;
-    using Catel.Collections;
-    using Catel.Data;
-    using Catel.IoC;
-    using Catel.MVVM;
+    using DevExpress.Mvvm;
+    using DevExpress.Mvvm.DataAnnotations;
+    using DevExpress.Mvvm.POCO;
     using Models;
     using System.Collections.ObjectModel;
     using System.Threading.Tasks;
     using System.Windows;
 
-    [ServiceLocatorRegistration(typeof(ProverkaGUViewModel))]
     public class ProverkaGUViewModel : ViewModelBase
     {
         #region Constractors
-        [InjectionConstructor]
-        public ProverkaGUViewModel() 
-        {
-            App.MessageService.ShowAsync(" before 1"); }
-        [InjectionConstructor]
-        public ProverkaGUViewModel(Entities context):this(new ProverkaGUModel(context))
-        { MessageBox.Show(" before ");
-            App.MessageService.ShowAsync(" before 1");
-        }
-        [InjectionConstructor]
+        public ProverkaGUViewModel(Entities context) : this(new ProverkaGUModel(context))
+        { }
         public ProverkaGUViewModel(ProverkaGUModel _proverkaGUModel)
         {
-            App.MessageService.ShowAsync(" before 1");
-            Argument.IsNotNull("proverkaGUModel", _proverkaGUModel);
             proverkaGUModel = _proverkaGUModel;
-            MessageBox.Show(" before Initialize");
-            Initialize();
         }
-        public void  Initialize()
+
+        public ProverkaGUViewModel()
         {
-            MessageBox.Show("Initialize");
-            cmSaveChanges = new Command(OncmSaveChangesExecute, OncmSaveChangesCanExecute);
-            cmRefresh = new Command(OncmRefreshExecute, OncmRefreshCanExecute);
         }
+
+        public static ProverkaGUViewModel Create()
+        { return ViewModelSource.Create(() => new ProverkaGUViewModel()); }
+
+        public static ProverkaGUViewModel Create(Entities context) 
+        { return ViewModelSource.Create(() => new ProverkaGUViewModel(context)); }
+        public static ProverkaGUViewModel Create(ProverkaGUModel _proverkaGUModel)
+        { return ViewModelSource.Create(() => new ProverkaGUViewModel(_proverkaGUModel)); }
+
         #endregion
-
-        public override string Title { get { return "View model title"; } }
-
-        // TODO: Register models with the vmpropmodel codesnippet
-        // TODO: Register view model properties with the vmprop or vmpropviewmodeltomodel codesnippets
-        // TODO: Register commands with the vmcommand or vmcommandwithcanexecute codesnippets
-
-        protected override async Task InitializeAsync()
-        {
-            await base.InitializeAsync();
-
-            // TODO: subscribe to events here
-        }
-
-        protected override async Task CloseAsync()
-        {
-            // TODO: unsubscribe from events here
-
-            await base.CloseAsync();
-        }
-        [Inject]
-        [Model]
+        public string Title { get { return "Проверка ГУ"; } }
         public ProverkaGUModel proverkaGUModel
         {
-            get { return GetValue<ProverkaGUModel>(proverkaGUModelProperty); }
-            private set { SetValue(proverkaGUModelProperty, value); }
+            get ;set; 
         }
 
-        public static readonly PropertyData proverkaGUModelProperty = RegisterProperty(nameof(proverkaGUModel), typeof(ProverkaGUModel));
-        [Inject]
-        [ViewModelToModel("proverkaGUModel")]
         public Entities Context
         {
-            get { return GetValue<Entities>(ContextProperty); }
-            set { SetValue(ContextProperty, value); }
+            get { return proverkaGUModel.Context; }
+            set { proverkaGUModel.Context=value; }
         }
 
-        public static readonly PropertyData ContextProperty = RegisterProperty(nameof(Context), typeof(Entities));
-
-        [Inject]
-        [ViewModelToModel("proverkaGUModel")]
-        public FastObservableCollection<proverkaGU> ProverkaGU
+        public ObservableCollection<proverkaGU> ProverkaGU
         {
-            get { return GetValue<FastObservableCollection<proverkaGU>>(ProverkaGUProperty); }
-            set { SetValue(ProverkaGUProperty, value); }
+            get { return proverkaGUModel.ProverkaGU;}
         }
-
-        public static readonly PropertyData ProverkaGUProperty = RegisterProperty(nameof(ProverkaGU), typeof(FastObservableCollection<proverkaGU>), null);
 
         #region Commands
-        public Command cmSaveChanges { get; private set; }
 
-        private bool OncmSaveChangesCanExecute()
+        [Command(CanExecuteMethodName = "CancmSaveChanges",
+            Name = "SaveChangesCommand",
+            UseCommandManager = true)]
+        public void cmSaveChanges ()
+        {Context.SaveChanges();}
+
+        public bool CancmSaveChanges()
         {
             return true;
         }
 
-        private void OncmSaveChangesExecute()
-        {
-            Context.SaveChanges();
-        }
 
-        public Command cmRefresh { get; private set; }
-        private bool OncmRefreshCanExecute()
+        [Command(CanExecuteMethodName = "CancmRefresh",
+            Name = "RefreshCommand",
+            UseCommandManager = true)]
+        public void cmRefresh()
+        {
+            proverkaGUModel.Refresh();
+        }
+        public bool CancmRefresh()
         {           
             return true;
         }
-        private void OncmRefreshExecute()
-        {
-            Context.SaveChanges();
-            MessageBox.Show("sdfsdfdsfsfsfsdf99999999999999999");
-            proverkaGUModel.Refresh();
-        }
+
         #endregion
 
     }

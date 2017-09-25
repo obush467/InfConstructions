@@ -126,6 +126,9 @@
   <PropertyGroup>
     <DelaySign>false</DelaySign>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Limewire.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Catel.Core.5.1.0\lib\net46\Catel.Core.dll</HintPath>
@@ -461,6 +464,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Limewire.ico" />
     <Content Include="Models\mainModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>mainModel.edmx</DependentUpon>
