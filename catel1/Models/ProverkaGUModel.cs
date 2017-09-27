@@ -17,6 +17,7 @@ using Catel.Collections;
 using Catel.IoC;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
+using System.Collections.Specialized;
 
 namespace InfConstractions.Models
 {
@@ -35,10 +36,11 @@ namespace InfConstractions.Models
         {
             Context = _context;
             Context.proverkaGU.Load();
-            ProverkaGU = new ObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);           
+            ProverkaGU = new ObservableCollection<proverkaGU>(Context.proverkaGU);     
             SuspendValidations(false);
             Validate(true);            
         }
+
         [InjectionConstructor]
         public ProverkaGUModel()
         {
@@ -54,13 +56,8 @@ namespace InfConstractions.Models
 #endif
 
         #region PROPERTIES
-        public Entities Context
-        {
-            get { return GetValue<Entities>(ContextProperty); }
-            set { SetValue(ContextProperty, value); }
-        }
 
-        public static readonly PropertyData ContextProperty = RegisterProperty(nameof(Context), typeof(Entities), null);
+
         public ObservableCollection<proverkaGU> ProverkaGU
         {
             get { return GetValue<ObservableCollection<proverkaGU>>(ProverkaGUProperty); }
@@ -68,6 +65,14 @@ namespace InfConstractions.Models
         }
 
         public static readonly PropertyData ProverkaGUProperty = RegisterProperty(nameof(ProverkaGU), typeof(ObservableCollection<proverkaGU>), null);
+
+        public Entities Context
+        {
+            get { return GetValue<Entities>(ContextProperty); }
+            set { SetValue(ContextProperty, value); }
+        }
+
+        public static readonly PropertyData ContextProperty = RegisterProperty(nameof(Context), typeof(Entities), null);
 
         #endregion
 

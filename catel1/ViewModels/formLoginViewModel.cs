@@ -72,7 +72,7 @@ namespace InfConstractions.ViewModels
             //Password = "Password";
             ConnectionStringBuilder.ConnectTimeout = 30;           
             ConnectionStringBuilder.MultipleActiveResultSets = true;
-            ConnectionStringBuilder.ApplicationName = System.AppDomain.CurrentDomain.FriendlyName;
+            ConnectionStringBuilder.ApplicationName = App.Current.MainWindow.Title;
             Validate(true);
             if (!HasErrors)
             {
@@ -84,7 +84,6 @@ namespace InfConstractions.ViewModels
                     Connection.Open();
                     efStringBuilder.Provider = "System.Data.SqlClient";
                     efStringBuilder.Metadata = @"res://*/Models.mainModel.csdl|res://*/Models.mainModel.ssdl|res://*/Models.mainModel.msl";
-                    
                     efStringBuilder.ProviderConnectionString = Connection.ConnectionString;                   
                     efConnection=new EntityConnection (efStringBuilder.ToString());
                     efConnection.Open();

@@ -29,7 +29,7 @@ namespace InfConstractions.Models
     
         public virtual DbSet<proverkaGU> proverkaGU { get; set; }
     
-        public virtual int updateProverkaGU(Nullable<int> id, string ошибки_в_адресации_ГУ, string fact, string плашки, Nullable<bool> наличие_согласованного_макета, Nullable<bool> наличие_согласованного_паспорта, string примечание, Nullable<bool> проверено)
+        public virtual int updateProverkaGU(Nullable<int> id, string ошибки_в_адресации_ГУ, string fact, string плашки, Nullable<bool> наличие_согласованного_макета, Nullable<bool> наличие_согласованного_паспорта, string примечание, Nullable<bool> проверено, Nullable<System.DateTimeOffset> uPDATED)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -63,7 +63,11 @@ namespace InfConstractions.Models
                 new ObjectParameter("Проверено", проверено) :
                 new ObjectParameter("Проверено", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateProverkaGU", idParameter, ошибки_в_адресации_ГУParameter, factParameter, плашкиParameter, наличие_согласованного_макетаParameter, наличие_согласованного_паспортаParameter, примечаниеParameter, провереноParameter);
+            var uPDATEDParameter = uPDATED.HasValue ?
+                new ObjectParameter("UPDATED", uPDATED) :
+                new ObjectParameter("UPDATED", typeof(System.DateTimeOffset));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateProverkaGU", idParameter, ошибки_в_адресации_ГУParameter, factParameter, плашкиParameter, наличие_согласованного_макетаParameter, наличие_согласованного_паспортаParameter, примечаниеParameter, провереноParameter, uPDATEDParameter);
         }
     }
 }

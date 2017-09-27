@@ -4,7 +4,10 @@
     using DevExpress.Mvvm.DataAnnotations;
     using DevExpress.Mvvm.POCO;
     using Models;
+    using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
     using System.Threading.Tasks;
     using System.Windows;
 
@@ -17,11 +20,9 @@
         {
             proverkaGUModel = _proverkaGUModel;
         }
-
         public ProverkaGUViewModel()
         {
         }
-
         public static ProverkaGUViewModel Create()
         { return ViewModelSource.Create(() => new ProverkaGUViewModel()); }
 
@@ -75,6 +76,5 @@
         }
 
         #endregion
-
     }
 }

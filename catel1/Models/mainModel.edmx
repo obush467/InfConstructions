@@ -26,6 +26,7 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Plash" Type="nvarchar" MaxLength="4000" />
           <Property Name="ts" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="updated" Type="datetimeoffset" Precision="7" />
         </EntityType>
         <Function Name="updateProverkaGU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -36,6 +37,7 @@
           <Parameter Name="Наличие_согласованного_паспорта" Type="bit" Mode="In" />
           <Parameter Name="Примечание" Type="nvarchar" Mode="In" />
           <Parameter Name="Проверено" Type="bit" Mode="In" />
+          <Parameter Name="UPDATED" Type="datetimeoffset" Mode="In" />
         </Function>
         <EntityContainer Name="Хранилище ModelsContainer">
           <EntitySet Name="proverkaGU" EntityType="Self.proverkaGU" store:Type="Views" store:Schema="dbo">
@@ -53,7 +55,8 @@
     [proverkaGU].[Checking] AS [Checking], 
     [proverkaGU].[ID] AS [ID], 
     [proverkaGU].[Plash] AS [Plash], 
-    [proverkaGU].[ts] AS [ts]
+    [proverkaGU].[ts] AS [ts], 
+    [proverkaGU].[updated] AS [updated]
     FROM [dbo].[proverkaGU] AS [proverkaGU]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -80,6 +83,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Plash" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="ts" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="updated" Type="DateTimeOffset" Nullable="true" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="proverkaGU" EntityType="Self.proverkaGU" />
@@ -92,6 +96,7 @@
             <Parameter Name="Наличие_согласованного_паспорта" Mode="In" Type="Boolean" />
             <Parameter Name="Примечание" Mode="In" Type="String" />
             <Parameter Name="Проверено" Mode="In" Type="Boolean" />
+            <Parameter Name="UPDATED" Mode="In" Type="DateTimeOffset" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
@@ -103,6 +108,7 @@
           <EntitySetMapping Name="proverkaGU">
             <EntityTypeMapping TypeName="Models.proverkaGU">
               <MappingFragment StoreEntitySet="proverkaGU">
+                <ScalarProperty Name="updated" ColumnName="updated" />
                 <ScalarProperty Name="ts" ColumnName="ts" />
                 <ScalarProperty Name="Plash" ColumnName="Plash" />
                 <ScalarProperty Name="Num" ColumnName="Num" />
@@ -122,6 +128,7 @@
             <EntityTypeMapping TypeName="Models.proverkaGU">
               <ModificationFunctionMapping>
                 <UpdateFunction FunctionName="Хранилище Models.updateProverkaGU" >
+                  <ScalarProperty Name="updated" ParameterName="UPDATED" Version="Current" />
                   <ScalarProperty Name="Plash" ParameterName="Плашки" Version="Current" />
                   <ScalarProperty Name="Fakt" ParameterName="Fact" Version="Current" />
                   <ScalarProperty Name="Checking" ParameterName="Проверено" Version="Current" />
