@@ -27,13 +27,19 @@ namespace InfConstractions.Views
 
         private void DockManagerDocumentClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("Close this tab?", ".Net Notepad", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            if (MessageBox.Show("Точно закрыть?", "Закрытие", MessageBoxButton.YesNo) == MessageBoxResult.No)
             {e.Cancel = true;}
         }
 
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-           if (((MainWindowViewModel)DataContext).CanProverkaGU()) ((MainWindowViewModel)DataContext).ProverkaGU();        }
+           if (((MainWindowViewModel)DataContext).CanProverkaGU()) ((MainWindowViewModel)DataContext).ProverkaGU();
+        }
+
+        private void WebBrowser_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+
+        }
     }
 
 }

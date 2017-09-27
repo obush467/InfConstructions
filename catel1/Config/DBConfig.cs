@@ -11,6 +11,13 @@ namespace InfConstractions.Config
     {
         [ConfigurationProperty("DefaultConnection")]
         public DefaultConnectionConfig defaultConnection
-        { get { return (DefaultConnectionConfig)this["DefaultConnection"]; } }
+        { get { return (DefaultConnectionConfig)this["DefaultConnection"]; }
+        }
+        [ConfigurationProperty("Logins", IsDefaultCollection = false)]
+        [ConfigurationCollection(typeof(Logins), AddItemName = "add",ClearItemsName = "clear",RemoveItemName = "remove")]
+        public Logins Logins
+        {
+            get { return (Logins)base["Logins"]; }
+        }
     }
 }

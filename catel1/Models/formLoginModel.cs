@@ -10,22 +10,24 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Core.EntityClient;
 using System.Configuration;
 using System.Windows;
+using InfConstractions.Config;
 
 namespace InfConstractions.Models
 {
     public class formLoginModel : ValidatableModelBase
     {
         public Configuration Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public Config.DefaultConnectionConfig _config_connection { get; set; }
+        public DefaultConnectionConfig _config_connection { get; set; }
+        public Config.Logins _config_Logins { get; set; }
         public formLoginModel()
         {
             SuspendValidations(true);
-            ConnectionStringBuilder = new System.Data.SqlClient.SqlConnectionStringBuilder();
+            ConnectionStringBuilder = new SqlConnectionStringBuilder();
             ServersCollection = new ObservableCollection<string>();
             efStringBuilder = new EntityConnectionStringBuilder();
             efConnection = new EntityConnection();
             #region CONFIGURATION
-            _config_connection = ((InfConstractions.Config.Config)Config.Sections["Config"]).defaultConnection;
+            
             AuthenticationTypes = new List<string>();
             AuthenticationTypes.Add("Проверка подлинности SQl Server");
             AuthenticationTypes.Add("Проверка подлинности Windows");
@@ -146,6 +148,16 @@ namespace InfConstractions.Models
         /// <summary>
         /// Gets or sets the property value.
         /// </summary>
+        /// 
+
+
+        public ObservableCollection<string> Logins
+        {
+            get { return GetValue<ObservableCollection<string>>(LoginsProperty); }
+            private set { SetValue(LoginsProperty, value); }
+        }
+
+        public static readonly PropertyData LoginsProperty = RegisterProperty(nameof(Logins), typeof(ObservableCollection<string>), null);
 #if NETFX_CORE
 [DataMember]
 // TODO: use the following line instead of the one above, if you want to ignore the property for (de)serialization
@@ -264,15 +276,21 @@ namespace InfConstractions.Models
             }
         }
         public void LoadConfig()
-        {           
-            {
-                if (!string.IsNullOrWhiteSpace(_config_connection.DefaultDBName))
+        {
+            var _config = ((Config.Config)Config.Sections["Config"]);
+            _config_connection = _config.defaultConnection;
+            _config_Logins = _config.Logins;
+            if (!string.IsNullOrWhiteSpace(_config_connection.DefaultDBName))
                 { DatabaseName = _config_connection.DefaultDBName; }
                 if (!string.IsNullOrWhiteSpace(_config_connection.DefaultServerName))
                 { ServerName = _config_connection.DefaultServerName; }
                 if (!string.IsNullOrWhiteSpace(_config_connection.DefaultDBAuthenticationType))
                 { AuthenticationType = AuthenticationTypes.IndexOf(_config_connection.DefaultDBAuthenticationType); }
-            }
+            Logins = new ObservableCollection<string>();
+            foreach (Login l in _config_Logins)
+            { Logins.Add(l.Name); }
+
+               
         }
         
         public void SaveConfig()
@@ -280,6 +298,7 @@ namespace InfConstractions.Models
             _config_connection.DefaultServerName = ServerName;
             _config_connection.DefaultDBName = DatabaseName;
             _config_connection.DefaultDBAuthenticationType = AuthenticationTypes[AuthenticationType];
+            _config_Logins.Add(UserName);
             Config.Save(ConfigurationSaveMode.Full);
         }
     }

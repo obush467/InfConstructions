@@ -85,7 +85,7 @@ namespace InfConstractions.Models
             Context.SaveChanges();
             var ctx = ((IObjectContextAdapter)Context).ObjectContext;
             ctx.Refresh(RefreshMode.StoreWins, (from o in Context.proverkaGU select o));
-            ProverkaGU = new ObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);
+            //ProverkaGU = new ObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);
         }
     }
 }

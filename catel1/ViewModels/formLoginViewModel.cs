@@ -220,7 +220,14 @@ namespace InfConstractions.ViewModels
         /// </summary>
         public static readonly PropertyData efConnectionProperty = RegisterProperty("efConnection", typeof(EntityConnection), null);
 
+        [ViewModelToModel("Model")]
+        public ObservableCollection<string> Logins
+        {
+            get { return GetValue<ObservableCollection<string>>(LoginsProperty); }
+            set { SetValue(LoginsProperty, value); }
+        }
 
+        public static readonly PropertyData LoginsProperty = RegisterProperty(nameof(Logins), typeof(ObservableCollection<string>), null);
         #endregion
 
         #region Metods

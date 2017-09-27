@@ -27,5 +27,6 @@ namespace InfConstractions.Models
         public Nullable<bool> Checking { get; set; }
         public int ID { get; set; }
         public string Plash { get; set; }
+        public byte[] ts { get; set; }
     }
 }

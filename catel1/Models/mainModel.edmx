@@ -10,6 +10,7 @@
         <EntityType Name="proverkaGU">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="ts" />
           </Key>
           <Property Name="Num" Type="nvarchar" MaxLength="50" />
           <Property Name="Okrug" Type="nvarchar" MaxLength="50" />
@@ -24,6 +25,7 @@
           <Property Name="Checking" Type="bit" />
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Plash" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ts" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <Function Name="updateProverkaGU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -50,7 +52,8 @@
     [proverkaGU].[Prim] AS [Prim], 
     [proverkaGU].[Checking] AS [Checking], 
     [proverkaGU].[ID] AS [ID], 
-    [proverkaGU].[Plash] AS [Plash]
+    [proverkaGU].[Plash] AS [Plash], 
+    [proverkaGU].[ts] AS [ts]
     FROM [dbo].[proverkaGU] AS [proverkaGU]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -61,6 +64,7 @@
         <EntityType Name="proverkaGU">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="ts" />
           </Key>
           <Property Name="Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Okrug" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -75,6 +79,7 @@
           <Property Name="Checking" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Plash" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ts" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="proverkaGU" EntityType="Self.proverkaGU" />
@@ -98,6 +103,7 @@
           <EntitySetMapping Name="proverkaGU">
             <EntityTypeMapping TypeName="Models.proverkaGU">
               <MappingFragment StoreEntitySet="proverkaGU">
+                <ScalarProperty Name="ts" ColumnName="ts" />
                 <ScalarProperty Name="Plash" ColumnName="Plash" />
                 <ScalarProperty Name="Num" ColumnName="Num" />
                 <ScalarProperty Name="Okrug" ColumnName="Okrug" />

@@ -63,7 +63,6 @@
             Log.Info((string)Current.FindResource("startMessage"));
             uiVisualizerService = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
             MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
-            App.MessageService.ShowWarningAsync("xvsddsfsfsdf");
             base.OnStartup(e);
             Log.Debug((string)Current.FindResource("App_base_OnStartup"));
             Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
