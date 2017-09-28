@@ -36,10 +36,9 @@ namespace InfConstractions.Views
            if (((MainWindowViewModel)DataContext).CanProverkaGU()) ((MainWindowViewModel)DataContext).ProverkaGU();
         }
 
-        private void WebBrowser_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            ((MainWindowViewModel)DataContext).Close();
         }
     }
-
 }

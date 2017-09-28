@@ -15,16 +15,11 @@
     Height="Auto"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
-    xmlns:v="clr-namespace:InfConstractions.Views"
-                  >
-    <dxmvvm:Interaction.Behaviors>
-        <dx:DXSplashScreenService x:Name="mainSplash" ShowSplashScreenOnLoading="True" State="Загрузка" SplashScreenType="{x:Type v:mainSplash}"/>
-    </dxmvvm:Interaction.Behaviors>
+    xmlns:v="clr-namespace:InfConstractions.Views">
     <catel:DataWindow.Resources>
         <ResourceDictionary Source="ResourceDictionary.xaml" />
     </catel:DataWindow.Resources>
     <TabControl >
-
         <TabItem Header="Логин" FocusManager.FocusedElement="{Binding ElementName=cbUserName}">
             <catel.ex.controls:StackGrid Margin="0">
                 <catel.ex.controls:StackGrid.RowDefinitions>

@@ -12,25 +12,34 @@
     using DevExpress.Mvvm;
     using DevExpress.Mvvm.ViewModel;
     using DevExpress.Mvvm.POCO;
-
     using Catel.Services;
     using Catel.IoC;
     using DevExpress.Mvvm.DataAnnotations;
+    using System.Collections.Generic;
+    using System.Collections;
+    using Catel.Logging;
 
     [POCOViewModel]
-    public class MainWindowViewModel : DevExpress.Mvvm.ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         formLoginViewModel vm = new formLoginViewModel(new SqlConnection());
+        IDictionary Documents = new Dictionary<string, IDocument>();
+        ILog Log = LogManager.GetCurrentClassLogger();
         protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
         public MainWindowViewModel()
         {
-            vmVisibility = Visibility.Hidden;
-            mainWindowModel = new MainWindowModel();
-            var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
-            u.ShowDialogAsync(vm, completeLogin);      
-            #region CommandsCreate
+            try
+            {
+                vmVisibility = Visibility.Hidden;
+                mainWindowModel = new MainWindowModel();
+                var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
+                u.ShowDialogAsync(vm, completeLogin);
+                #region CommandsCreate
 
-            #endregion
+                #endregion
+            }
+            catch (Exception ex)
+            { MessageBox.Show("MainWindowViewModel - " + ex.Message); }
         }
         public string Title { get { return "InfConstractions"; } }
 
@@ -38,9 +47,15 @@
         {
             if (e.Result == true)
             {
-                mainWindowModel.sqlConnection = vm.Connection;
-                mainWindowModel.efConnection= vm.efConnection;
-                vmVisibility = Visibility.Visible;
+                try
+                {
+                    mainWindowModel.sqlConnection = vm.Connection;
+                    mainWindowModel.efConnection = vm.efConnection;
+                }
+                catch (Exception ex)
+                { MessageBox.Show("MainWindowViewModel.completeLogin - " + ex.Message); }
+                finally
+                { vmVisibility = Visibility.Visible; }
             }
             else { App.Current.Shutdown(-1); }
         }
@@ -61,8 +76,8 @@
 
         public SqlConnection sqlConnection
         {
-            get { return GetProperty<SqlConnection>(()=> mainWindowModel.sqlConnection); }
-            private set { SetProperty<SqlConnection>(()=> mainWindowModel.sqlConnection, value); }
+            get { return GetProperty(()=> mainWindowModel.sqlConnection); }
+            private set { SetProperty(()=> mainWindowModel.sqlConnection, value); }
         }
 
         public EntityConnection efConnection
@@ -73,14 +88,22 @@
 
         public Visibility vmVisibility
         {
-            get { return GetProperty<System.Windows.Visibility>(() => vmVisibility); }
-            set { SetProperty<Visibility>(() => vmVisibility, value); }
+            get { return GetProperty(() => vmVisibility); }
+            set { SetProperty(() => vmVisibility, value); }
         }
 
         #region Commands
-        public  async void Close ()
+        [Command(CanExecuteMethodName = "CanClose",
+            Name = "CloseCommand",
+            UseCommandManager = true)]
+        public void Close ()
         {
-            //_navigationService.CloseApplication();
+            var l=DocumentManagerService.Documents.ToList();
+            foreach(IDocument doc in l)
+                {
+                    Log.Info("Закрытие документа {0}",doc.Title);
+                    doc.Close();
+                };
         }
         public bool CanClose()
         {
@@ -90,13 +113,13 @@
         [Command(CanExecuteMethodName = "CanProverkaGU",
             Name = "ProverkaGUCommand",
             UseCommandManager = true)]
-        public async void ProverkaGU()
+        public void ProverkaGU()
         {
-                IDocument doc1;
-                doc1 = DocumentManagerService.CreateDocument("ProverkaGUView", ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext)));
-                doc1.Id = DocumentManagerService.Documents.Count<IDocument>();
-                doc1.Title = "Проверка ГУ";
-                doc1.Show();
+            IDocument doc1;
+            doc1 = DocumentManagerService.CreateDocument("ProverkaGUView", ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext)));
+            doc1.Id = DocumentManagerService.Documents.Count<IDocument>();
+            doc1.Title = "Проверка ГУ";
+            doc1.Show();
         }
         public bool CanProverkaGU()
         {
