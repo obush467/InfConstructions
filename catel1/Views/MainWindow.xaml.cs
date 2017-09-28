@@ -21,8 +21,13 @@ namespace InfConstractions.Views
     {
         public MainWindow()
         {
-            InitializeComponent();
-            Visibility = Visibility.Hidden;        
+            try
+            {
+                InitializeComponent();
+                Visibility = Visibility.Hidden;
+            }
+            catch (Exception e)
+            { MessageBox.Show("Ошибка при старте"); }
         }
 
         private void DockManagerDocumentClosing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -12,7 +12,8 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     Title="{Binding Title}"
-    Visibility="{Binding vmVisibility,Mode=TwoWay}" Loaded="mainWindow_Loaded"
+    Visibility="{Binding vmVisibility,Mode=TwoWay}" 
+    Loaded="mainWindow_Loaded"
     DataContext="{dxmvvm:ViewModelSource Type=vm:MainWindowViewModel}"
     >
     <dxmvvm:Interaction.Behaviors>
@@ -52,7 +53,7 @@
                             <dxdo:LayoutGroup x:Name="leftCenterPanel" Caption="leftCenterPanel" Visibility="Hidden"/>
                             <dxdo:LayoutGroup x:Name="rightCenterPanel" Caption="rightCenterPanel" Orientation="Horizontal" Visibility="Hidden"/>
                             <dxdo:DocumentGroup x:Name="docPanel" Orientation="Horizontal">
-                                
+
                                 <dxdo:DocumentPanel x:Name="ld_mosgorbti" Caption="mosgorbti.ru" ShowCaption="True">
                                     <eo:WebControl x:Name="w1">
                                         <eo:WebControl.WebView>
@@ -67,13 +68,13 @@
                                         </eo:WebControl.WebView>
                                         </eo:WebControl>
                                 </dxdo:DocumentPanel>
-                                <dxdo:LayoutPanel x:Name="ld_2gis" Caption="2ГИС" ShowCaption="True">
+                                <dxdo:DocumentPanel x:Name="ld_2gis" Caption="2ГИС" ShowCaption="True">
                                     <eo:WebControl>
                                         <eo:WebControl.WebView>
-                                            <eo:WebView Url="https://2gis.ru/moscow?queryState=zoom%2F11"></eo:WebView>
+                                            <eo:WebView Url="https://2gis.ru/moscow?queryState=zoom%2F11" ></eo:WebView>
                                         </eo:WebControl.WebView>
                                     </eo:WebControl>
-                                </dxdo:LayoutPanel>
+                                </dxdo:DocumentPanel>
                             </dxdo:DocumentGroup>
                         </dxdo:LayoutGroup  >
                         <dxdo:TabbedGroup x:Name="centerBottom" Caption="mainBottom" ItemHeight="100">

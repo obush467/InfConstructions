@@ -56,7 +56,7 @@ namespace InfConstractions.Views
                         logd.Add("Street", t.Street);
                         logd.Add("Dom", t.Dom);
                         string s = string.Join(", ", logd.Values);
-                        App.Log.Info("Внесены изменения в запись {0}",s);
+                        //App.Log.Info("Внесены изменения в запись {0}",s);
                     }
                 }
             }

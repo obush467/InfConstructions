@@ -24,13 +24,18 @@
         protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
         public MainWindowViewModel()
         {
-            vmVisibility = Visibility.Hidden;
-            mainWindowModel = new MainWindowModel();
-            var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
-            u.ShowDialogAsync(vm, completeLogin);      
-            #region CommandsCreate
+            try
+            {
+                vmVisibility = Visibility.Hidden;
+                mainWindowModel = new MainWindowModel();
+                var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
+                u.ShowDialogAsync(vm, completeLogin);
+                #region CommandsCreate
 
-            #endregion
+                #endregion
+            }
+            catch (Exception)
+            { }
         }
         public string Title { get { return "InfConstractions"; } }
 
@@ -38,9 +43,16 @@
         {
             if (e.Result == true)
             {
-                mainWindowModel.sqlConnection = vm.Connection;
-                mainWindowModel.efConnection= vm.efConnection;
-                vmVisibility = Visibility.Visible;
+                try
+                {
+                    mainWindowModel.sqlConnection = vm.Connection;
+                    mainWindowModel.efConnection = vm.efConnection;
+                }
+                catch (Exception ex)
+                { MessageBox.Show(ex.Message); }
+                finally
+                { vmVisibility = Visibility.Visible; }
+                
             }
             else { App.Current.Shutdown(-1); }
         }
