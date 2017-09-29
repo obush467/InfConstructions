@@ -19,11 +19,11 @@
     using System.Collections;
     using Catel.Logging;
 
-    [POCOViewModel]
     public class MainWindowViewModel : ViewModelBase
     {
         formLoginViewModel vm = new formLoginViewModel(new SqlConnection());
         IDictionary Documents = new Dictionary<string, IDocument>();
+        protected IDialogService DialogService { get { return this.GetService<IDialogService>(); } }
         ILog Log = LogManager.GetCurrentClassLogger();
         protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
         public MainWindowViewModel()
@@ -76,8 +76,8 @@
 
         public SqlConnection sqlConnection
         {
-            get { return GetProperty(()=> mainWindowModel.sqlConnection); }
-            private set { SetProperty(()=> mainWindowModel.sqlConnection, value); }
+            get { return mainWindowModel.sqlConnection; }
+            private set { mainWindowModel.sqlConnection= value; }
         }
 
         public EntityConnection efConnection
@@ -129,5 +129,23 @@
             { return false; }
         }
         #endregion
+        [Command(CanExecuteMethodName = "CanShowLoginForm",
+        Name = "ShowLoginFormCommand",
+        UseCommandManager = true)]
+        public void ShowLoginForm()
+        {
+            floginViewModel ViewModel = floginViewModel.Create(sqlConnection);
+            List<UICommand> commands = new List<UICommand>();
+            commands.Add(new UICommand(1, "Соединить", ViewModel.RefreshServersList, true, false));
+            commands.Add(new UICommand(1, "Соединить", ViewModel.RefreshServersList, true, false));
+            DialogService.ShowDialog(
+                dialogCommands: commands,
+                title: "Соединение с сервером",
+                viewModel: ViewModel);
+        }
+        public bool CanShowLoginForm()
+        {
+            return true;
+        }
     }
 }

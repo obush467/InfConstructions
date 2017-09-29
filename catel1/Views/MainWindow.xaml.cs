@@ -33,6 +33,7 @@ namespace InfConstractions.Views
 
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            ((MainWindowViewModel)DataContext).ShowLoginForm();
            if (((MainWindowViewModel)DataContext).CanProverkaGU()) ((MainWindowViewModel)DataContext).ProverkaGU();
         }
 

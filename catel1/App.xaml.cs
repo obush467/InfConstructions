@@ -13,6 +13,7 @@
     using Catel.Extensions;
     using Catel.Windows;
     using Views;
+    using DevExpress.Mvvm.POCO;
 
 
 

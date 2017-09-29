@@ -332,9 +332,13 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddressAssignViewModel.cs" />
+    <Compile Include="ViewModels\floginViewModel.cs" />
     <Compile Include="ViewModels\formLoginViewModel.cs" />
     <Compile Include="ViewModels\ProverkaGUViewModel.cs" />
     <Compile Include="ViewModels\ucLoggerViewModel.cs" />
+    <Compile Include="Views\floginView.xaml.cs">
+      <DependentUpon>floginView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProverkaGU.xaml.cs">
       <DependentUpon>ProverkaGU.xaml</DependentUpon>
     </Compile>
@@ -344,6 +348,10 @@
     <Compile Include="Views\ucLogger.xaml.cs">
       <DependentUpon>ucLogger.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\floginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProverkaGU.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
