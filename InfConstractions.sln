@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "commonB1test", "ConsoleAppl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smFiles", "smFiles\smFiles.csproj", "{0FCFFFB8-32F1-4CDA-9A78-DAB71CBBA430}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GBUMATC", "..\GBUMATC\GBUMATC\GBUMATC.sqlproj", "{2B632D79-6628-4CAC-AE89-D63F595DA4FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,24 @@ Global
 		{0FCFFFB8-32F1-4CDA-9A78-DAB71CBBA430}.Release|x64.ActiveCfg = Release|Any CPU
 		{0FCFFFB8-32F1-4CDA-9A78-DAB71CBBA430}.Release|x86.ActiveCfg = Release|Any CPU
 		{0FCFFFB8-32F1-4CDA-9A78-DAB71CBBA430}.Release|x86.Build.0 = Release|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Debug|x64.Build.0 = Debug|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Debug|x86.Build.0 = Debug|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Release|x64.ActiveCfg = Release|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Release|x64.Build.0 = Release|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Release|x64.Deploy.0 = Release|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Release|x86.ActiveCfg = Release|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Release|x86.Build.0 = Release|Any CPU
+		{2B632D79-6628-4CAC-AE89-D63F595DA4FD}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
