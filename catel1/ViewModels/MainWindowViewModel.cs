@@ -21,7 +21,7 @@
     public class MainWindowViewModel : DevExpress.Mvvm.ViewModelBase
     {
         formLoginViewModel vm = new formLoginViewModel(new SqlConnection());
-        protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
+        public IDocumentManagerService documentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
         public MainWindowViewModel()
         {
             vmVisibility = Visibility.Hidden;
@@ -93,8 +93,8 @@
         public async void ProverkaGU()
         {
                 IDocument doc1;
-                doc1 = DocumentManagerService.CreateDocument("ProverkaGUView", ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext)));
-                doc1.Id = DocumentManagerService.Documents.Count<IDocument>();
+                doc1 = documentManagerService.CreateDocument("ProverkaGUView", ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext)));
+                doc1.Id = documentManagerService.Documents.Count<IDocument>();
                 doc1.Title = "Проверка ГУ";
                 doc1.Show();
         }
@@ -105,6 +105,8 @@
             else
             { return false; }
         }
+
+
         #endregion
     }
 }

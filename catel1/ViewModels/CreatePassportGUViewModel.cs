@@ -3,65 +3,55 @@
     using DevExpress.Mvvm;
     using DevExpress.Mvvm.DataAnnotations;
     using DevExpress.Mvvm.POCO;
-    using DevExpress.Utils.MVVM.Services;
     using Models;
-    using ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
-    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
-    using DevExpress.Xpf.Docking;
-    using Views;
 
-    public class ProverkaGUViewModel : DevExpress.Mvvm.ViewModelBase
+    public class CreatePassportGUViewModel : ViewModelBase
     {
-       
         #region Constractors
-        public ProverkaGUViewModel(Entities context) : this(new ProverkaGUModel(context))
+        public CreatePassportGUViewModel(Entities context) : this(new CreatePassportGUModel(context))
         { }
-        public ProverkaGUViewModel(ProverkaGUModel _proverkaGUModel)
+        public CreatePassportGUViewModel(CreatePassportGUModel _CreatePassportGUModel)
         {
-            proverkaGUModel = _proverkaGUModel;
+            createPassportGUModel = _CreatePassportGUModel;
         }
-        public ProverkaGUViewModel()
+        public CreatePassportGUViewModel()
         {
         }
         public static ProverkaGUViewModel Create()
         { return ViewModelSource.Create(() => new ProverkaGUViewModel()); }
 
-        public static ProverkaGUViewModel Create(Entities context)
+        public static ProverkaGUViewModel Create(Entities context) 
         { return ViewModelSource.Create(() => new ProverkaGUViewModel(context)); }
         public static ProverkaGUViewModel Create(ProverkaGUModel _proverkaGUModel)
         { return ViewModelSource.Create(() => new ProverkaGUViewModel(_proverkaGUModel)); }
 
         #endregion
         public string Title { get { return "Проверка ГУ"; } }
-        public ProverkaGUModel proverkaGUModel
+        public CreatePassportGUModel createPassportGUModel
         {
-            get; set;
+            get ;set; 
         }
 
         public Entities Context
         {
-            get { return proverkaGUModel.Context; }
-            set { proverkaGUModel.Context = value; }
+            get { return createPassportGUModel.Context; }
+            set { createPassportGUModel.Context=value; }
         }
 
-        public ObservableCollection<proverkaGU> ProverkaGU
-        {
-            get { return proverkaGUModel.ProverkaGU; }
-        }
 
         #region Commands
 
         [Command(CanExecuteMethodName = "CancmSaveChanges",
             Name = "SaveChangesCommand",
             UseCommandManager = true)]
-        public void cmSaveChanges()
-        { Context.SaveChanges(); }
+        public void cmSaveChanges ()
+        {Context.SaveChanges();}
 
         public bool CancmSaveChanges()
         {
@@ -74,16 +64,13 @@
             UseCommandManager = true)]
         public void cmRefresh()
         {
-            proverkaGUModel.Refresh();
+            //CreartePassportGUViewModel.Refresh();
         }
         public bool CancmRefresh()
-        {
+        {           
             return true;
         }
 
-
-
-
         #endregion
-
-    }  }
+    }
+}
