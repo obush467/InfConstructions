@@ -1,43 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Catel.Data;
 using System.Data.Sql;
 using System.Data;
 using System.Collections.ObjectModel;
 using Catel.Logging;
+using System.IO;
+using Newtonsoft.Json;
+using Catel;
 using System.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Core.EntityClient;
-using System.Configuration;
-using System.Windows;
-using InfConstractions.Config;
 
 namespace InfConstractions.Models
+
 {
-    public class formLoginModel : ValidatableModelBase
+
+    public class formLoginModel : ModelBase
     {
-        public Configuration Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public DefaultConnectionConfig _config_connection { get; set; }
-        public Config.Logins _config_Logins { get; set; }
+        public DBDefault DBDefault { get; set; }
+        private static readonly JsonSerializerSettings JSSettings = new JsonSerializerSettings();
+        const string ConfigPath = "e:\\App.config.json";
+
+
         public formLoginModel()
         {
-            SuspendValidations(true);
-            ConnectionStringBuilder = new SqlConnectionStringBuilder();
+           
+            SuspendValidation = true;
+            ConnectionStringBuilder = new System.Data.SqlClient.SqlConnectionStringBuilder();
             ServersCollection = new ObservableCollection<string>();
             efStringBuilder = new EntityConnectionStringBuilder();
             efConnection = new EntityConnection();
             #region CONFIGURATION
-            
+            JsonSerializer JSS = new JsonSerializer();
+            JSSettings.ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor;
+            JSSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             AuthenticationTypes = new List<string>();
             AuthenticationTypes.Add("Проверка подлинности SQl Server");
             AuthenticationTypes.Add("Проверка подлинности Windows");
             AuthenticationTypes.Add("Универсальная проверка подлинности Active Directory");
             AuthenticationTypes.Add("Проверка пароля Active Directory");
             AuthenticationTypes.Add("Аутентификация Active Directory");
-            LoadConfig();
+
+            LoadConfig(ConfigPath);
+
             #endregion
-            SuspendValidations(false);
-            //Validate(true);            
+            SuspendValidation = false;
+            Validate(true, false);            
         }
 
 #if NETFX_CORE
@@ -97,12 +107,12 @@ namespace InfConstractions.Models
         }
 
         public static readonly PropertyData DatabaseNameProperty = RegisterProperty("DatabaseName", typeof(string), null);
-        public SqlConnectionStringBuilder ConnectionStringBuilder
+        public System.Data.SqlClient.SqlConnectionStringBuilder ConnectionStringBuilder
         {
-            get { return GetValue<SqlConnectionStringBuilder>(ConnectionStringBuilderProperty); }
+            get { return GetValue<System.Data.SqlClient.SqlConnectionStringBuilder>(ConnectionStringBuilderProperty); }
             set { SetValue(ConnectionStringBuilderProperty, value); }
         }
-        public static readonly PropertyData ConnectionStringBuilderProperty = RegisterProperty("ConnectionStringBuilder", typeof(SqlConnectionStringBuilder), null);
+        public static readonly PropertyData ConnectionStringBuilderProperty = RegisterProperty("ConnectionStringBuilder", typeof(System.Data.SqlClient.SqlConnectionStringBuilder), null);
 
         /// <summary>
             /// Gets or sets the property value.
@@ -132,32 +142,25 @@ namespace InfConstractions.Models
         public string Password
         {
             get { return ConnectionStringBuilder.Password; }
-            set {
-                    ConnectionStringBuilder.Password= value;
-                    RaisePropertyChanged("Password");
-                }
+            set { ConnectionStringBuilder.Password= value;
+                RaisePropertyChanged("Password");
+            }
         }
+
         public static readonly PropertyData PasswordProperty = RegisterProperty("Password", typeof(string), null);
+
+        
         public ObservableCollection<string> ServersCollection
         {
             get { return GetValue<ObservableCollection<string>>(ServersCollectionProperty); }
             private set { SetValue(ServersCollectionProperty, value); }        
         }
+
         public static readonly PropertyData ServersCollectionProperty = RegisterProperty("ServersCollection", typeof(ObservableCollection<string>), null);
 
         /// <summary>
         /// Gets or sets the property value.
         /// </summary>
-        /// 
-
-
-        public ObservableCollection<string> Logins
-        {
-            get { return GetValue<ObservableCollection<string>>(LoginsProperty); }
-            private set { SetValue(LoginsProperty, value); }
-        }
-
-        public static readonly PropertyData LoginsProperty = RegisterProperty(nameof(Logins), typeof(ObservableCollection<string>), null);
 #if NETFX_CORE
 [DataMember]
 // TODO: use the following line instead of the one above, if you want to ignore the property for (de)serialization
@@ -200,12 +203,17 @@ namespace InfConstractions.Models
             get { return GetValue<EntityConnectionStringBuilder>(efStringBuilderProperty); }
             set { SetValue(efStringBuilderProperty, value); }
         }
+
         /// <summary>
         /// Register the ecStringBuild property so it is known in the class.
         /// </summary>
         public static readonly PropertyData efStringBuilderProperty = RegisterProperty("efStringBuilder", typeof(EntityConnectionStringBuilder), null);
+
+
         protected override void ValidateFields(List<IFieldValidationResult> validationResults)
+            
         {
+                       
             if (string.IsNullOrWhiteSpace(DatabaseName))
             {
                 validationResults.Add(FieldValidationResult.CreateError(DatabaseNameProperty, "Требуется имя базы данных"));
@@ -213,13 +221,15 @@ namespace InfConstractions.Models
             if (string.IsNullOrWhiteSpace(ServerName))
             {
                 validationResults.Add(FieldValidationResult.CreateError(ServerNameProperty,  "Требуется имя сервера"));
+
             }
             if ((AuthenticationType == 0))
             {
-                if (string.IsNullOrWhiteSpace(UserName))
-                {validationResults.Add(FieldValidationResult.CreateError(UserNameProperty, "Требуется имя входа"));}
-                if (string.IsNullOrWhiteSpace(Password))
-                {validationResults.Add(FieldValidationResult.CreateError(PasswordProperty, "Требуется пароль")); }
+                
+                    if (string.IsNullOrWhiteSpace(UserName))
+                    {validationResults.Add(FieldValidationResult.CreateError(UserNameProperty, "Требуется имя входа"));}
+                    if (string.IsNullOrWhiteSpace(Password))
+                    {validationResults.Add(FieldValidationResult.CreateError(PasswordProperty, "Требуется пароль")); }
             }
         }
        
@@ -235,6 +245,7 @@ namespace InfConstractions.Models
                         //base.RaisePropertyChanged("AuthenticationType");
                         ConnectionStringBuilder.IntegratedSecurity = false;
                         ConnectionStringBuilder.Remove("Integrated Security");
+
                     }
                     else
                     {
@@ -245,18 +256,17 @@ namespace InfConstractions.Models
                     }
                 }
         }
-        /// <summary>
-        /// Обновляет список доступных в сети SQL-серверов
-        /// </summary>
         public void RefreshServers()
         {
+            App.Log.Info("SqlEnumerationHelper:SqlEnumerateRemote", "Starting");
             ServersCollection.Clear();
             try
             {
                 //Make an initial call to the sql browser service to wake it up
                 SqlDataSourceEnumerator instance = SqlDataSourceEnumerator.Instance;
-                DataTable dt = instance.GetDataSources();
+                System.Data.DataTable dt = instance.GetDataSources();
                 DataRow[] rows = dt.Select(string.Empty, "ServerName asc");
+
                 if (rows.Length > 0)
                 {
                     foreach (DataRow dr in rows)
@@ -268,40 +278,43 @@ namespace InfConstractions.Models
                         ServersCollection.Add(serverName);
                     }
                 }
-                App.Log.Debug((string)Application.Current.FindResource("refreshServers"));
+                App.Log.Info("SqlEnumerationHelper:SqlEnumerateRemote", "Ending");
             }
             catch (Exception e)
             {
-                App.Log.Error(e,e.Message);
+                App.Log.Info("SqlEnumerationHelper:SqlEnumerateRemote", "SqlDataSourceEnumerator.GetDataSources and assoc processing failed" + e.Message);
             }
         }
-        public void LoadConfig()
-        {
-            var _config = ((Config.Config)Config.Sections["Config"]);
-            _config_connection = _config.defaultConnection;
-            _config_Logins = _config.Logins;
-            if (!string.IsNullOrWhiteSpace(_config_connection.DefaultDBName))
-                { DatabaseName = _config_connection.DefaultDBName; }
-                if (!string.IsNullOrWhiteSpace(_config_connection.DefaultServerName))
-                { ServerName = _config_connection.DefaultServerName; }
-                if (!string.IsNullOrWhiteSpace(_config_connection.DefaultDBAuthenticationType))
-                { AuthenticationType = AuthenticationTypes.IndexOf(_config_connection.DefaultDBAuthenticationType); }
-            Logins = new ObservableCollection<string>();
-            foreach (Login l in _config_Logins)
-            { Logins.Add(l.Name); }
 
-               
-        }
-        
-        public void SaveConfig()
+        public void SaveConfig(string path)
+            
         {
-            _config_connection.DefaultServerName = ServerName;
-            _config_connection.DefaultDBName = DatabaseName;
-            _config_connection.DefaultDBAuthenticationType = AuthenticationTypes[AuthenticationType];
-            _config_Logins.Add(UserName);
-            Config.Save(ConfigurationSaveMode.Full);
+            DBDefault.DefaultServerName = ServerName;
+            DBDefault.DefaultDBName = DatabaseName;
+            DBDefault.DefaultDBAuthenticationType = AuthenticationTypes[AuthenticationType];
+            var str = JsonConvert.SerializeObject(DBDefault, JSSettings).ToString();
+            StreamWriter strw = new StreamWriter(Path.GetFullPath(path), false, Encoding.UTF8);
+            strw.WriteLine(str);
+            strw.Close();
+        }
+
+        public void LoadConfig(string path)
+        {
+            if (File.Exists(path))
+            {
+                DBDefault = JsonConvert.DeserializeObject<DBDefault>((new StreamReader(path, Encoding.UTF8)).ReadToEnd());
+                if (DBDefault != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(DBDefault.DefaultDBName))
+                    { DatabaseName = DBDefault.DefaultDBName; }
+                    if (!string.IsNullOrWhiteSpace(DBDefault.DefaultServerName))
+                    { ServerName = DBDefault.DefaultServerName; }
+                    if (!string.IsNullOrWhiteSpace(DBDefault.DefaultDBAuthenticationType))
+                    { AuthenticationType = AuthenticationTypes.IndexOf(DBDefault.DefaultDBAuthenticationType); }
+                }
+                else { DBDefault = new DBDefault(); }
+            }
         }
     }
+
 }
-
-

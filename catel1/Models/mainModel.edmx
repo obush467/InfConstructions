@@ -4,144 +4,748 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище Models" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "GBUMATC.dbo.proverkaGU" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="proverkaGU">
+      <Schema Namespace="Хранилище mainModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActualStatus">
           <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="ts" />
+            <PropertyRef Name="ACTSTATID" />
           </Key>
-          <Property Name="Num" Type="nvarchar" MaxLength="50" />
-          <Property Name="Okrug" Type="nvarchar" MaxLength="50" />
-          <Property Name="Raion" Type="nvarchar" MaxLength="50" />
-          <Property Name="Street" Type="nvarchar" MaxLength="50" />
-          <Property Name="Dom" Type="nvarchar" MaxLength="50" />
-          <Property Name="ErrorAdress" Type="nvarchar" MaxLength="4000" />
-          <Property Name="Fakt" Type="nvarchar" MaxLength="4000" />
-          <Property Name="Maket" Type="bit" />
-          <Property Name="Passport" Type="bit" />
-          <Property Name="Prim" Type="nvarchar" MaxLength="4000" />
-          <Property Name="Checking" Type="bit" />
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Plash" Type="nvarchar" MaxLength="4000" />
-          <Property Name="ts" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="updated" Type="datetimeoffset" Precision="7" />
+          <Property Name="ACTSTATID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <Function Name="updateProverkaGU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="Ошибки_в_адресации_ГУ" Type="nvarchar" Mode="In" />
-          <Parameter Name="Fact" Type="nvarchar" Mode="In" />
-          <Parameter Name="Плашки" Type="nvarchar" Mode="In" />
-          <Parameter Name="Наличие_согласованного_макета" Type="bit" Mode="In" />
-          <Parameter Name="Наличие_согласованного_паспорта" Type="bit" Mode="In" />
-          <Parameter Name="Примечание" Type="nvarchar" Mode="In" />
-          <Parameter Name="Проверено" Type="bit" Mode="In" />
-          <Parameter Name="UPDATED" Type="datetimeoffset" Mode="In" />
-        </Function>
-        <EntityContainer Name="Хранилище ModelsContainer">
-          <EntitySet Name="proverkaGU" EntityType="Self.proverkaGU" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [proverkaGU].[Num] AS [Num], 
-    [proverkaGU].[Okrug] AS [Okrug], 
-    [proverkaGU].[Raion] AS [Raion], 
-    [proverkaGU].[Street] AS [Street], 
-    [proverkaGU].[Dom] AS [Dom], 
-    [proverkaGU].[ErrorAdress] AS [ErrorAdress], 
-    [proverkaGU].[Fakt] AS [Fakt], 
-    [proverkaGU].[Maket] AS [Maket], 
-    [proverkaGU].[Passport] AS [Passport], 
-    [proverkaGU].[Prim] AS [Prim], 
-    [proverkaGU].[Checking] AS [Checking], 
-    [proverkaGU].[ID] AS [ID], 
-    [proverkaGU].[Plash] AS [Plash], 
-    [proverkaGU].[ts] AS [ts], 
-    [proverkaGU].[updated] AS [updated]
-    FROM [dbo].[proverkaGU] AS [proverkaGU]</DefiningQuery>
-          </EntitySet>
+        <EntityType Name="AddressObjectType">
+          <Key>
+            <PropertyRef Name="LEVEL" />
+            <PropertyRef Name="SCNAME" />
+          </Key>
+          <Property Name="LEVEL" Type="int" Nullable="false" />
+          <Property Name="SCNAME" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SOCRNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KOD_T_ST" Type="varchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CenterStatus">
+          <Key>
+            <PropertyRef Name="CENTERSTID" />
+          </Key>
+          <Property Name="CENTERSTID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CurrentStatus">
+          <Key>
+            <PropertyRef Name="CURENTSTID" />
+          </Key>
+          <Property Name="CURENTSTID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstateStatus">
+          <Key>
+            <PropertyRef Name="ESTSTATID" />
+          </Key>
+          <Property Name="ESTSTATID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SHORTNAME" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="HOUSEID" />
+            <PropertyRef Name="HOUSEGUID" />
+          </Key>
+          <Property Name="POSTALCODE" Type="varchar" MaxLength="6" />
+          <Property Name="IFNSFL" Type="varchar" MaxLength="4" />
+          <Property Name="TERRIFNSFL" Type="varchar" MaxLength="4" />
+          <Property Name="IFNSUL" Type="varchar" MaxLength="4" />
+          <Property Name="TERRIFNSUL" Type="varchar" MaxLength="4" />
+          <Property Name="OKATO" Type="varchar" MaxLength="11" />
+          <Property Name="OKTMO" Type="varchar" MaxLength="11" />
+          <Property Name="UPDATEDATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="HOUSENUM" Type="varchar" MaxLength="20" />
+          <Property Name="ESTSTATUS" Type="int" Nullable="false" />
+          <Property Name="BUILDNUM" Type="varchar" MaxLength="10" />
+          <Property Name="STRUCNUM" Type="varchar" MaxLength="10" />
+          <Property Name="STRSTATUS" Type="int" />
+          <Property Name="HOUSEID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HOUSEGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AOGUID" Type="uniqueidentifier" />
+          <Property Name="STARTDATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="ENDDATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="STATSTATUS" Type="int" Nullable="false" />
+          <Property Name="NORMDOC" Type="uniqueidentifier" />
+          <Property Name="COUNTER" Type="int" Nullable="false" />
+          <Property Name="CADNUM" Type="varchar" MaxLength="100" />
+          <Property Name="DIVTYPE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HouseStateStatus">
+          <Key>
+            <PropertyRef Name="HOUSESTID" />
+          </Key>
+          <Property Name="HOUSESTID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6005: Тип данных "hierarchyid" в настоящее время не поддерживается для целевой версии платформы Entity Framework; столбец "AOHierarchy" в таблице "GBUMATC.fias_Moscow.Object" был исключен.-->
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="AOID" />
+          </Key>
+          <Property Name="AOGUID" Type="uniqueidentifier" />
+          <Property Name="FORMALNAME" Type="nvarchar" MaxLength="120" />
+          <Property Name="REGIONCODE" Type="nvarchar" MaxLength="2" />
+          <Property Name="AUTOCODE" Type="nvarchar" MaxLength="1" />
+          <Property Name="AREACODE" Type="nvarchar" MaxLength="3" />
+          <Property Name="CITYCODE" Type="nvarchar" MaxLength="3" />
+          <Property Name="CTARCODE" Type="nvarchar" MaxLength="3" />
+          <Property Name="PLACECODE" Type="nvarchar" MaxLength="3" />
+          <Property Name="STREETCODE" Type="nvarchar" MaxLength="4" />
+          <Property Name="EXTRCODE" Type="nvarchar" MaxLength="4" />
+          <Property Name="SEXTCODE" Type="nvarchar" MaxLength="3" />
+          <Property Name="OFFNAME" Type="nvarchar" MaxLength="120" />
+          <Property Name="POSTALCODE" Type="nvarchar" MaxLength="6" />
+          <Property Name="IFNSFL" Type="nvarchar" MaxLength="4" />
+          <Property Name="TERRIFNSFL" Type="nvarchar" MaxLength="4" />
+          <Property Name="IFNSUL" Type="nvarchar" MaxLength="4" />
+          <Property Name="TERRIFNSUL" Type="nvarchar" MaxLength="4" />
+          <Property Name="OKATO" Type="nvarchar" MaxLength="11" />
+          <Property Name="OKTMO" Type="nvarchar" MaxLength="11" />
+          <Property Name="UPDATEDATE" Type="datetime" />
+          <Property Name="SHORTNAME" Type="nvarchar" MaxLength="10" />
+          <Property Name="AOLEVEL" Type="int" />
+          <Property Name="PARENTGUID" Type="uniqueidentifier" />
+          <Property Name="AOID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PREVID" Type="uniqueidentifier" />
+          <Property Name="NEXTID" Type="uniqueidentifier" />
+          <Property Name="CODE" Type="nvarchar" MaxLength="17" />
+          <Property Name="PLAINCODE" Type="nvarchar" MaxLength="15" />
+          <Property Name="ACTSTATUS" Type="int" />
+          <Property Name="CENTSTATUS" Type="int" />
+          <Property Name="OPERSTATUS" Type="int" />
+          <Property Name="CURRSTATUS" Type="int" />
+          <Property Name="STARTDATE" Type="datetime" />
+          <Property Name="ENDDATE" Type="datetime" />
+          <Property Name="NORMDOC" Type="uniqueidentifier" />
+          <Property Name="LIVESTATUS" Type="nvarchar" MaxLength="1" />
+          <Property Name="CADNUM" Type="nvarchar" MaxLength="100" />
+          <Property Name="DIVTYPE" Type="int" />
+          <Property Name="OFFNAME_NUM_TYPE" Type="int" />
+          <Property Name="OFFNAME_NUM_NUMBER" Type="int" />
+          <Property Name="OFFNAME_NUM_PREFIX" Type="int" />
+          <Property Name="OFFNAME_NUMBER" Type="varchar" MaxLength="20" />
+          <Property Name="OFFNAME_PREFIX" Type="varchar" MaxLength="20" />
+          <Property Name="OFFNAME_NAME" Type="varchar" MaxLength="80" />
+          <Property Name="CONVERTSTREET" Type="nvarchar" MaxLength="50" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="OperationStatus">
+          <Key>
+            <PropertyRef Name="OPERSTATID" />
+          </Key>
+          <Property Name="OPERSTATID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StructureStatus">
+          <Key>
+            <PropertyRef Name="STRSTATID" />
+          </Key>
+          <Property Name="STRSTATID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SHORTNAME" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_House_EstateStatus">
+          <End Role="EstateStatus" Type="Self.EstateStatus" Multiplicity="1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstateStatus">
+              <PropertyRef Name="ESTSTATID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="ESTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_HouseStateStatus">
+          <End Role="HouseStateStatus" Type="Self.HouseStateStatus" Multiplicity="1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseStateStatus">
+              <PropertyRef Name="HOUSESTID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="STATSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_StructureStatus">
+          <End Role="StructureStatus" Type="Self.StructureStatus" Multiplicity="0..1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StructureStatus">
+              <PropertyRef Name="STRSTATID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="STRSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_ActualStatus">
+          <End Role="ActualStatus" Type="Self.ActualStatus" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActualStatus">
+              <PropertyRef Name="ACTSTATID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="ACTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_AddressObjectType">
+          <End Role="AddressObjectType" Type="Self.AddressObjectType" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressObjectType">
+              <PropertyRef Name="LEVEL" />
+              <PropertyRef Name="SCNAME" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="AOLEVEL" />
+              <PropertyRef Name="SHORTNAME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_CenterStatus">
+          <End Role="CenterStatus" Type="Self.CenterStatus" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CenterStatus">
+              <PropertyRef Name="CENTERSTID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="CENTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_CurrentStatus">
+          <End Role="CurrentStatus" Type="Self.CurrentStatus" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CurrentStatus">
+              <PropertyRef Name="CURENTSTID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="CURRSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_OperationStatus">
+          <End Role="OperationStatus" Type="Self.OperationStatus" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OperationStatus">
+              <PropertyRef Name="OPERSTATID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="OPERSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище mainModelContainer">
+          <EntitySet Name="ActualStatus" EntityType="Self.ActualStatus" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="AddressObjectType" EntityType="Self.AddressObjectType" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="CenterStatus" EntityType="Self.CenterStatus" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="CurrentStatus" EntityType="Self.CurrentStatus" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="EstateStatus" EntityType="Self.EstateStatus" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="House" EntityType="Self.House" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="HouseStateStatus" EntityType="Self.HouseStateStatus" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="Object" EntityType="Self.Object" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="OperationStatus" EntityType="Self.OperationStatus" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="StructureStatus" EntityType="Self.StructureStatus" Schema="fias_Moscow" store:Type="Tables" />
+          <AssociationSet Name="FK_House_EstateStatus" Association="Self.FK_House_EstateStatus">
+            <End Role="EstateStatus" EntitySet="EstateStatus" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_HouseStateStatus" Association="Self.FK_House_HouseStateStatus">
+            <End Role="HouseStateStatus" EntitySet="HouseStateStatus" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_StructureStatus" Association="Self.FK_House_StructureStatus">
+            <End Role="StructureStatus" EntitySet="StructureStatus" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_ActualStatus" Association="Self.FK_Object_ActualStatus">
+            <End Role="ActualStatus" EntitySet="ActualStatus" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_AddressObjectType" Association="Self.FK_Object_AddressObjectType">
+            <End Role="AddressObjectType" EntitySet="AddressObjectType" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_CenterStatus" Association="Self.FK_Object_CenterStatus">
+            <End Role="CenterStatus" EntitySet="CenterStatus" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_CurrentStatus" Association="Self.FK_Object_CurrentStatus">
+            <End Role="CurrentStatus" EntitySet="CurrentStatus" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_OperationStatus" Association="Self.FK_Object_OperationStatus">
+            <End Role="OperationStatus" EntitySet="OperationStatus" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="proverkaGU">
+      <Schema Namespace="mainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ActualStatu">
           <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="ts" />
+            <PropertyRef Name="ACTSTATID" />
           </Key>
-          <Property Name="Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Okrug" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Raion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Dom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ErrorAdress" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Fakt" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Maket" Type="Boolean" />
-          <Property Name="Passport" Type="Boolean" />
-          <Property Name="Prim" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Checking" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Plash" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="ts" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="updated" Type="DateTimeOffset" Nullable="true" />
+          <Property Name="ACTSTATID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Objects" Relationship="Self.FK_Object_ActualStatus" FromRole="ActualStatus" ToRole="Object" />
         </EntityType>
+        <EntityType Name="AddressObjectType">
+          <Key>
+            <PropertyRef Name="LEVEL" />
+            <PropertyRef Name="SCNAME" />
+          </Key>
+          <Property Name="LEVEL" Type="Int32" Nullable="false" />
+          <Property Name="SCNAME" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SOCRNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KOD_T_ST" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Objects" Relationship="Self.FK_Object_AddressObjectType" FromRole="AddressObjectType" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="CenterStatu">
+          <Key>
+            <PropertyRef Name="CENTERSTID" />
+          </Key>
+          <Property Name="CENTERSTID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Objects" Relationship="Self.FK_Object_CenterStatus" FromRole="CenterStatus" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="CurrentStatu">
+          <Key>
+            <PropertyRef Name="CURENTSTID" />
+          </Key>
+          <Property Name="CURENTSTID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Objects" Relationship="Self.FK_Object_CurrentStatus" FromRole="CurrentStatus" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="EstateStatu">
+          <Key>
+            <PropertyRef Name="ESTSTATID" />
+          </Key>
+          <Property Name="ESTSTATID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SHORTNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Houses" Relationship="Self.FK_House_EstateStatus" FromRole="EstateStatus" ToRole="House" />
+        </EntityType>
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="HOUSEID" />
+            <PropertyRef Name="HOUSEGUID" />
+          </Key>
+          <Property Name="POSTALCODE" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="IFNSFL" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="TERRIFNSFL" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IFNSUL" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="TERRIFNSUL" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="OKATO" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="OKTMO" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="UPDATEDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HOUSENUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ESTSTATUS" Type="Int32" Nullable="false" />
+          <Property Name="BUILDNUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="STRUCNUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="STRSTATUS" Type="Int32" />
+          <Property Name="HOUSEID" Type="Guid" Nullable="false" />
+          <Property Name="HOUSEGUID" Type="Guid" Nullable="false" />
+          <Property Name="AOGUID" Type="Guid" />
+          <Property Name="STARTDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ENDDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="STATSTATUS" Type="Int32" Nullable="false" />
+          <Property Name="NORMDOC" Type="Guid" />
+          <Property Name="COUNTER" Type="Int32" Nullable="false" />
+          <Property Name="CADNUM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DIVTYPE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EstateStatu" Relationship="Self.FK_House_EstateStatus" FromRole="House" ToRole="EstateStatus" />
+          <NavigationProperty Name="HouseStateStatu" Relationship="Self.FK_House_HouseStateStatus" FromRole="House" ToRole="HouseStateStatus" />
+          <NavigationProperty Name="StructureStatu" Relationship="Self.FK_House_StructureStatus" FromRole="House" ToRole="StructureStatus" />
+        </EntityType>
+        <EntityType Name="HouseStateStatu">
+          <Key>
+            <PropertyRef Name="HOUSESTID" />
+          </Key>
+          <Property Name="HOUSESTID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Houses" Relationship="Self.FK_House_HouseStateStatus" FromRole="HouseStateStatus" ToRole="House" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="AOID" />
+          </Key>
+          <Property Name="AOGUID" Type="Guid" />
+          <Property Name="FORMALNAME" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="REGIONCODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="AUTOCODE" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="AREACODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="CITYCODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="CTARCODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="PLACECODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="STREETCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="EXTRCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="SEXTCODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="OFFNAME" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="POSTALCODE" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="IFNSFL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="TERRIFNSFL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="IFNSUL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="TERRIFNSUL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="OKATO" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="OKTMO" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+          <Property Name="SHORTNAME" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AOLEVEL" Type="Int32" />
+          <Property Name="PARENTGUID" Type="Guid" />
+          <Property Name="AOID" Type="Guid" Nullable="false" />
+          <Property Name="PREVID" Type="Guid" />
+          <Property Name="NEXTID" Type="Guid" />
+          <Property Name="CODE" Type="String" MaxLength="17" FixedLength="false" Unicode="true" />
+          <Property Name="PLAINCODE" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ACTSTATUS" Type="Int32" />
+          <Property Name="CENTSTATUS" Type="Int32" />
+          <Property Name="OPERSTATUS" Type="Int32" />
+          <Property Name="CURRSTATUS" Type="Int32" />
+          <Property Name="STARTDATE" Type="DateTime" Precision="3" />
+          <Property Name="ENDDATE" Type="DateTime" Precision="3" />
+          <Property Name="NORMDOC" Type="Guid" />
+          <Property Name="LIVESTATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="CADNUM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DIVTYPE" Type="Int32" />
+          <Property Name="OFFNAME_NUM_TYPE" Type="Int32" />
+          <Property Name="OFFNAME_NUM_NUMBER" Type="Int32" />
+          <Property Name="OFFNAME_NUM_PREFIX" Type="Int32" />
+          <Property Name="OFFNAME_NUMBER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OFFNAME_PREFIX" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OFFNAME_NAME" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="CONVERTSTREET" Type="String" MaxLength="50" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="ActualStatu" Relationship="Self.FK_Object_ActualStatus" FromRole="Object" ToRole="ActualStatus" />
+          <NavigationProperty Name="AddressObjectType" Relationship="Self.FK_Object_AddressObjectType" FromRole="Object" ToRole="AddressObjectType" />
+          <NavigationProperty Name="CenterStatu" Relationship="Self.FK_Object_CenterStatus" FromRole="Object" ToRole="CenterStatus" />
+          <NavigationProperty Name="CurrentStatu" Relationship="Self.FK_Object_CurrentStatus" FromRole="Object" ToRole="CurrentStatus" />
+          <NavigationProperty Name="OperationStatu" Relationship="Self.FK_Object_OperationStatus" FromRole="Object" ToRole="OperationStatus" />
+        </EntityType>
+        <EntityType Name="OperationStatu">
+          <Key>
+            <PropertyRef Name="OPERSTATID" />
+          </Key>
+          <Property Name="OPERSTATID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Objects" Relationship="Self.FK_Object_OperationStatus" FromRole="OperationStatus" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="StructureStatu">
+          <Key>
+            <PropertyRef Name="STRSTATID" />
+          </Key>
+          <Property Name="STRSTATID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SHORTNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Houses" Relationship="Self.FK_House_StructureStatus" FromRole="StructureStatus" ToRole="House" />
+        </EntityType>
+        <Association Name="FK_Object_ActualStatus">
+          <End Role="ActualStatus" Type="Self.ActualStatu" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActualStatus">
+              <PropertyRef Name="ACTSTATID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="ACTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_AddressObjectType">
+          <End Role="AddressObjectType" Type="Self.AddressObjectType" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressObjectType">
+              <PropertyRef Name="LEVEL" />
+              <PropertyRef Name="SCNAME" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="AOLEVEL" />
+              <PropertyRef Name="SHORTNAME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_CenterStatus">
+          <End Role="CenterStatus" Type="Self.CenterStatu" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CenterStatus">
+              <PropertyRef Name="CENTERSTID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="CENTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_CurrentStatus">
+          <End Role="CurrentStatus" Type="Self.CurrentStatu" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CurrentStatus">
+              <PropertyRef Name="CURENTSTID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="CURRSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_EstateStatus">
+          <End Role="EstateStatus" Type="Self.EstateStatu" Multiplicity="1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstateStatus">
+              <PropertyRef Name="ESTSTATID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="ESTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_HouseStateStatus">
+          <End Role="HouseStateStatus" Type="Self.HouseStateStatu" Multiplicity="1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseStateStatus">
+              <PropertyRef Name="HOUSESTID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="STATSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_StructureStatus">
+          <End Role="StructureStatus" Type="Self.StructureStatu" Multiplicity="0..1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StructureStatus">
+              <PropertyRef Name="STRSTATID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="STRSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_OperationStatus">
+          <End Role="OperationStatus" Type="Self.OperationStatu" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OperationStatus">
+              <PropertyRef Name="OPERSTATID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="OPERSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="proverkaGU" EntityType="Self.proverkaGU" />
-          <FunctionImport Name="updateProverkaGU">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="Ошибки_в_адресации_ГУ" Mode="In" Type="String" />
-            <Parameter Name="Fact" Mode="In" Type="String" />
-            <Parameter Name="Плашки" Mode="In" Type="String" />
-            <Parameter Name="Наличие_согласованного_макета" Mode="In" Type="Boolean" />
-            <Parameter Name="Наличие_согласованного_паспорта" Mode="In" Type="Boolean" />
-            <Parameter Name="Примечание" Mode="In" Type="String" />
-            <Parameter Name="Проверено" Mode="In" Type="Boolean" />
-            <Parameter Name="UPDATED" Mode="In" Type="DateTimeOffset" />
-          </FunctionImport>
+          <EntitySet Name="ActualStatus" EntityType="Self.ActualStatu" />
+          <EntitySet Name="AddressObjectTypes" EntityType="Self.AddressObjectType" />
+          <EntitySet Name="CenterStatus" EntityType="Self.CenterStatu" />
+          <EntitySet Name="CurrentStatus" EntityType="Self.CurrentStatu" />
+          <EntitySet Name="EstateStatus" EntityType="Self.EstateStatu" />
+          <EntitySet Name="Houses" EntityType="Self.House" />
+          <EntitySet Name="HouseStateStatus" EntityType="Self.HouseStateStatu" />
+          <EntitySet Name="Objects" EntityType="Self.Object" />
+          <EntitySet Name="OperationStatus" EntityType="Self.OperationStatu" />
+          <EntitySet Name="StructureStatus" EntityType="Self.StructureStatu" />
+          <AssociationSet Name="FK_Object_ActualStatus" Association="Self.FK_Object_ActualStatus">
+            <End Role="ActualStatus" EntitySet="ActualStatus" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_AddressObjectType" Association="Self.FK_Object_AddressObjectType">
+            <End Role="AddressObjectType" EntitySet="AddressObjectTypes" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_CenterStatus" Association="Self.FK_Object_CenterStatus">
+            <End Role="CenterStatus" EntitySet="CenterStatus" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_CurrentStatus" Association="Self.FK_Object_CurrentStatus">
+            <End Role="CurrentStatus" EntitySet="CurrentStatus" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_EstateStatus" Association="Self.FK_House_EstateStatus">
+            <End Role="EstateStatus" EntitySet="EstateStatus" />
+            <End Role="House" EntitySet="Houses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_HouseStateStatus" Association="Self.FK_House_HouseStateStatus">
+            <End Role="HouseStateStatus" EntitySet="HouseStateStatus" />
+            <End Role="House" EntitySet="Houses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_StructureStatus" Association="Self.FK_House_StructureStatus">
+            <End Role="StructureStatus" EntitySet="StructureStatus" />
+            <End Role="House" EntitySet="Houses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_OperationStatus" Association="Self.FK_Object_OperationStatus">
+            <End Role="OperationStatus" EntitySet="OperationStatus" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище ModelsContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="proverkaGU">
-            <EntityTypeMapping TypeName="Models.proverkaGU">
-              <MappingFragment StoreEntitySet="proverkaGU">
-                <ScalarProperty Name="updated" ColumnName="updated" />
-                <ScalarProperty Name="ts" ColumnName="ts" />
-                <ScalarProperty Name="Plash" ColumnName="Plash" />
-                <ScalarProperty Name="Num" ColumnName="Num" />
-                <ScalarProperty Name="Okrug" ColumnName="Okrug" />
-                <ScalarProperty Name="Raion" ColumnName="Raion" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="Dom" ColumnName="Dom" />
-                <ScalarProperty Name="ErrorAdress" ColumnName="ErrorAdress" />
-                <ScalarProperty Name="Fakt" ColumnName="Fakt" />
-                <ScalarProperty Name="Maket" ColumnName="Maket" />
-                <ScalarProperty Name="Passport" ColumnName="Passport" />
-                <ScalarProperty Name="Prim" ColumnName="Prim" />
-                <ScalarProperty Name="Checking" ColumnName="Checking" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+        <EntityContainerMapping StorageEntityContainer="Хранилище mainModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="ActualStatus">
+            <EntityTypeMapping TypeName="mainModel.ActualStatu">
+              <MappingFragment StoreEntitySet="ActualStatus">
+                <ScalarProperty Name="ACTSTATID" ColumnName="ACTSTATID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="Models.proverkaGU">
-              <ModificationFunctionMapping>
-                <UpdateFunction FunctionName="Хранилище Models.updateProverkaGU" >
-                  <ScalarProperty Name="updated" ParameterName="UPDATED" Version="Current" />
-                  <ScalarProperty Name="Plash" ParameterName="Плашки" Version="Current" />
-                  <ScalarProperty Name="Fakt" ParameterName="Fact" Version="Current" />
-                  <ScalarProperty Name="Checking" ParameterName="Проверено" Version="Current" />
-                  <ScalarProperty Name="Prim" ParameterName="Примечание" Version="Current" />
-                  <ScalarProperty Name="Passport" ParameterName="Наличие_согласованного_паспорта" Version="Current" />
-                  <ScalarProperty Name="Maket" ParameterName="Наличие_согласованного_макета" Version="Current" />
-                  <ScalarProperty Name="ErrorAdress" ParameterName="Ошибки_в_адресации_ГУ" Version="Current" />
-                  <ScalarProperty Name="ID" ParameterName="id" Version="Current" />
-                </UpdateFunction>
-              </ModificationFunctionMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddressObjectTypes">
+            <EntityTypeMapping TypeName="mainModel.AddressObjectType">
+              <MappingFragment StoreEntitySet="AddressObjectType">
+                <ScalarProperty Name="LEVEL" ColumnName="LEVEL" />
+                <ScalarProperty Name="SCNAME" ColumnName="SCNAME" />
+                <ScalarProperty Name="SOCRNAME" ColumnName="SOCRNAME" />
+                <ScalarProperty Name="KOD_T_ST" ColumnName="KOD_T_ST" />
+              </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="updateProverkaGU" FunctionName="Хранилище Models.updateProverkaGU" />
+          <EntitySetMapping Name="CenterStatus">
+            <EntityTypeMapping TypeName="mainModel.CenterStatu">
+              <MappingFragment StoreEntitySet="CenterStatus">
+                <ScalarProperty Name="CENTERSTID" ColumnName="CENTERSTID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentStatus">
+            <EntityTypeMapping TypeName="mainModel.CurrentStatu">
+              <MappingFragment StoreEntitySet="CurrentStatus">
+                <ScalarProperty Name="CURENTSTID" ColumnName="CURENTSTID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstateStatus">
+            <EntityTypeMapping TypeName="mainModel.EstateStatu">
+              <MappingFragment StoreEntitySet="EstateStatus">
+                <ScalarProperty Name="ESTSTATID" ColumnName="ESTSTATID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SHORTNAME" ColumnName="SHORTNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Houses">
+            <EntityTypeMapping TypeName="mainModel.House">
+              <MappingFragment StoreEntitySet="House">
+                <ScalarProperty Name="POSTALCODE" ColumnName="POSTALCODE" />
+                <ScalarProperty Name="IFNSFL" ColumnName="IFNSFL" />
+                <ScalarProperty Name="TERRIFNSFL" ColumnName="TERRIFNSFL" />
+                <ScalarProperty Name="IFNSUL" ColumnName="IFNSUL" />
+                <ScalarProperty Name="TERRIFNSUL" ColumnName="TERRIFNSUL" />
+                <ScalarProperty Name="OKATO" ColumnName="OKATO" />
+                <ScalarProperty Name="OKTMO" ColumnName="OKTMO" />
+                <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
+                <ScalarProperty Name="HOUSENUM" ColumnName="HOUSENUM" />
+                <ScalarProperty Name="ESTSTATUS" ColumnName="ESTSTATUS" />
+                <ScalarProperty Name="BUILDNUM" ColumnName="BUILDNUM" />
+                <ScalarProperty Name="STRUCNUM" ColumnName="STRUCNUM" />
+                <ScalarProperty Name="STRSTATUS" ColumnName="STRSTATUS" />
+                <ScalarProperty Name="HOUSEID" ColumnName="HOUSEID" />
+                <ScalarProperty Name="HOUSEGUID" ColumnName="HOUSEGUID" />
+                <ScalarProperty Name="AOGUID" ColumnName="AOGUID" />
+                <ScalarProperty Name="STARTDATE" ColumnName="STARTDATE" />
+                <ScalarProperty Name="ENDDATE" ColumnName="ENDDATE" />
+                <ScalarProperty Name="STATSTATUS" ColumnName="STATSTATUS" />
+                <ScalarProperty Name="NORMDOC" ColumnName="NORMDOC" />
+                <ScalarProperty Name="COUNTER" ColumnName="COUNTER" />
+                <ScalarProperty Name="CADNUM" ColumnName="CADNUM" />
+                <ScalarProperty Name="DIVTYPE" ColumnName="DIVTYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HouseStateStatus">
+            <EntityTypeMapping TypeName="mainModel.HouseStateStatu">
+              <MappingFragment StoreEntitySet="HouseStateStatus">
+                <ScalarProperty Name="HOUSESTID" ColumnName="HOUSESTID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Objects">
+            <EntityTypeMapping TypeName="mainModel.Object">
+              <MappingFragment StoreEntitySet="Object">
+                <ScalarProperty Name="AOGUID" ColumnName="AOGUID" />
+                <ScalarProperty Name="FORMALNAME" ColumnName="FORMALNAME" />
+                <ScalarProperty Name="REGIONCODE" ColumnName="REGIONCODE" />
+                <ScalarProperty Name="AUTOCODE" ColumnName="AUTOCODE" />
+                <ScalarProperty Name="AREACODE" ColumnName="AREACODE" />
+                <ScalarProperty Name="CITYCODE" ColumnName="CITYCODE" />
+                <ScalarProperty Name="CTARCODE" ColumnName="CTARCODE" />
+                <ScalarProperty Name="PLACECODE" ColumnName="PLACECODE" />
+                <ScalarProperty Name="STREETCODE" ColumnName="STREETCODE" />
+                <ScalarProperty Name="EXTRCODE" ColumnName="EXTRCODE" />
+                <ScalarProperty Name="SEXTCODE" ColumnName="SEXTCODE" />
+                <ScalarProperty Name="OFFNAME" ColumnName="OFFNAME" />
+                <ScalarProperty Name="POSTALCODE" ColumnName="POSTALCODE" />
+                <ScalarProperty Name="IFNSFL" ColumnName="IFNSFL" />
+                <ScalarProperty Name="TERRIFNSFL" ColumnName="TERRIFNSFL" />
+                <ScalarProperty Name="IFNSUL" ColumnName="IFNSUL" />
+                <ScalarProperty Name="TERRIFNSUL" ColumnName="TERRIFNSUL" />
+                <ScalarProperty Name="OKATO" ColumnName="OKATO" />
+                <ScalarProperty Name="OKTMO" ColumnName="OKTMO" />
+                <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
+                <ScalarProperty Name="SHORTNAME" ColumnName="SHORTNAME" />
+                <ScalarProperty Name="AOLEVEL" ColumnName="AOLEVEL" />
+                <ScalarProperty Name="PARENTGUID" ColumnName="PARENTGUID" />
+                <ScalarProperty Name="AOID" ColumnName="AOID" />
+                <ScalarProperty Name="PREVID" ColumnName="PREVID" />
+                <ScalarProperty Name="NEXTID" ColumnName="NEXTID" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="PLAINCODE" ColumnName="PLAINCODE" />
+                <ScalarProperty Name="ACTSTATUS" ColumnName="ACTSTATUS" />
+                <ScalarProperty Name="CENTSTATUS" ColumnName="CENTSTATUS" />
+                <ScalarProperty Name="OPERSTATUS" ColumnName="OPERSTATUS" />
+                <ScalarProperty Name="CURRSTATUS" ColumnName="CURRSTATUS" />
+                <ScalarProperty Name="STARTDATE" ColumnName="STARTDATE" />
+                <ScalarProperty Name="ENDDATE" ColumnName="ENDDATE" />
+                <ScalarProperty Name="NORMDOC" ColumnName="NORMDOC" />
+                <ScalarProperty Name="LIVESTATUS" ColumnName="LIVESTATUS" />
+                <ScalarProperty Name="CADNUM" ColumnName="CADNUM" />
+                <ScalarProperty Name="DIVTYPE" ColumnName="DIVTYPE" />
+                <ScalarProperty Name="OFFNAME_NUM_TYPE" ColumnName="OFFNAME_NUM_TYPE" />
+                <ScalarProperty Name="OFFNAME_NUM_NUMBER" ColumnName="OFFNAME_NUM_NUMBER" />
+                <ScalarProperty Name="OFFNAME_NUM_PREFIX" ColumnName="OFFNAME_NUM_PREFIX" />
+                <ScalarProperty Name="OFFNAME_NUMBER" ColumnName="OFFNAME_NUMBER" />
+                <ScalarProperty Name="OFFNAME_PREFIX" ColumnName="OFFNAME_PREFIX" />
+                <ScalarProperty Name="OFFNAME_NAME" ColumnName="OFFNAME_NAME" />
+                <ScalarProperty Name="CONVERTSTREET" ColumnName="CONVERTSTREET" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OperationStatus">
+            <EntityTypeMapping TypeName="mainModel.OperationStatu">
+              <MappingFragment StoreEntitySet="OperationStatus">
+                <ScalarProperty Name="OPERSTATID" ColumnName="OPERSTATID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StructureStatus">
+            <EntityTypeMapping TypeName="mainModel.StructureStatu">
+              <MappingFragment StoreEntitySet="StructureStatus">
+                <ScalarProperty Name="STRSTATID" ColumnName="STRSTATID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SHORTNAME" ColumnName="SHORTNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -155,12 +759,11 @@
     </Connection>
     <Options>
       <DesignerInfoPropertySet>
-        <DesignerProperty Name="ValidateOnBuild" Value="False" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
-        <DesignerProperty Name="SynchronizePropertyFacets" Value="False" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -1,9 +1,9 @@
 ﻿<Application
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:System="clr-namespace:System;assembly=mscorlib" 
-             x:Class="InfConstractions.App"
-             StartupUri="/Views/MainWindow.xaml">
+             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="InfConstractions.App"
+             StartupUri="/Views/MainWindow.xaml"
+             Startup="Login">
     <Application.Resources>
 
         <!-- Generic Catel theme -->
@@ -12,9 +12,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />
                 <ResourceDictionary Source="/Views/ResourceDictionary.xaml"/>
-                <!--<ResourceDictionary>
-                    <uc:FileExplorerBootStrapper x:Key="boot" />
-                </ResourceDictionary>-->
             </ResourceDictionary.MergedDictionaries>
             <System:String x:Key="Title11">vLogger</System:String>
         </ResourceDictionary>

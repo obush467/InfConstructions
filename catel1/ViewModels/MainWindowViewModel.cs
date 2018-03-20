@@ -1,151 +1,63 @@
 ﻿namespace InfConstractions.ViewModels
 {
+    using Catel.Data;
+    using Catel.MVVM;
+    using Catel.Services;
     using System.Threading.Tasks;
     using System.Data.Entity;
     using System.Linq;
-    using System.Data.SqlClient;
-    using System.Windows;
-    using Models;
-    using System.Data.Entity.Core.EntityClient;
-    using System;
-    using DevExpress.Xpf.Docking;
-    using DevExpress.Mvvm;
-    using DevExpress.Mvvm.ViewModel;
-    using DevExpress.Mvvm.POCO;
-    using Catel.Services;
-    using Catel.IoC;
-    using DevExpress.Mvvm.DataAnnotations;
-    using System.Collections.Generic;
-    using System.Collections;
-    using Catel.Logging;
 
     public class MainWindowViewModel : ViewModelBase
     {
-        formLoginViewModel vm = new formLoginViewModel(new SqlConnection());
-        IDictionary Documents = new Dictionary<string, IDocument>();
-        protected IDialogService DialogService { get { return this.GetService<IDialogService>(); } }
-        ILog Log = LogManager.GetCurrentClassLogger();
-        protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
+        private readonly IUIVisualizerService _uiVisualizerService;
+        private readonly IPleaseWaitService _pleaseWaitService;
+        private readonly IMessageService _messageService;
         public MainWindowViewModel()
         {
-            try
-            {
-                vmVisibility = Visibility.Hidden;
-                mainWindowModel = new MainWindowModel();
-                var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
-                u.ShowDialogAsync(vm, completeLogin);
-                #region CommandsCreate
-
-                #endregion
-            }
-            catch (Exception ex)
-            { MessageBox.Show("MainWindowViewModel - " + ex.Message); }
+            TTTTT = App._mainDBContext;
         }
-        public string Title { get { return "InfConstractions"; } }
-
-        private void completeLogin(object sender, UICompletedEventArgs e)
+        public MainWindowViewModel(IUIVisualizerService uiVisualizerService, PleaseWaitService pleaseWaitService, IMessageService messageService)
         {
-            if (e.Result == true)
-            {
-                try
-                {
-                    mainWindowModel.sqlConnection = vm.Connection;
-                    mainWindowModel.efConnection = vm.efConnection;
-                }
-                catch (Exception ex)
-                { MessageBox.Show("MainWindowViewModel.completeLogin - " + ex.Message); }
-                finally
-                { vmVisibility = Visibility.Visible; }
-            }
-            else { App.Current.Shutdown(-1); }
+            _uiVisualizerService = uiVisualizerService;
+            _pleaseWaitService = pleaseWaitService;
+            _messageService = messageService;
+        } 
+
+        public override string Title { get { return "InfConstractions"; } }
+
+        /// <summary>
+            /// Gets or sets the property value.
+            /// </summary>
+        // TODO: Register models with the vmpropmodel codesnippet
+        // TODO: Register view model properties with the vmprop or vmpropviewmodeltomodel codesnippets
+        // TODO: Register commands with the vmcommand or vmcommandwithcanexecute codesnippets
+
+        protected override async Task InitializeAsync()
+        {
+            await base.InitializeAsync();
+
+            // TODO: subscribe to events here
         }
 
-        public Entities mainContext
+        protected override async Task CloseAsync()
         {
-            get { return mainWindowModel.mainContext; }
-          
-            set { mainWindowModel.mainContext=value; }
+            // TODO: unsubscribe from events here
+
+            await base.CloseAsync();
         }
 
-        void Update_mainContext()
+        /// <summary>
+            /// Gets or sets the property value.
+            /// </summary>
+        public DbContext TTTTT
         {
-            RaisePropertyChanged(() => mainContext);
+            get { return GetValue<DbContext>(TTTTTProperty); }
+            set { SetValue(TTTTTProperty, value); }
         }
 
-        public MainWindowModel mainWindowModel;
-
-        public SqlConnection sqlConnection
-        {
-            get { return mainWindowModel.sqlConnection; }
-            private set { mainWindowModel.sqlConnection= value; }
-        }
-
-        public EntityConnection efConnection
-        {
-            get { return mainWindowModel.efConnection; }
-            set { mainWindowModel.efConnection= value; }
-        }
-
-        public Visibility vmVisibility
-        {
-            get { return GetProperty(() => vmVisibility); }
-            set { SetProperty(() => vmVisibility, value); }
-        }
-
-        #region Commands
-        [Command(CanExecuteMethodName = "CanClose",
-            Name = "CloseCommand",
-            UseCommandManager = true)]
-        public void Close ()
-        {
-            var l=DocumentManagerService.Documents.ToList();
-            foreach(IDocument doc in l)
-                {
-                    Log.Info("Закрытие документа {0}",doc.Title);
-                    doc.Close();
-                };
-        }
-        public bool CanClose()
-        {
-            return true;
-        }
-
-        [Command(CanExecuteMethodName = "CanProverkaGU",
-            Name = "ProverkaGUCommand",
-            UseCommandManager = true)]
-        public void ProverkaGU()
-        {
-            IDocument doc1;
-            doc1 = DocumentManagerService.CreateDocument("ProverkaGUView", ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext)));
-            doc1.Id = DocumentManagerService.Documents.Count<IDocument>();
-            doc1.Title = "Проверка ГУ";
-            doc1.Show();
-        }
-        public bool CanProverkaGU()
-        {
-            if (efConnection.State != System.Data.ConnectionState.Closed)
-            { return true; }
-            else
-            { return false; }
-        }
-        #endregion
-        [Command(CanExecuteMethodName = "CanShowLoginForm",
-        Name = "ShowLoginFormCommand",
-        UseCommandManager = true)]
-        public void ShowLoginForm()
-        {
-            floginViewModel ViewModel = floginViewModel.Create(sqlConnection);
-            List<UICommand> commands = new List<UICommand>();
-            commands.Add(new UICommand(1, "Соединить", ViewModel.RefreshServersList, true, false));
-            commands.Add(new UICommand(1, "Соединить", ViewModel.RefreshServersList, true, false));
-            DialogService.ShowDialog(
-                dialogCommands: commands,
-                title: "Соединение с сервером",
-                viewModel: ViewModel);
-        }
-        public bool CanShowLoginForm()
-        {
-            return true;
-        }
+        /// <summary>
+        /// Register the TTTTT property so it is known in the class.
+        /// </summary>
+        public static readonly PropertyData TTTTTProperty = RegisterProperty("TTTTT", typeof(DbContext), null);
     }
 }

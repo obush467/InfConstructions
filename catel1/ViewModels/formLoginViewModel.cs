@@ -13,20 +13,25 @@ namespace InfConstractions.ViewModels
     using Catel.Services;
     using Catel;
     using System.Data.Entity.Core.EntityClient;
-    using Views;
 
     public class formLoginViewModel : ViewModelBase
     {
+        // TODO: Register models with the vmpropmodel codesnippet
+        // TODO: Register view model properties with the vmprop or vmpropviewmodeltomodel codesnippets
+        // TODO: Register commands with the vmcommand or vmcommandwithcanexecute codesnippets
+
         public CommandBindingCollection CommandBindings = new CommandBindingCollection();
+        const string ConfigPath = "e:\\App.config.json";
         #region Constructors
+
         public formLoginViewModel(SqlConnection connection) : this()
         {
-            Argument.IsNotNull(()=> connection);
             Connection = connection;
         }
         public formLoginViewModel(formLoginModel _formLoginModel)
         {
             Argument.IsNotNull("Model", _formLoginModel);
+
             Model = _formLoginModel;
         }
         public formLoginViewModel ():this(new formLoginModel())
@@ -54,12 +59,15 @@ namespace InfConstractions.ViewModels
         #region Commands
         public Command cmRefreshServersList { get; private set; }
         private bool OncmRefreshServersListCanExecute()
-        {return true;}
+        {
+            return true;
+        }
         private void OncmRefreshServersListExecute()
         {
             // TODO: Handle command logic here
             if (ServersCollection.Count == 0)
             { Model.RefreshServers();}
+            
         }
         public Command cmConnectionStringConstruct { get; set; }
         private async void OncmConnectionStringConstructExecute()
@@ -72,7 +80,7 @@ namespace InfConstractions.ViewModels
             //Password = "Password";
             ConnectionStringBuilder.ConnectTimeout = 30;           
             ConnectionStringBuilder.MultipleActiveResultSets = true;
-            ConnectionStringBuilder.ApplicationName = App.Current.MainWindow.Title;
+            ConnectionStringBuilder.ApplicationName = System.AppDomain.CurrentDomain.FriendlyName;
             Validate(true);
             if (!HasErrors)
             {
@@ -84,6 +92,7 @@ namespace InfConstractions.ViewModels
                     Connection.Open();
                     efStringBuilder.Provider = "System.Data.SqlClient";
                     efStringBuilder.Metadata = @"res://*/Models.mainModel.csdl|res://*/Models.mainModel.ssdl|res://*/Models.mainModel.msl";
+                    
                     efStringBuilder.ProviderConnectionString = Connection.ConnectionString;                   
                     efConnection=new EntityConnection (efStringBuilder.ToString());
                     efConnection.Open();
@@ -137,7 +146,17 @@ namespace InfConstractions.ViewModels
             set { SetValue(ModelProperty, value); }
         }
         public static readonly PropertyData ModelProperty = RegisterProperty("Model", typeof(formLoginModel), null);        
+        protected override async Task InitializeAsync()
+        {
+            await base.InitializeAsync();
+        }
 
+        protected override async Task CloseAsync()
+        {
+            // TODO: unsubscribe from events here
+
+            await base.CloseAsync();
+        }
         [ViewModelToModel("Model")]
         public ObservableCollection<string> ServersCollection
         {
@@ -219,32 +238,13 @@ namespace InfConstractions.ViewModels
         /// </summary>
         public static readonly PropertyData efConnectionProperty = RegisterProperty("efConnection", typeof(EntityConnection), null);
 
-        [ViewModelToModel("Model")]
-        public ObservableCollection<string> Logins
-        {
-            get { return GetValue<ObservableCollection<string>>(LoginsProperty); }
-            set { SetValue(LoginsProperty, value); }
-        }
 
-        public static readonly PropertyData LoginsProperty = RegisterProperty(nameof(Logins), typeof(ObservableCollection<string>), null);
         #endregion
 
         #region Metods
         public void SaveConfig()
         {
-            // Model.SaveConfig(ConfigPath);
-            Model.SaveConfig();
-        }
-        protected override async Task InitializeAsync()
-        {
-            await base.InitializeAsync();
-        }
-
-        protected override async Task CloseAsync()
-        {
-            // TODO: unsubscribe from events here
-
-            await base.CloseAsync();
+            Model.SaveConfig(ConfigPath);
         }
         #endregion
 

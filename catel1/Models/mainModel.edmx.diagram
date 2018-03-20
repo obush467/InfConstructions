@@ -4,8 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="85f9016bd49d41b69aa43f437ce8d9a4" Name="Diagram1">
-        <EntityTypeShape EntityType="Models.proverkaGU" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="859491ed184a416d9a181d59762fd372" Name="Diagram1">
+        <EntityTypeShape EntityType="mainModel.ActualStatu" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.AddressObjectType" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.CenterStatu" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.CurrentStatu" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.EstateStatu" Width="1.5" PointX="5.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.House" Width="1.5" PointX="8" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.HouseStateStatu" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Object" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.OperationStatu" Width="1.5" PointX="0.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.StructureStatu" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="mainModel.FK_Object_ActualStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Object_AddressObjectType" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Object_CenterStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Object_CurrentStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_House_EstateStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_House_HouseStateStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_House_StructureStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Object_OperationStatus" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

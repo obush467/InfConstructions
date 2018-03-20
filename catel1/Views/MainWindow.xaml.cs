@@ -4,16 +4,12 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
+using Xceed.Wpf.AvalonDock;
+using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Themes;
 using System.Windows.Data;
 using InfConstractions.ViewModels;
 using Catel.Logging;
-using DevExpress.Xpf.Layout;
-using DevExpress.Xpf.Docking;
-using DevExpress.Mvvm;
-using System.Data.SqlClient;
-using InfConstractions.Models;
-using Catel.IoC;
-using Catel.Windows;
 
 namespace InfConstractions.Views
 {
@@ -22,24 +18,40 @@ namespace InfConstractions.Views
         public MainWindow()
         {
             InitializeComponent();
-            Visibility = Visibility.Hidden;        
+            
         }
-
         private void DockManagerDocumentClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("Точно закрыть?", "Закрытие", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            if (MessageBox.Show("Close this tab?", ".Net Notepad", MessageBoxButton.YesNo) == MessageBoxResult.No)
             {e.Cancel = true;}
         }
-
-        private void mainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void NewDocument()
         {
-            ((MainWindowViewModel)DataContext).ShowLoginForm();
-           if (((MainWindowViewModel)DataContext).CanProverkaGU()) ((MainWindowViewModel)DataContext).ProverkaGU();
+            //string title = "New1";
+            var doc = new LayoutDocument();
+            DOcPane1.Children.Add(doc);
+            ucLoggerViewModel VM = new ucLoggerViewModel();
+            Binding myBinding = new Binding("Text");
+            myBinding.Source=mainWindow.text2;
+            myBinding.Mode = BindingMode.TwoWay;
+            //mainWindow.la_vLogger.SetBinding(LayoutAnchorable.TitleProperty, myBinding);
+            //BindingOperations.SetBinding(mainWindow.la_vLogger, LayoutAnchorable.TitleProperty, myBinding);
+            BindingOperations.SetBinding(doc, LayoutDocument.TitleProperty, myBinding);
+            ViewModels.AssignAddressViewModel vm2 = new AssignAddressViewModel();
+            vm2.Sel1();
         }
 
-        private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindowViewModel)DataContext).Close();
+            NewDocument();
+            App.Log.Info("Открыт новый документ");
+
+        }
+
+        private void mainWindiw_Drop(object sender, DragEventArgs e)
+        {
+
         }
     }
+
 }

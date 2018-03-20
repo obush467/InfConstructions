@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using DevExpress.Mvvm.DataAnnotations;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
@@ -11,24 +12,23 @@ using InfConstractions.Models;
 
 namespace InfConstractions.ViewModels
 {
-    [POCOViewModel]
-    public class floginViewModel
+
+    public class floginViewModel:ViewModelBase
     {
+        private string _userName;
+
         protected IMessageBoxService MessageService { get { return this.GetService<IMessageBoxService>(); } }
+        protected ICurrentDialogService DialogService { get { return this.GetService<ICurrentDialogService>(); } }
         #region Constructors
-        public floginViewModel(SqlConnection connection): this()
+        public floginViewModel(SqlConnection connection)
         {
-            Model.Connection = connection;
-        }
-        public floginViewModel(formLoginModel _formLoginModel)
-        {
-            Model = _formLoginModel;
-        }
-        protected floginViewModel():this(new formLoginModel())
-        {
+            Model = new formLoginModel();
+            Model.Connection = connection;          
             //ValidateModelsOnInitialization = false;
             //Создание и регистрация команд 
-            RefreshServersList = new DelegateCommand(cmRefreshServersList, CanRefreshServersList, false);                   
+            RefreshServersList = new DelegateCommand(cmRefreshServersList, CanRefreshServersList, false);
+            ConnectionStringConstruct = new DelegateCommand(cmConnectionStringConstruct, true);
+            Close = new DelegateCommand(cmClose, CancmClose, false);
         }
 
         public floginViewModel(EntityConnection connection)
@@ -38,12 +38,8 @@ namespace InfConstractions.ViewModels
         }
 
         
-        public static floginViewModel Create()
-        { return ViewModelSource.Create<floginViewModel>(() => new floginViewModel()); }
         public static floginViewModel Create(SqlConnection connection)
         { return ViewModelSource.Create<floginViewModel>(() => new floginViewModel(connection)); }
-        public static floginViewModel Create(formLoginModel _formLoginModel)
-        { return ViewModelSource.Create<floginViewModel>(() => new floginViewModel(_formLoginModel)); }
         #endregion
         #region Properties
         public EntityConnectionStringBuilder efStringBuilder { get { return Model.efStringBuilder; }}
@@ -68,16 +64,10 @@ namespace InfConstractions.ViewModels
             get { return Model.ServerName; }
             set { Model.ServerName = value; }
         }
-        public string UserName
-        {
-            get { return Model.UserName; }
-            set { Model.UserName = value; }
-        }
+        public string userName
+        { get { return Model.UserName;} set { Model.UserName = value; }}
         public string Password
-        {
-            get { return Model.Password; }
-            set { Model.Password = value; }
-        }
+        { get { return Model.Password; } set { Model.Password = value; } }
         public string DatabaseName
         {
             get { return Model.DatabaseName; }
@@ -98,6 +88,23 @@ namespace InfConstractions.ViewModels
         #region Commands
 
         public DelegateCommand RefreshServersList { get; private set; }
+        public DelegateCommand ConnectionStringConstruct { get; private set; }
+        public DelegateCommand Close { get; private set; }
+        #endregion
+
+        #region Metods
+
+        private bool CancmClose()
+        {
+            return true;
+        }
+
+        private void cmClose()
+        {
+            //IDialogService f;
+            //f.ShowDialog()
+            DialogService.Close();
+        }
         protected void cmRefreshServersList()
         {
             // TODO: Handle command logic here
@@ -107,19 +114,16 @@ namespace InfConstractions.ViewModels
         public bool CanRefreshServersList()
         { return true; }
 
-        public async void cmConnectionStringConstruct()
-        {
-            ConnectionStringBuilder.PersistSecurityInfo = true;
-            ConnectionStringBuilder.ConnectTimeout = 30;
-            ConnectionStringBuilder.MultipleActiveResultSets = true;
-            ConnectionStringBuilder.ApplicationName = App.Current.MainWindow.Title;
-            //Validate(true);
-            //if (!HasErrors)
-            {
-                if (Connection.State != System.Data.ConnectionState.Closed)
-                { Connection.Close(); }
+        public void cmConnectionStringConstruct()
+        {          
                 try
                 {
+                    ConnectionStringBuilder.PersistSecurityInfo = true;
+                    ConnectionStringBuilder.ConnectTimeout = 30;
+                    ConnectionStringBuilder.MultipleActiveResultSets = true;
+                    ConnectionStringBuilder.ApplicationName = Application.Current.MainWindow.Title;
+                    ConnectionStringBuilder.UserID = userName;
+                    ConnectionStringBuilder.Password = Password;
                     Connection.ConnectionString = ConnectionStringBuilder.ConnectionString;
                     Connection.Open();
                     efStringBuilder.Provider = "System.Data.SqlClient";
@@ -128,7 +132,7 @@ namespace InfConstractions.ViewModels
                     efConnection = new EntityConnection(efStringBuilder.ToString());
                     efConnection.Open();
                     SaveConfig();
-                    //await this.SaveAndCloseViewModelAsync();
+                    Close.Execute(null);
                 }
                 catch (SqlException e)
                 {
@@ -142,11 +146,13 @@ namespace InfConstractions.ViewModels
                 {
                     //App.uiVisualizerService.Unregister(typeof(formLoginViewModel));
                 }
-            }
+            
         }
-        #endregion
+        protected bool CancmConnectionStringConstruct()
+        { return true; }
+        
 
-        #region Metods
+        
         public void SaveConfig()
         {
             Model.SaveConfig();
