@@ -308,6 +308,15 @@
     <Compile Include="Config\DefaultConnection - Копировать.cs" />
     <Compile Include="Config\DefaultConnection.cs" />
     <Compile Include="Models\Entities_part.cs" />
+    <Compile Include="Models\GUPassport.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GUPassport_Site.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GUPassport_State.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\mainModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -324,6 +333,7 @@
       <DependentUpon>mainModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\MainWindowModel.cs" />
+    <Compile Include="Models\PassportModel.cs" />
     <Compile Include="Models\proverkaGU.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
@@ -459,6 +469,10 @@
     <None Include="InfConstractions_TemporaryKey.pfx" />
     <None Include="Models\mainModel.edmx.diagram">
       <DependentUpon>mainModel.edmx</DependentUpon>
+    </None>
+    <None Include="Models\ORMDataModel1.xpo" />
+    <None Include="Models\ORMDataModel1.xpo.diagram">
+      <DependentUpon>ORMDataModel1.xpo</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />

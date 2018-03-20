@@ -28,8 +28,11 @@ namespace InfConstractions.Models
         }
     
         public virtual DbSet<proverkaGU> proverkaGU { get; set; }
+        public virtual DbSet<GUPassport_Site> GUPassport_Sites { get; set; }
+        public virtual DbSet<GUPassport> GUPassports { get; set; }
+        public virtual DbSet<GUPassport_State> GUPassport_States { get; set; }
     
-        public virtual int updateProverkaGU(Nullable<int> id, string ошибки_в_адресации_ГУ, string fact, string плашки, Nullable<bool> наличие_согласованного_макета, Nullable<bool> наличие_согласованного_паспорта, string примечание, Nullable<bool> проверено, Nullable<System.DateTimeOffset> uPDATED)
+        public virtual int updateProverkaGU(Nullable<int> id, string ошибки_в_адресации_ГУ, string fact, string плашки, Nullable<bool> наличие_согласованного_макета, Nullable<bool> наличие_согласованного_паспорта, string примечание, Nullable<bool> проверено, Nullable<System.DateTimeOffset> updated)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -63,11 +66,11 @@ namespace InfConstractions.Models
                 new ObjectParameter("Проверено", проверено) :
                 new ObjectParameter("Проверено", typeof(bool));
     
-            var uPDATEDParameter = uPDATED.HasValue ?
-                new ObjectParameter("UPDATED", uPDATED) :
-                new ObjectParameter("UPDATED", typeof(System.DateTimeOffset));
+            var updatedParameter = updated.HasValue ?
+                new ObjectParameter("updated", updated) :
+                new ObjectParameter("updated", typeof(System.DateTimeOffset));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateProverkaGU", idParameter, ошибки_в_адресации_ГУParameter, factParameter, плашкиParameter, наличие_согласованного_макетаParameter, наличие_согласованного_паспортаParameter, примечаниеParameter, провереноParameter, uPDATEDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateProverkaGU", idParameter, ошибки_в_адресации_ГУParameter, factParameter, плашкиParameter, наличие_согласованного_макетаParameter, наличие_согласованного_паспортаParameter, примечаниеParameter, провереноParameter, updatedParameter);
         }
     }
 }

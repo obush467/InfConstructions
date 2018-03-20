@@ -6,6 +6,13 @@
     <edmx:Diagrams>
       <Diagram DiagramId="85f9016bd49d41b69aa43f437ce8d9a4" Name="Diagram1">
         <EntityTypeShape EntityType="Models.proverkaGU" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.GUPassport_Site" Width="1.5" PointX="6.625" PointY="4.75" />
+        <EntityTypeShape EntityType="Models.GUPassport" Width="2" PointX="3.875" PointY="0.75" />
+        <EntityTypeShape EntityType="Models.GUPassport_State" Width="1.5" PointX="6.625" PointY="0.75" />
+        <AssociationConnector Association="Models.FK_GUPasssport_Sites_GUPassports" />
+        <AssociationConnector Association="Models.FK_GUPassports_GUPassports" />
+        <AssociationConnector Association="Models.FK_GUPassports_GUPassports1" />
+        <AssociationConnector Association="Models.FK_GUPasssport_States_GUPassports" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

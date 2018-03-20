@@ -75,7 +75,7 @@ namespace PassportOperator
             Document doc = ConvertToWord(_passport);
             if (autoSave)
             {
-                doc.SaveAs2(Path.Combine(directory.FullName, NamingFunc(Passport)));
+                doc.SaveAs2(Path.Combine(directory.FullName, NamingFunc(_passport)));
                 doc.Close();
             }
         }
