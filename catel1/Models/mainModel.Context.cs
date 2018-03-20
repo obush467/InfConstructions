@@ -11,63 +11,32 @@ namespace InfConstractions.Models
 {
     using System;
     using System.Data.Entity;
+    using System.Data.Entity.Core.EntityClient;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
-    
+
     public partial class Entities : DbContext
     {
         public Entities()
             : base("name=Entities")
         {
         }
-    
+        public Entities(EntityConnection Conn):base(Conn,false)
+        {
+        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<proverkaGU> proverkaGU { get; set; }
-    
-        public virtual int updateProverkaGU(Nullable<int> id, string ошибки_в_адресации_ГУ, string fact, string плашки, Nullable<bool> наличие_согласованного_макета, Nullable<bool> наличие_согласованного_паспорта, string примечание, Nullable<bool> проверено, Nullable<System.DateTimeOffset> uPDATED)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var ошибки_в_адресации_ГУParameter = ошибки_в_адресации_ГУ != null ?
-                new ObjectParameter("Ошибки_в_адресации_ГУ", ошибки_в_адресации_ГУ) :
-                new ObjectParameter("Ошибки_в_адресации_ГУ", typeof(string));
-    
-            var factParameter = fact != null ?
-                new ObjectParameter("Fact", fact) :
-                new ObjectParameter("Fact", typeof(string));
-    
-            var плашкиParameter = плашки != null ?
-                new ObjectParameter("Плашки", плашки) :
-                new ObjectParameter("Плашки", typeof(string));
-    
-            var наличие_согласованного_макетаParameter = наличие_согласованного_макета.HasValue ?
-                new ObjectParameter("Наличие_согласованного_макета", наличие_согласованного_макета) :
-                new ObjectParameter("Наличие_согласованного_макета", typeof(bool));
-    
-            var наличие_согласованного_паспортаParameter = наличие_согласованного_паспорта.HasValue ?
-                new ObjectParameter("Наличие_согласованного_паспорта", наличие_согласованного_паспорта) :
-                new ObjectParameter("Наличие_согласованного_паспорта", typeof(bool));
-    
-            var примечаниеParameter = примечание != null ?
-                new ObjectParameter("Примечание", примечание) :
-                new ObjectParameter("Примечание", typeof(string));
-    
-            var провереноParameter = проверено.HasValue ?
-                new ObjectParameter("Проверено", проверено) :
-                new ObjectParameter("Проверено", typeof(bool));
-    
-            var uPDATEDParameter = uPDATED.HasValue ?
-                new ObjectParameter("UPDATED", uPDATED) :
-                new ObjectParameter("UPDATED", typeof(System.DateTimeOffset));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateProverkaGU", idParameter, ошибки_в_адресации_ГУParameter, factParameter, плашкиParameter, наличие_согласованного_макетаParameter, наличие_согласованного_паспортаParameter, примечаниеParameter, провереноParameter, uPDATEDParameter);
-        }
+        public virtual DbSet<ActualStatu> ActualStatus { get; set; }
+        public virtual DbSet<AddressObjectType> AddressObjectTypes { get; set; }
+        public virtual DbSet<CenterStatu> CenterStatus { get; set; }
+        public virtual DbSet<CurrentStatu> CurrentStatus { get; set; }
+        public virtual DbSet<EstateStatu> EstateStatus { get; set; }
+        public virtual DbSet<House> Houses { get; set; }
+        public virtual DbSet<HouseStateStatu> HouseStateStatus { get; set; }
+        public virtual DbSet<Object> Objects { get; set; }
+        public virtual DbSet<OperationStatu> OperationStatus { get; set; }
+        public virtual DbSet<StructureStatu> StructureStatus { get; set; }
     }
 }

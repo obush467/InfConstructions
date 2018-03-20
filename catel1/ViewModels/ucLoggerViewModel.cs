@@ -10,15 +10,16 @@
     using Catel.ApiCop;
     using Catel.ApiCop.Listeners;
     using System;
-    using System.Windows;
 
     public class ucLoggerViewModel : ViewModelBase
     {
         public ucLoggerViewModel()
         {
-            Title = (string)Application.Current.FindResource("ucLoggerTitle");
+            Title = "Журнал";
+            Title3 = "3333333333333333333333333333";
             Log = App.Log;
         }
+
 
         // TODO: Register models with the vmpropmodel codesnippet
         // TODO: Register view model properties with the vmprop or vmpropviewmodeltomodel codesnippets
@@ -61,5 +62,16 @@
 
             await base.CloseAsync();
         }
+
+        public string Title3
+        {
+            get { return GetValue<string>(Title3Property); }
+            set { SetValue(Title3Property, value); }
+        }
+
+        /// <summary>
+        /// Register the Title3 property so it is known in the class.
+        /// </summary>
+        public static readonly PropertyData Title3Property = RegisterProperty("Title3", typeof(string), null);
     }
 }

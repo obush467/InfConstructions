@@ -1,5 +1,4 @@
-﻿using Catel.Windows.Controls;
-namespace InfConstractions.Views
+﻿namespace InfConstractions.Views
 {
     using Catel.Windows;
     using System.Collections.ObjectModel;

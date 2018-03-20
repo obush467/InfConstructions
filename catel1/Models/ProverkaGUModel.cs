@@ -18,6 +18,7 @@ using Catel.IoC;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
 using System.Collections.Specialized;
+using System.Threading.Tasks;
 
 namespace InfConstractions.Models
 {
@@ -35,8 +36,7 @@ namespace InfConstractions.Models
         public ProverkaGUModel(Entities _context):this()
         {
             Context = _context;
-            Context.proverkaGU.Load();
-            ProverkaGU = new ObservableCollection<proverkaGU>(Context.proverkaGU);     
+            //ProverkaGU = new ObservableCollection<proverkaGU>(Context.proverkaGU);     
             SuspendValidations(false);
             Validate(true);            
         }
@@ -60,7 +60,15 @@ namespace InfConstractions.Models
 
         public ObservableCollection<proverkaGU> ProverkaGU
         {
-            get { return GetValue<ObservableCollection<proverkaGU>>(ProverkaGUProperty); }
+            get 
+            {
+                if (GetValue<ObservableCollection<proverkaGU>>(ProverkaGUProperty) == null)
+                {
+                    return  new ObservableCollection<proverkaGU>(Context.proverkaGU);
+                }
+                else
+                { return GetValue<ObservableCollection<proverkaGU>>(ProverkaGUProperty); }
+            }
             set { SetValue(ProverkaGUProperty, value); }
         }
 

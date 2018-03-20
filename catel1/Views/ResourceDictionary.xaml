@@ -20,10 +20,4 @@
     <v:String x:Key="Auth_CaptionDataBaseName">База данных</v:String>
     <v:String x:Key="loggerTitle">Журнал</v:String>
     <v:String x:Key="eventerTitle">Сообщения</v:String>
-    <v:String x:Key="startMessage">Запуск</v:String>
-    <v:String x:Key="App_base_OnStartup">Вызов App base.OnStartup</v:String>
-    <v:String x:Key="ucLoggerTitle">Журнал</v:String>
-    <v:String x:Key="Preloading_assemblies">Загрузка сборок</v:String>
-    <v:String x:Key="refreshServers">Загрузка списка серверов</v:String>
-    
 </ResourceDictionary>

@@ -1,19 +1,24 @@
 ﻿namespace InfConstractions
 {
     using System.Windows;
+
     using Models;
     using ViewModels;
+    using System;
+    using Views;
     using System.Data.SqlClient;
+    using System.IO;
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+    using System.Text;
+    using System.Runtime.Serialization;
+    using Catel;
     using Catel.Logging;
     using Catel.Services;
     using Catel.IoC;
     using Catel.ApiCop;
     using Catel.ApiCop.Listeners;
-    using Catel.Extensions.Controls;
-    using Catel.Extensions;
-    using Catel.Windows;
-    using Views;
-
+    using System.Data.Entity.Core.EntityClient;
 
 
     /// <summary>
@@ -24,18 +29,31 @@
 
     public partial class App : Application
     {
-        public static readonly ILog Log = LogManager.GetCurrentClassLogger();      
+        public static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        public static Entities _mainDBContext;
+        public static SqlConnection Connection;
+
+        public DBDefault DBDefault  { get; set; }
+        private static readonly JsonSerializerSettings JSSettings = new JsonSerializerSettings();
+
         public static IUIVisualizerService uiVisualizerService;
         public static IMessageService MessageService;
+
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
             LogManager.AddDebugListener();
 #endif
 
+            Log.Info("Starting application");
+            uiVisualizerService = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
+            MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
+            
+
             // To force the loading of all assemblies at startup, uncomment the lines below:
 
-            // Log.Debug((string)Current.FindResource("Preloading_assemblies"));
+            //Log.Info("Preloading assemblies");
             //AppDomain.CurrentDomain.PreloadAssemblies();
 
 
@@ -44,7 +62,7 @@
             //
             // For more information, see https://catelproject.atlassian.net/wiki/display/CTL/Performance+considerations
 
-            //Log.Info("Improving performance");
+            // Log.Info("Improving performance");
             // Catel.Data.ModelBase.DefaultSuspendValidationValue = true;
             // Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
             // Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
@@ -56,17 +74,45 @@
             //serviceLocator.RegisterType<IMyInterface, IMyClass>();
 
             //StyleHelper.CreateStyleForwardersForDefaultStyles();
-            //uiVisualizerService.Register<MainWindowViewModel, Views.MainWindow>();
-            //Catel.Windows.StyleHelper.CreateStyleForwardersForDefaultStyles("Office2016Black");
-            var serviceLocator = ServiceLocator.Default;
-            serviceLocator.AutoRegisterTypesViaAttributes = true;
-            Log.Info((string)Current.FindResource("startMessage"));
-            uiVisualizerService = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
-            MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
+
             base.OnStartup(e);
-            Log.Debug((string)Current.FindResource("App_base_OnStartup"));
-            Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+
+            Log.Info("Calling base.OnStartup");          
         }
+        public void Login(object sender, StartupEventArgs e)
+        {
+            Connection = new SqlConnection();
+            
+            var vm = new formLoginViewModel(Connection);
+            Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            if (uiVisualizerService.ShowDialog(vm) == true)            
+            {
+                //Re-enable normal shutdown mode.
+                Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                if (Connection.State == System.Data.ConnectionState.Open)
+                {
+                    Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                    _mainDBContext = new Entities(vm.efConnection);
+                }
+                else
+                {                    
+                    MessageBox.Show("Сбой при подключении к серверу.", "Ошибка", MessageBoxButton.OK);
+                }
+                    //Current.Shutdown(-1);
+                }
+            else
+            {
+                if (Connection.State == System.Data.ConnectionState.Open)
+                { Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                    _mainDBContext = new Entities(vm.efConnection);
+                    Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+
+                }
+                else { Current.Shutdown(-1); }
+                
+            }
+        }
+    
 
 
         protected override void OnExit(ExitEventArgs e)
