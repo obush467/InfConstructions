@@ -4,15 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="85f9016bd49d41b69aa43f437ce8d9a4" Name="Diagram1">
-        <EntityTypeShape EntityType="Models.proverkaGU" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.GUPassport_Site" Width="1.5" PointX="6.625" PointY="4.75" />
-        <EntityTypeShape EntityType="Models.GUPassport" Width="2" PointX="3.875" PointY="0.75" />
-        <EntityTypeShape EntityType="Models.GUPassport_State" Width="1.5" PointX="6.625" PointY="0.75" />
+      <Diagram DiagramId="85f9016bd49d41b69aa43f437ce8d9a4" Name="Diagram1" ZoomLevel="96">
+        <EntityTypeShape EntityType="Models.proverkaGU" Width="1.5" PointX="0.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.GUPassport_State" Width="2.25" PointX="6.375" PointY="0.625" />
+        <EntityTypeShape EntityType="Models.AdminArea" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="Models.Ground_Type" Width="1.5" PointX="1.125" PointY="14.5" />
+        <AssociationConnector Association="Models.FK_AdminArea_AdminArea" />
+        <EntityTypeShape EntityType="Models.House" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="Models.Object" Width="1.5" PointX="9.375" PointY="0.625" />
+        <EntityTypeShape EntityType="Models.GUPassport_Site" Width="1.5" PointX="6.125" PointY="5.125" />
+        <EntityTypeShape EntityType="Models.GUPassport" Width="1.5" PointX="3.875" PointY="0.625" />
+        <AssociationConnector Association="Models.FK_GUPassports_AdminArea" />
+        <AssociationConnector Association="Models.FK_GUPassports_Ground_Types" />
         <AssociationConnector Association="Models.FK_GUPasssport_Sites_GUPassports" />
+        <AssociationConnector Association="Models.FK_GUPasssport_States_GUPassports" />
         <AssociationConnector Association="Models.FK_GUPassports_GUPassports" />
         <AssociationConnector Association="Models.FK_GUPassports_GUPassports1" />
-        <AssociationConnector Association="Models.FK_GUPasssport_States_GUPassports" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

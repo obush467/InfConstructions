@@ -1,4 +1,9 @@
 ﻿using Catel.Windows.Controls;
+using DevExpress.Utils;
+using DevExpress.Utils.Menu;
+using DevExpress.XtraGrid.Menu;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
 namespace InfConstractions.Views
 {
     using System.Collections.ObjectModel;
@@ -11,14 +16,14 @@ namespace InfConstractions.Views
     using System.Collections.Generic;
     using Catel.Logging;
 
-    public partial class  ProverkaGUView
+    public partial class ProverkaGUView
     {
-        public ProverkaGUView(Entities context):this(new ProverkaGUViewModel(context))
-        {        
+        public ProverkaGUView(Entities context) : this(new ProverkaGUViewModel(context))
+        {
             InitializeComponent();
         }
 
-        public ProverkaGUView() 
+        public ProverkaGUView()
         {
             InitializeComponent();
         }
@@ -26,6 +31,9 @@ namespace InfConstractions.Views
         {
             DataContext = viewmodel;
             InitializeComponent();
+        }
+        public void Initialize()
+        {
         }
 
         private void TableView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -47,7 +55,8 @@ namespace InfConstractions.Views
                     }
                 ((ProverkaGUViewModel)DataContext).cmSaveChanges();
                     foreach (proverkaGU t in l)
-                    { ((ProverkaGUViewModel)DataContext).Context.Entry<proverkaGU>(t).Reload();
+                    {
+                        ((ProverkaGUViewModel)DataContext).Context.Entry<proverkaGU>(t).Reload();
                         ((ProverkaGUViewModel)DataContext).Context.proverkaGU.Attach(t);
                         LogData logd = new LogData();
                         logd.Add("Num", t.Num);
@@ -73,5 +82,7 @@ namespace InfConstractions.Views
         }
     }
 
-                
-}
+
+
+    }
+

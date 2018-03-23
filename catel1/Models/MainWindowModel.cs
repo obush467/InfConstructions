@@ -23,6 +23,11 @@ namespace InfConstractions.Models
 #endif
     public class MainWindowModel
     {
+        #region Constructors
+        #if NET
+            protected MainWindowModel(SerializationInfo info, StreamingContext context)
+                : base(info, context) { /* required for serialization */ }
+        #endif
         public MainWindowModel(SqlConnection _sqlConnection,EntityConnection _efConnection)
         {
             sqlConnection = _sqlConnection;
@@ -32,11 +37,8 @@ namespace InfConstractions.Models
 
         public MainWindowModel() : this(new SqlConnection(), new EntityConnection())
         { }
+        #endregion
 
-#if NET
-    protected MainWindowModel(SerializationInfo info, StreamingContext context)
-        : base(info, context) { /* required for serialization */ }
-#endif
         #region Properties
 
 

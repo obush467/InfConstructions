@@ -14,6 +14,7 @@ namespace InfConstractions.ViewModels
     using Catel;
     using System.Data.Entity.Core.EntityClient;
     using Views;
+    using System.Windows;
 
     public class formLoginViewModel : ViewModelBase
     {
@@ -87,6 +88,7 @@ namespace InfConstractions.ViewModels
                     efStringBuilder.ProviderConnectionString = Connection.ConnectionString;                   
                     efConnection=new EntityConnection (efStringBuilder.ToString());
                     efConnection.Open();
+                    App.mainConnection = efConnection;
                     SaveConfig();
                     await this.SaveAndCloseViewModelAsync();
                 }

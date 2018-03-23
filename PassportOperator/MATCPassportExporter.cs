@@ -48,25 +48,34 @@ namespace PassportOperator
             b.Range.Text = _passport.Traffic;
             b = doc.Bookmarks["State"];
             b.Range.Text = _passport.State;
-            Image _foto = Image.FromStream(_passport.Foto);
-            Image _plan = Image.FromStream(_passport.Plan);
-            string _fotoFileName = Path.GetTempFileName();
-            string _planFileName = Path.GetTempFileName();
-            ScaleImage(_foto, 490, 270).Save(_fotoFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-            ScaleImage(_plan, 490, 270).Save(_planFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-            b = doc.Bookmarks["Foto"];
-            b.Range.InlineShapes.AddPicture(_fotoFileName, false, true);
-            b = doc.Bookmarks["Plan"];
-            b.Range.InlineShapes.AddPicture(_planFileName, false, true);
+            Image _foto;
+            Image _plan;
+            if (_passport.Foto != null)
+            {
+                _foto = Image.FromStream(_passport.Foto);
+                string _fotoFileName = Path.GetTempFileName();
+                ScaleImage(_foto, 490, 270).Save(_fotoFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                b = doc.Bookmarks["Foto"];
+                b.Range.InlineShapes.AddPicture(_fotoFileName, false, true);
+            }
+            if (_passport.Foto != null)
+            {
+                _plan = Image.FromStream(_passport.Plan);
+                string _planFileName = Path.GetTempFileName();
+                ScaleImage(_plan, 490, 270).Save(_planFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                b = doc.Bookmarks["Plan"];
+                b.Range.InlineShapes.AddPicture(_planFileName, false, true);
+            }
             for (int n = 0; n < _passport.Information_fields.Count; n++)
             {
                 MATCPassport_InformationField field = _passport.Information_fields[n];
                 Row r = doc.Tables[3].Rows.Add();
+                r.Range.Font.Bold = 9999998;
                 r.Cells[1].Range.Text = (n + 1).ToString();
                 r.Cells[2].Range.Text = field.Arrow;
                 r.Cells[3].Range.Text = field.Name;
                 r.Cells[4].Range.Text = field.Transliteration;
-                r.Range.Font.Bold = 9999998;
+                
             }
             return doc;
         }

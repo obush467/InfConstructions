@@ -15,7 +15,7 @@ namespace InfConstractions.Models
     public partial class GUPassport_Site
     {
         public System.Guid id { get; set; }
-        public System.Guid GUPasssport_ID { get; set; }
+        public System.Guid GUPassport_ID { get; set; }
         public short Block_Number { get; set; }
         public short Row_Number { get; set; }
         public string Site_Number { get; set; }
@@ -28,6 +28,6 @@ namespace InfConstractions.Models
         public string Minutes { get; set; }
         public byte[] tsc { get; set; }
     
-        public virtual GUPassport GUPassports { get; set; }
+        public virtual GUPassport GUPassport { get; set; }
     }
 }

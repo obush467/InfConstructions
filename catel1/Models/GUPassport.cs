@@ -18,7 +18,9 @@ namespace InfConstractions.Models
         public GUPassport()
         {
             this.GUPassport_Sites = new HashSet<GUPassport_Site>();
-            this.GUPasssport_States = new HashSet<GUPassport_State>();
+            this.GUPassport_States = new HashSet<GUPassport_State>();
+            this.GUPassports1 = new HashSet<GUPassport>();
+            this.GUPassports11 = new HashSet<GUPassport>();
         }
     
         public System.Guid id { get; set; }
@@ -29,9 +31,9 @@ namespace InfConstractions.Models
         public System.DateTimeOffset insertdate { get; set; }
         public Nullable<System.DateTimeOffset> updatedate { get; set; }
         public System.Guid Sotr_ID { get; set; }
-        public string UNOM { get; set; }
         public byte[] tsc { get; set; }
-        public System.Guid Adress_ID { get; set; }
+        public string UNOM { get; set; }
+        public System.Guid HouseID { get; set; }
         public System.Guid AdmidArea_ID { get; set; }
         public System.Data.Entity.Spatial.DbGeography WGS84 { get; set; }
         public System.Data.Entity.Spatial.DbGeometry EGKO { get; set; }
@@ -40,14 +42,23 @@ namespace InfConstractions.Models
         public string Sidewalk_width { get; set; }
         public string Condition { get; set; }
         public string Patency { get; set; }
+        public string Reconstruction { get; set; }
+        public string Closed_loop { get; set; }
+        public string Electricity_connection { get; set; }
+        public byte[] Foto { get; set; }
+        public byte[] Plan { get; set; }
     
+        public virtual AdminArea AdminArea { get; set; }
+        public virtual Ground_Type Ground_Types { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GUPassport_Site> GUPassport_Sites { get; set; }
-        public virtual GUPassport GUPassports1 { get; set; }
-        public virtual GUPassport GUPassports2 { get; set; }
-        public virtual GUPassport GUPassports11 { get; set; }
-        public virtual GUPassport GUPassports3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GUPassport_State> GUPasssport_States { get; set; }
+        public virtual ICollection<GUPassport_State> GUPassport_States { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GUPassport> GUPassports1 { get; set; }
+        public virtual GUPassport GUPassport1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GUPassport> GUPassports11 { get; set; }
+        public virtual GUPassport GUPassport2 { get; set; }
     }
 }

@@ -13,6 +13,7 @@
     using Catel.Extensions;
     using Catel.Windows;
     using Views;
+    using System.Data.Entity.Core.EntityClient;
 
 
 
@@ -27,6 +28,7 @@
         public static readonly ILog Log = LogManager.GetCurrentClassLogger();      
         public static IUIVisualizerService uiVisualizerService;
         public static IMessageService MessageService;
+        public static EntityConnection mainConnection;
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG

@@ -61,6 +61,9 @@
                                         </eo:WebControl.WebView>
                                     </eo:WebControl>
                                 </dxdo:DocumentPanel>
+                                <dxdo:DocumentPanel x:Name="ld_Word" Caption="mosgorbti.ru" ShowCaption="True">
+                                    <v:ucWord/>
+                                </dxdo:DocumentPanel>
                                 <dxdo:DocumentPanel x:Name="ld_yandex" Caption="Yandex.ru" ShowCaption="True">
                                         <eo:WebControl Canvas.ZIndex="0">
                                         <eo:WebControl.WebView>

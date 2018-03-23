@@ -28,9 +28,13 @@ namespace InfConstractions.Models
         }
     
         public virtual DbSet<proverkaGU> proverkaGU { get; set; }
+        public virtual DbSet<GUPassport_State> GUPassport_States { get; set; }
+        public virtual DbSet<AdminArea> AdminAreas { get; set; }
+        public virtual DbSet<Ground_Type> Ground_Types { get; set; }
+        public virtual DbSet<House> Houses { get; set; }
+        public virtual DbSet<Object> Objects { get; set; }
         public virtual DbSet<GUPassport_Site> GUPassport_Sites { get; set; }
         public virtual DbSet<GUPassport> GUPassports { get; set; }
-        public virtual DbSet<GUPassport_State> GUPassport_States { get; set; }
     
         public virtual int updateProverkaGU(Nullable<int> id, string ошибки_в_адресации_ГУ, string fact, string плашки, Nullable<bool> наличие_согласованного_макета, Nullable<bool> наличие_согласованного_паспорта, string примечание, Nullable<bool> проверено, Nullable<System.DateTimeOffset> updated)
         {
@@ -71,6 +75,32 @@ namespace InfConstractions.Models
                 new ObjectParameter("updated", typeof(System.DateTimeOffset));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateProverkaGU", idParameter, ошибки_в_адресации_ГУParameter, factParameter, плашкиParameter, наличие_согласованного_макетаParameter, наличие_согласованного_паспортаParameter, примечаниеParameter, провереноParameter, updatedParameter);
+        }
+    
+        [DbFunction("Entities", "ObjectFullAddress4")]
+        public virtual IQueryable<ObjectFullAddress4_Result> ObjectFullAddress4(Nullable<System.Guid> houseGUID, string splitter, Nullable<bool> nameFull, Nullable<bool> withRoot, Nullable<bool> withSelf)
+        {
+            var houseGUIDParameter = houseGUID.HasValue ?
+                new ObjectParameter("houseGUID", houseGUID) :
+                new ObjectParameter("houseGUID", typeof(System.Guid));
+    
+            var splitterParameter = splitter != null ?
+                new ObjectParameter("Splitter", splitter) :
+                new ObjectParameter("Splitter", typeof(string));
+    
+            var nameFullParameter = nameFull.HasValue ?
+                new ObjectParameter("NameFull", nameFull) :
+                new ObjectParameter("NameFull", typeof(bool));
+    
+            var withRootParameter = withRoot.HasValue ?
+                new ObjectParameter("WithRoot", withRoot) :
+                new ObjectParameter("WithRoot", typeof(bool));
+    
+            var withSelfParameter = withSelf.HasValue ?
+                new ObjectParameter("WithSelf", withSelf) :
+                new ObjectParameter("WithSelf", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ObjectFullAddress4_Result>("[Entities].[ObjectFullAddress4](@houseGUID, @Splitter, @NameFull, @WithRoot, @WithSelf)", houseGUIDParameter, splitterParameter, nameFullParameter, withRootParameter, withSelfParameter);
         }
     }
 }

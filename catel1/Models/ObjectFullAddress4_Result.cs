@@ -10,19 +10,10 @@
 namespace InfConstractions.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class GUPassport_State
+    public partial class ObjectFullAddress4_Result
     {
-        public System.Guid id { get; set; }
-        public System.Guid GUPasssport_ID { get; set; }
-        public string State { get; set; }
-        public System.DateTimeOffset startdate { get; set; }
-        public Nullable<System.DateTimeOffset> enddate { get; set; }
-        public System.DateTimeOffset insertdate { get; set; }
-        public Nullable<System.DateTimeOffset> updatedate { get; set; }
-        public System.Guid Sotr_ID { get; set; }
-    
-        public virtual GUPassport GUPassport { get; set; }
+        public string fullAdress { get; set; }
+        public Nullable<int> ID_ORDER { get; set; }
     }
 }

@@ -25,12 +25,13 @@ namespace InfConstractions.Models
 
 #endif
     [ServiceLocatorRegistration(typeof(ProverkaGUModel))]
-
     [Model]
     public class ProverkaGUModel : ValidatableModelBase
     {
         public Configuration Config ;
         public Config.DefaultConnectionConfig _config_connection { get; set; }
+        #region Constructors
+
         [InjectionConstructor]
         public ProverkaGUModel(Entities _context):this()
         {
@@ -50,14 +51,12 @@ namespace InfConstractions.Models
             #endregion
         }
 
-#if NET
-    protected ProverkaGUModel(SerializationInfo info, StreamingContext context)
-        : base(info, context) { /* required for serialization */ }
-#endif
-
+        #if NET
+            protected ProverkaGUModel(SerializationInfo info, StreamingContext context)
+                : base(info, context) { /* required for serialization */ }
+        #endif
+        #endregion
         #region PROPERTIES
-
-
         public ObservableCollection<proverkaGU> ProverkaGU
         {
             get { return GetValue<ObservableCollection<proverkaGU>>(ProverkaGUProperty); }
@@ -65,16 +64,15 @@ namespace InfConstractions.Models
         }
 
         public static readonly PropertyData ProverkaGUProperty = RegisterProperty(nameof(ProverkaGU), typeof(ObservableCollection<proverkaGU>), null);
-
         public Entities Context
         {
             get { return GetValue<Entities>(ContextProperty); }
             set { SetValue(ContextProperty, value); }
         }
-
         public static readonly PropertyData ContextProperty = RegisterProperty(nameof(Context), typeof(Entities), null);
 
         #endregion
+        #region Methods
 
         public void LoadConfig()
         {
@@ -92,6 +90,7 @@ namespace InfConstractions.Models
             ctx.Refresh(RefreshMode.StoreWins, (from o in Context.proverkaGU select o));
             //ProverkaGU = new ObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);
         }
+        #endregion
     }
 }
 
