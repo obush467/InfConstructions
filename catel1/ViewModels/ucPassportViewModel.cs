@@ -18,43 +18,68 @@
     using Microsoft.Office.Interop.Word;
     using System.IO;
     using PassportOperator;
+    using static Models.GUPassport_Site;
+    using System.ComponentModel;
 
-    public class ucPassportViewModel : ViewModelBase,INotifyCollectionChanged
+    public class ucPassportViewModel : ViewModelBase, INotifyCollectionChanged
     {
+        public IMessageBoxService MessageService { get { return GetService<IMessageBoxService>(); } }
         private Guid passportID;
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public void SitesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (GUPassport_Site item in e.OldItems)
+                {
+                    //Removed items
+                    item. PropertyChanged -= SitePropertyChanged;
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (GUPassport_Site item in e.NewItems)
+                {
+                    if (PassportSites.Where<GUPassport_Site>
+                        (s =>
+                                (s.id != item.id)
+                                & (s.Block_Number == item.Block_Number)
+                                & (s.Row_Number == item.Row_Number)
+                                & (s.Site_Number == item.Site_Number)
+                         ).Count() > 0)
 
+                        MessageService.ShowMessage("44444444444444444444444444444444444444444444444444444444");
+                }
+            }
+        }
+        private void SitePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            
+        }
         IPassportService PassportService { get { return GetService<IPassportService>(); } }
         #region Constractors
-        public ucPassportViewModel(Entities context) : this(new ucPassportModel(context))
-        { }
-        public ucPassportViewModel(ucPassportModel _ucPassportModel)
-        {
-            Model = _ucPassportModel;
-        }
         public ucPassportViewModel()
         {
         }
-
         public ucPassportModel Model { get; set; }
-
+        public ucPassportViewModel(Guid passportID) : this(new Entities(App.mainConnection), passportID)
+        { }
         public ucPassportViewModel(Entities context,Guid passportID)
         {
             this.passportID = passportID;
+            Context = context;
             Model = new ucPassportModel(context,passportID);
             Model.PassportSites.CollectionChanged+= CollectionChanged;
-            Context = context;
-        }
-        
-
+            Model.PassportSites.CollectionChanged += SitesCollectionChanged;
+            
+        }      
         public static ucPassportViewModel Create()
         { return ViewModelSource.Create(() => new ucPassportViewModel()); }
-
-        public static ucPassportViewModel Create(Entities context) 
-        { return ViewModelSource.Create(() => new ucPassportViewModel(context)); }
-        public static ucPassportViewModel Create(ucPassportModel _ucPassportModel)
-        { return ViewModelSource.Create(() => new ucPassportViewModel(_ucPassportModel)); }
+        public static ucPassportViewModel Create(Entities context,Guid passportID) 
+        { return ViewModelSource.Create(() => new ucPassportViewModel(context,passportID)); }
+        public static ucPassportViewModel Create(Guid passportID)
+        { return ViewModelSource.Create(() => new ucPassportViewModel(passportID)); }
 
         #endregion
         #region Properties  
@@ -77,6 +102,7 @@
         {
             get { return Model.Address; }
         }
+        [AtLeastChooseOneItem(ErrorMessage ="asssssssssssssssssssssssssss")]
         public ObservableCollection<GUPassport_Site> PassportSites { get { return Model.PassportSites; } }
         public ObservableCollection<GUPassport_State> PassportStates { get { return Model.PassportStates; } }
         public ObservableCollection<Ground_Type> Ground_Types { get { return Model.Ground_Types; } }

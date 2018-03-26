@@ -94,21 +94,26 @@
        [Command(CanExecuteMethodName = "CanucPassport",
        Name = "ucPassportCommand",
        UseCommandManager = true)]
-        public void ucPassport(object parameter)
+        public void ucPassport(object UNOM)
         {
-            //Guid f = Guid.Parse("C2814E66-DB5F-4F2D-94F1-E1D3E85DD898");
             IQueryable<GUPassport> passportID =
                     from passport
                     in Context.GUPassports
-                    where (passport.UNOM == parameter.ToString())
+                    where (passport.UNOM == UNOM.ToString())
                     orderby passport.startdate descending
                     select passport;
-            var l=passportID.ToList();
+           if (passportID.Count()>0)
             PassportService.Show(passportID.FirstOrDefault<GUPassport>().id, DocumentManagerService);
         }
         public bool CanucPassport(object UNOM)
         {
-            return true;
+            IQueryable<GUPassport> passportID =
+        from passport
+        in Context.GUPassports
+        where (passport.UNOM == UNOM.ToString())
+        orderby passport.startdate descending
+        select passport;
+            if (passportID.Count() > 0) return true; else return false;
         }
 
 

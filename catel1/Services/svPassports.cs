@@ -17,7 +17,6 @@ namespace InfConstractions.Services
     public interface IPassportService
     {
         void Show(Guid passportID, IDocumentManagerService docService);
-        void Show(GUPassport passport, IDocumentManagerService docService);
         ucPassportViewModel Passport(Guid passportID);
         Dictionary<Guid, ucPassportViewModel> Passports { get; }
 
@@ -32,14 +31,17 @@ namespace InfConstractions.Services
         { }
         void IPassportService.Show(Guid passportID, IDocumentManagerService docService)
         {
-            IDocument doc1;
-            doc1 = docService.CreateDocument("ucPassport", ViewModelSource.Create(() => new ucPassportViewModel(new Entities(App.mainConnection), passportID)));
-            doc1.Id = docService.Documents.Count<IDocument>();
-            doc1.Title = "Паспорт "+Passport(passportID).Passport.UNOM;
-            doc1.Show();
+
+            //{ docService.FindDocumentById(passportID.ToString()).Show(); }
+            docService.FindDocumentByIdOrCreate(passportID, (ds) =>
+            {
+                IDocument doc1 = ds.CreateDocument("ucPassport", ViewModelSource.Create(() => new ucPassportViewModel(passportID)));
+                //doc1.Id = passportID.ToString();
+                doc1.Title = "Паспорт " + Passport(passportID).Passport.UNOM;
+                //doc1.Show();
+                return doc1;
+            }).Show();
         }
-        void IPassportService.Show(GUPassport passport, IDocumentManagerService docService)
-        {}
         public ucPassportViewModel Passport(Guid passportID)
         {
             if (!_passports.ContainsKey(passportID))

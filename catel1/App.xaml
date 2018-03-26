@@ -12,7 +12,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />
-                <ResourceDictionary Source="/Views/ResourceDictionary.xaml"/>
+                <ResourceDictionary x:Name="rdMain" Source="/Views/ResourceDictionary.xaml"/>
                 <!--<ResourceDictionary>
                     <uc:FileExplorerBootStrapper x:Key="boot" />
                 </ResourceDictionary>-->

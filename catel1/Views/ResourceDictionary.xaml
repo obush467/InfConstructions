@@ -50,7 +50,7 @@
     <v:String x:Key="OpenPassport">Открыть паспорт</v:String>
     <v:String x:Key="DelPassportSite">Удалить плашку</v:String>
     <v:String x:Key="fnGround_Type">Тип поверхности</v:String>
-    
+    <v:String x:Key="emNotNullValue">Тип поверхности</v:String>
     <x:Array x:Key="PassportDirections" Type="sys:String" 
             xmlns:sys="clr-namespace:System;assembly=mscorlib">
         <sys:String>Вперёд</sys:String>

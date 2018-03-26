@@ -61,7 +61,9 @@
                                NewItemRowPosition="Top" 
                                InitNewRow="TableView_InitNewRow"
                                ValidateRow="TableView_ValidateRow" 
-                               InvalidRowException="TableView_InvalidRowException" >
+                               InvalidRowException="TableView_InvalidRowException" 
+                               ShowValidationAttributeErrors="True"
+                               AllowCommitOnValidationAttributeError="False">
                     <dxg:TableView.RowCellMenuCustomizations>
                         <dxb:BarButtonItem Name="deleteRowItem" Content="{Binding Mode=OneWay, Source={StaticResource DelPassportSite}}" Command="{x:Static dxg:GridCommands.DeleteFocusedRow}" />
                     </dxg:TableView.RowCellMenuCustomizations>
