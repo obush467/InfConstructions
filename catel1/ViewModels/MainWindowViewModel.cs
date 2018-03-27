@@ -99,7 +99,7 @@
         [Command(CanExecuteMethodName = "CanProverkaGU",
             Name = "ProverkaGUCommand",
             UseCommandManager = true)]
-        public async void ProverkaGU()
+        public void ProverkaGU()
         {
                 IDocument doc1;
                 doc1 = DocumentManagerService.CreateDocument("ProverkaGUView", ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext, DocumentManagerService)));

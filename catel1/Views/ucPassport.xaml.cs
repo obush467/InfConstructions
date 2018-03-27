@@ -45,7 +45,7 @@ namespace InfConstractions.Views
                     {
                         if (p.State == System.Data.Entity.EntityState.Modified)
                         {
-                            ((GUPassport)p.Entity).updatedate = DateTimeOffset.Now;
+                            ((GUPassport)p.Entity).upserted = DateTimeOffset.Now;
                             l.Add((GUPassport)p.Entity);
                         }
                     }

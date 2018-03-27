@@ -27,14 +27,25 @@ namespace InfConstractions.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<proverkaGU> proverkaGU { get; set; }
-        public virtual DbSet<GUPassport_State> GUPassport_States { get; set; }
         public virtual DbSet<AdminArea> AdminAreas { get; set; }
         public virtual DbSet<Ground_Type> Ground_Types { get; set; }
-        public virtual DbSet<House> Houses { get; set; }
-        public virtual DbSet<Object> Objects { get; set; }
         public virtual DbSet<GUPassport_Site> GUPassport_Sites { get; set; }
+        public virtual DbSet<GUPassport_State> GUPassport_States { get; set; }
         public virtual DbSet<GUPassport> GUPassports { get; set; }
+        public virtual DbSet<Installation> Installations { get; set; }
+        public virtual DbSet<proverkaGU> proverkaGU { get; set; }
+        public virtual DbSet<ActualStatu> ActualStatus { get; set; }
+        public virtual DbSet<AddressObjectType> AddressObjectTypes { get; set; }
+        public virtual DbSet<CenterStatu> CenterStatus { get; set; }
+        public virtual DbSet<CurrentStatu> CurrentStatus { get; set; }
+        public virtual DbSet<EstateStatu> EstateStatus { get; set; }
+        public virtual DbSet<House> Houses { get; set; }
+        public virtual DbSet<HouseStateStatu> HouseStateStatus { get; set; }
+        public virtual DbSet<NormativeDocument> NormativeDocuments { get; set; }
+        public virtual DbSet<NormativeDocumentType> NormativeDocumentTypes { get; set; }
+        public virtual DbSet<Object> Objects { get; set; }
+        public virtual DbSet<OperationStatu> OperationStatus { get; set; }
+        public virtual DbSet<StructureStatu> StructureStatus { get; set; }
     
         public virtual int updateProverkaGU(Nullable<int> id, string ошибки_в_адресации_ГУ, string fact, string плашки, Nullable<bool> наличие_согласованного_макета, Nullable<bool> наличие_согласованного_паспорта, string примечание, Nullable<bool> проверено, Nullable<System.DateTimeOffset> updated)
         {
@@ -101,6 +112,12 @@ namespace InfConstractions.Models
                 new ObjectParameter("WithSelf", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ObjectFullAddress4_Result>("[Entities].[ObjectFullAddress4](@houseGUID, @Splitter, @NameFull, @WithRoot, @WithSelf)", houseGUIDParameter, splitterParameter, nameFullParameter, withRootParameter, withSelfParameter);
+        }
+    
+        [DbFunction("Entities", "currentUserID")]
+        public virtual IQueryable<currentUserID_Result> currentUserID()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<currentUserID_Result>("[Entities].[currentUserID]()");
         }
     }
 }

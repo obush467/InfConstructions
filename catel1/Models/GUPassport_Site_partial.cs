@@ -40,7 +40,6 @@ namespace InfConstractions.Models
             [Required(AllowEmptyStrings = false, ErrorMessage = "Значение не может быть пустым")]
             public string Minutes { get; set; }
             public byte[] tsc { get; set; }
-            public GUPassport GUPassport { get; set; }
         }
 
         public class AtLeastChooseOneItem : ValidationAttribute

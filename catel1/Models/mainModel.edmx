@@ -41,35 +41,35 @@
           <Property Name="Content_Address" Type="nvarchar" MaxLength="500" />
           <Property Name="Content_Direction" Type="nvarchar" MaxLength="20" />
           <Property Name="Object_ID" Type="uniqueidentifier" />
-          <Property Name="Address_ID" Type="uniqueidentifier" />
-          <Property Name="Minutes" Type="nvarchar" MaxLength="50" />
+          <Property Name="HouseID" Type="uniqueidentifier" />
+          <Property Name="Minutes" Type="smallint" />
           <Property Name="tsc" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="upserted" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Sotr_ID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="GUPassport_States">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="GUPasssport_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GUPassport_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="startdate" Type="datetimeoffset" Precision="7" Nullable="false" />
-          <Property Name="enddate" Type="datetimeoffset" Precision="7" />
-          <Property Name="insertdate" Type="datetimeoffset" Precision="7" Nullable="false" />
-          <Property Name="updatedate" Type="datetimeoffset" Precision="7" />
+          <Property Name="upserted" Type="datetimeoffset" Precision="7" Nullable="false" />
           <Property Name="Sotr_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="tsc" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="NextID" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="GUPassports">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="prev" Type="uniqueidentifier" />
-          <Property Name="next" Type="uniqueidentifier" />
+          <Property Name="Installation_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="nextID" Type="uniqueidentifier" />
           <Property Name="startdate" Type="date" Nullable="false" />
           <Property Name="enddate" Type="date" />
-          <Property Name="insertdate" Type="datetimeoffset" Precision="7" Nullable="false" />
-          <Property Name="updatedate" Type="datetimeoffset" Precision="7" />
+          <Property Name="upserted" Type="datetimeoffset" Precision="7" Nullable="false" />
           <Property Name="Sotr_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="tsc" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="UNOM" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -87,6 +87,54 @@
           <Property Name="Electricity_connection" Type="nvarchar" MaxLength="50" />
           <Property Name="Foto" Type="varbinary(max)" />
           <Property Name="Plan" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Installation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="tsc" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="upserted" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Persons_ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActualStatus">
+          <Key>
+            <PropertyRef Name="ACTSTATID" />
+          </Key>
+          <Property Name="ACTSTATID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AddressObjectType">
+          <Key>
+            <PropertyRef Name="LEVEL" />
+            <PropertyRef Name="SCNAME" />
+          </Key>
+          <Property Name="LEVEL" Type="int" Nullable="false" />
+          <Property Name="SCNAME" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SOCRNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KOD_T_ST" Type="varchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CenterStatus">
+          <Key>
+            <PropertyRef Name="CENTERSTID" />
+          </Key>
+          <Property Name="CENTERSTID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CurrentStatus">
+          <Key>
+            <PropertyRef Name="CURENTSTID" />
+          </Key>
+          <Property Name="CURENTSTID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstateStatus">
+          <Key>
+            <PropertyRef Name="ESTSTATID" />
+          </Key>
+          <Property Name="ESTSTATID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SHORTNAME" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="House">
           <Key>
@@ -115,6 +163,31 @@
           <Property Name="COUNTER" Type="int" />
           <Property Name="CADNUM" Type="varchar" MaxLength="100" />
           <Property Name="DIVTYPE" Type="int" />
+        </EntityType>
+        <EntityType Name="HouseStateStatus">
+          <Key>
+            <PropertyRef Name="HOUSESTID" />
+          </Key>
+          <Property Name="HOUSESTID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NormativeDocument">
+          <Key>
+            <PropertyRef Name="NORMDOCID" />
+          </Key>
+          <Property Name="NORMDOCID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DOCNAME" Type="varchar" MaxLength="500" />
+          <Property Name="DOCDATE" Type="smalldatetime" />
+          <Property Name="DOCNUM" Type="varchar" MaxLength="20" />
+          <Property Name="DOCTYPE" Type="int" Nullable="false" />
+          <Property Name="DOCIMGID" Type="int" />
+        </EntityType>
+        <EntityType Name="NormativeDocumentType">
+          <Key>
+            <PropertyRef Name="NDTYPEID" />
+          </Key>
+          <Property Name="NDTYPEID" Type="bigint" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="Object">
           <Key>
@@ -166,6 +239,21 @@
           <Property Name="OFFNAME_NAME" Type="varchar" MaxLength="80" />
           <Property Name="CONVERTSTREET" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="OperationStatus">
+          <Key>
+            <PropertyRef Name="OPERSTATID" />
+          </Key>
+          <Property Name="OPERSTATID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StructureStatus">
+          <Key>
+            <PropertyRef Name="STRSTATID" />
+          </Key>
+          <Property Name="STRSTATID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SHORTNAME" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "GBUMATC.dbo.proverkaGU" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="proverkaGU">
@@ -184,7 +272,7 @@
           <Property Name="Passport" Type="bit" />
           <Property Name="Prim" Type="nvarchar" MaxLength="4000" />
           <Property Name="Checking" Type="bit" />
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Plash" Type="nvarchar" MaxLength="4000" />
           <Property Name="ts" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="updated" Type="datetimeoffset" Precision="7" />
@@ -198,6 +286,18 @@
             </Principal>
             <Dependent Role="AdminArea1">
               <PropertyRef Name="Parent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GUPassport_Sites_House">
+          <End Role="House" Type="Self.House" Multiplicity="0..1" />
+          <End Role="GUPassport_Sites" Type="Self.GUPassport_Sites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="HOUSEID" />
+            </Principal>
+            <Dependent Role="GUPassport_Sites">
+              <PropertyRef Name="HouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -225,27 +325,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GUPassports_GUPassports">
-          <End Role="GUPassports" Type="Self.GUPassports" Multiplicity="0..1" />
-          <End Role="GUPassports1" Type="Self.GUPassports" Multiplicity="*" />
+        <Association Name="FK_GUPassports_House">
+          <End Role="House" Type="Self.House" Multiplicity="1" />
+          <End Role="GUPassports" Type="Self.GUPassports" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GUPassports">
-              <PropertyRef Name="id" />
+            <Principal Role="House">
+              <PropertyRef Name="HOUSEID" />
             </Principal>
-            <Dependent Role="GUPassports1">
-              <PropertyRef Name="next" />
+            <Dependent Role="GUPassports">
+              <PropertyRef Name="HouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GUPassports_GUPassports1">
-          <End Role="GUPassports" Type="Self.GUPassports" Multiplicity="0..1" />
-          <End Role="GUPassports1" Type="Self.GUPassports" Multiplicity="*" />
+        <Association Name="FK_GUPassports_Installation">
+          <End Role="Installation" Type="Self.Installation" Multiplicity="1" />
+          <End Role="GUPassports" Type="Self.GUPassports" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GUPassports">
-              <PropertyRef Name="id" />
+            <Principal Role="Installation">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="GUPassports1">
-              <PropertyRef Name="prev" />
+            <Dependent Role="GUPassports">
+              <PropertyRef Name="Installation_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -269,16 +369,93 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="GUPassport_States">
-              <PropertyRef Name="GUPasssport_ID" />
+              <PropertyRef Name="GUPassport_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="ObjectFullAddress3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
-          <Parameter Name="houseGUID" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="Splitter" Type="nvarchar" Mode="In" />
-          <Parameter Name="NameFull" Type="bit" Mode="In" />
-          <Parameter Name="WithRoot" Type="bit" Mode="In" />
-          <Parameter Name="WithSelf" Type="bit" Mode="In" />
+        <Association Name="FK_House_EstateStatus">
+          <End Role="EstateStatus" Type="Self.EstateStatus" Multiplicity="1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstateStatus">
+              <PropertyRef Name="ESTSTATID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="ESTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_StructureStatus">
+          <End Role="StructureStatus" Type="Self.StructureStatus" Multiplicity="0..1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StructureStatus">
+              <PropertyRef Name="STRSTATID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="STRSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_ActualStatus">
+          <End Role="ActualStatus" Type="Self.ActualStatus" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActualStatus">
+              <PropertyRef Name="ACTSTATID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="ACTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_CenterStatus">
+          <End Role="CenterStatus" Type="Self.CenterStatus" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CenterStatus">
+              <PropertyRef Name="CENTERSTID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="CENTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_CurrentStatus">
+          <End Role="CurrentStatus" Type="Self.CurrentStatus" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CurrentStatus">
+              <PropertyRef Name="CURENTSTID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="CURRSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_Object">
+          <End Role="AddressObjectType" Type="Self.AddressObjectType" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressObjectType">
+              <PropertyRef Name="LEVEL" />
+              <PropertyRef Name="SCNAME" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="AOLEVEL" />
+              <PropertyRef Name="SHORTNAME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="currentUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="uniqueidentifier" />
+                <Property Name="UID" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
         </Function>
         <Function Name="ObjectFullAddress4" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="houseGUID" Type="uniqueidentifier" Mode="In" />
@@ -312,8 +489,19 @@
           <EntitySet Name="GUPassport_Sites" EntityType="Self.GUPassport_Sites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GUPassport_States" EntityType="Self.GUPassport_States" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GUPassports" EntityType="Self.GUPassports" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="House" EntityType="Self.House" Schema="fias_Moscow" store:Type="Tables" />
-          <EntitySet Name="Object" EntityType="Self.Object" Schema="fias_Moscow" store:Type="Tables" />
+          <EntitySet Name="Installation" EntityType="Self.Installation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActualStatus" EntityType="Self.ActualStatus" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="AddressObjectType" EntityType="Self.AddressObjectType" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="CenterStatus" EntityType="Self.CenterStatus" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="CurrentStatus" EntityType="Self.CurrentStatus" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="EstateStatus" EntityType="Self.EstateStatus" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="House" EntityType="Self.House" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="HouseStateStatus" EntityType="Self.HouseStateStatus" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="NormativeDocument" EntityType="Self.NormativeDocument" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="NormativeDocumentType" EntityType="Self.NormativeDocumentType" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="Object" EntityType="Self.Object" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="OperationStatus" EntityType="Self.OperationStatus" Schema="fias" store:Type="Tables" />
+          <EntitySet Name="StructureStatus" EntityType="Self.StructureStatus" Schema="fias" store:Type="Tables" />
           <EntitySet Name="proverkaGU" EntityType="Self.proverkaGU" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [proverkaGU].[Num] AS [Num], 
@@ -337,6 +525,10 @@
             <End Role="AdminArea" EntitySet="AdminArea" />
             <End Role="AdminArea1" EntitySet="AdminArea" />
           </AssociationSet>
+          <AssociationSet Name="FK_GUPassport_Sites_House" Association="Self.FK_GUPassport_Sites_House">
+            <End Role="House" EntitySet="House" />
+            <End Role="GUPassport_Sites" EntitySet="GUPassport_Sites" />
+          </AssociationSet>
           <AssociationSet Name="FK_GUPassports_AdminArea" Association="Self.FK_GUPassports_AdminArea">
             <End Role="AdminArea" EntitySet="AdminArea" />
             <End Role="GUPassports" EntitySet="GUPassports" />
@@ -345,13 +537,13 @@
             <End Role="Ground_Types" EntitySet="Ground_Types" />
             <End Role="GUPassports" EntitySet="GUPassports" />
           </AssociationSet>
-          <AssociationSet Name="FK_GUPassports_GUPassports" Association="Self.FK_GUPassports_GUPassports">
+          <AssociationSet Name="FK_GUPassports_House" Association="Self.FK_GUPassports_House">
+            <End Role="House" EntitySet="House" />
             <End Role="GUPassports" EntitySet="GUPassports" />
-            <End Role="GUPassports1" EntitySet="GUPassports" />
           </AssociationSet>
-          <AssociationSet Name="FK_GUPassports_GUPassports1" Association="Self.FK_GUPassports_GUPassports1">
+          <AssociationSet Name="FK_GUPassports_Installation" Association="Self.FK_GUPassports_Installation">
+            <End Role="Installation" EntitySet="Installation" />
             <End Role="GUPassports" EntitySet="GUPassports" />
-            <End Role="GUPassports1" EntitySet="GUPassports" />
           </AssociationSet>
           <AssociationSet Name="FK_GUPasssport_Sites_GUPassports" Association="Self.FK_GUPasssport_Sites_GUPassports">
             <End Role="GUPassports" EntitySet="GUPassports" />
@@ -361,34 +553,36 @@
             <End Role="GUPassports" EntitySet="GUPassports" />
             <End Role="GUPassport_States" EntitySet="GUPassport_States" />
           </AssociationSet>
+          <AssociationSet Name="FK_House_EstateStatus" Association="Self.FK_House_EstateStatus">
+            <End Role="EstateStatus" EntitySet="EstateStatus" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_StructureStatus" Association="Self.FK_House_StructureStatus">
+            <End Role="StructureStatus" EntitySet="StructureStatus" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_ActualStatus" Association="Self.FK_Object_ActualStatus">
+            <End Role="ActualStatus" EntitySet="ActualStatus" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_CenterStatus" Association="Self.FK_Object_CenterStatus">
+            <End Role="CenterStatus" EntitySet="CenterStatus" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_CurrentStatus" Association="Self.FK_Object_CurrentStatus">
+            <End Role="CurrentStatus" EntitySet="CurrentStatus" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Object" Association="Self.FK_Object_Object">
+            <End Role="AddressObjectType" EntitySet="AddressObjectType" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="proverkaGU">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="ts" />
-          </Key>
-          <Property Name="Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Okrug" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Raion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Dom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ErrorAdress" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Fakt" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Maket" Type="Boolean" />
-          <Property Name="Passport" Type="Boolean" />
-          <Property Name="Prim" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Checking" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Plash" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="ts" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="updated" Type="DateTimeOffset" Nullable="true" />
-        </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="proverkaGU" EntityType="Self.proverkaGU" />
           <FunctionImport Name="updateProverkaGU">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="Ошибки_в_адресации_ГУ" Mode="In" Type="String" />
@@ -400,7 +594,6 @@
             <Parameter Name="Проверено" Mode="In" Type="Boolean" />
             <Parameter Name="updated" Mode="In" Type="DateTimeOffset" />
           </FunctionImport>
-          <EntitySet Name="GUPassport_States" EntityType="Models.GUPassport_State" />
           <FunctionImport Name="ObjectFullAddress4" IsComposable="true" ReturnType="Collection(Models.ObjectFullAddress4_Result)">
             <Parameter Name="houseGUID" Mode="In" Type="Guid" />
             <Parameter Name="Splitter" Mode="In" Type="String" />
@@ -410,53 +603,85 @@
           </FunctionImport>
           <EntitySet Name="AdminAreas" EntityType="Models.AdminArea" />
           <EntitySet Name="Ground_Types" EntityType="Models.Ground_Type" />
+          <EntitySet Name="GUPassport_Sites" EntityType="Models.GUPassport_Site" />
+          <EntitySet Name="GUPassport_States" EntityType="Models.GUPassport_State" />
+          <EntitySet Name="GUPassports" EntityType="Models.GUPassport" />
+          <EntitySet Name="Installations" EntityType="Models.Installation" />
+          <EntitySet Name="proverkaGU" EntityType="Models.proverkaGU" />
           <AssociationSet Name="FK_AdminArea_AdminArea" Association="Models.FK_AdminArea_AdminArea">
             <End Role="AdminArea" EntitySet="AdminAreas" />
             <End Role="AdminArea1" EntitySet="AdminAreas" />
           </AssociationSet>
-          <EntitySet Name="Houses" EntityType="Models.House" />
-          <EntitySet Name="Objects" EntityType="Models.Object" />
-          <EntitySet Name="GUPassport_Sites" EntityType="Models.GUPassport_Site" />
-          <EntitySet Name="GUPassports" EntityType="Models.GUPassport" />
           <AssociationSet Name="FK_GUPassports_AdminArea" Association="Models.FK_GUPassports_AdminArea">
             <End Role="AdminArea" EntitySet="AdminAreas" />
             <End Role="GUPassport" EntitySet="GUPassports" />
           </AssociationSet>
           <AssociationSet Name="FK_GUPassports_Ground_Types" Association="Models.FK_GUPassports_Ground_Types">
-            <End Role="Ground_Type" EntitySet="Ground_Types" />
+            <End Role="Ground_Types" EntitySet="Ground_Types" />
             <End Role="GUPassport" EntitySet="GUPassports" />
           </AssociationSet>
           <AssociationSet Name="FK_GUPasssport_Sites_GUPassports" Association="Models.FK_GUPasssport_Sites_GUPassports">
             <End Role="GUPassport" EntitySet="GUPassports" />
-            <End Role="GUPassport_Site" EntitySet="GUPassport_Sites" />
+            <End Role="GUPassport_Sites" EntitySet="GUPassport_Sites" />
           </AssociationSet>
           <AssociationSet Name="FK_GUPasssport_States_GUPassports" Association="Models.FK_GUPasssport_States_GUPassports">
             <End Role="GUPassport" EntitySet="GUPassports" />
+            <End Role="GUPassport_States" EntitySet="GUPassport_States" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GUPassports_Installation" Association="Models.FK_GUPassports_Installation">
+            <End Role="Installation" EntitySet="Installations" />
+            <End Role="GUPassport" EntitySet="GUPassports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GUPasssport_States_GUPassports1" Association="Models.FK_GUPasssport_States_GUPassports1">
+            <End Role="GUPassport" EntitySet="GUPassports" />
             <End Role="GUPassport_State" EntitySet="GUPassport_States" />
           </AssociationSet>
-          <AssociationSet Name="FK_GUPassports_GUPassports" Association="Models.FK_GUPassports_GUPassports">
-            <End Role="GUPassport" EntitySet="GUPassports" />
-            <End Role="GUPassport1" EntitySet="GUPassports" />
+          <FunctionImport Name="currentUserID" IsComposable="true" ReturnType="Collection(Models.currentUserID_Result)" />
+          <EntitySet Name="ActualStatus" EntityType="Models.ActualStatu" />
+          <EntitySet Name="AddressObjectTypes" EntityType="Models.AddressObjectType" />
+          <EntitySet Name="CenterStatus" EntityType="Models.CenterStatu" />
+          <EntitySet Name="CurrentStatus" EntityType="Models.CurrentStatu" />
+          <EntitySet Name="EstateStatus" EntityType="Models.EstateStatu" />
+          <EntitySet Name="Houses" EntityType="Models.House" />
+          <EntitySet Name="HouseStateStatus" EntityType="Models.HouseStateStatu" />
+          <EntitySet Name="NormativeDocuments" EntityType="Models.NormativeDocument" />
+          <EntitySet Name="NormativeDocumentTypes" EntityType="Models.NormativeDocumentType" />
+          <EntitySet Name="Objects" EntityType="Models.Object" />
+          <EntitySet Name="OperationStatus" EntityType="Models.OperationStatu" />
+          <EntitySet Name="StructureStatus" EntityType="Models.StructureStatu" />
+          <AssociationSet Name="FK_GUPassport_Sites_House" Association="Models.FK_GUPassport_Sites_House">
+            <End Role="House" EntitySet="Houses" />
+            <End Role="GUPassport_Site" EntitySet="GUPassport_Sites" />
           </AssociationSet>
-          <AssociationSet Name="FK_GUPassports_GUPassports1" Association="Models.FK_GUPassports_GUPassports1">
+          <AssociationSet Name="FK_GUPassports_House" Association="Models.FK_GUPassports_House">
+            <End Role="House" EntitySet="Houses" />
             <End Role="GUPassport" EntitySet="GUPassports" />
-            <End Role="GUPassport1" EntitySet="GUPassports" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="GUPassport_State">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="GUPasssport_ID" Type="Guid" Nullable="false" />
-          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="startdate" Type="DateTimeOffset" Nullable="false" />
-          <Property Name="enddate" Type="DateTimeOffset" />
-          <Property Name="insertdate" Type="DateTimeOffset" Nullable="false" />
-          <Property Name="updatedate" Type="DateTimeOffset" />
-          <Property Name="Sotr_ID" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="GUPassport" Relationship="Models.FK_GUPasssport_States_GUPassports" FromRole="GUPassport_State" ToRole="GUPassport" />
-        </EntityType>
+          <AssociationSet Name="FK_Object_ActualStatus" Association="Models.FK_Object_ActualStatus">
+            <End Role="ActualStatu" EntitySet="ActualStatus" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Object" Association="Models.FK_Object_Object">
+            <End Role="AddressObjectType" EntitySet="AddressObjectTypes" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_CenterStatus" Association="Models.FK_Object_CenterStatus">
+            <End Role="CenterStatu" EntitySet="CenterStatus" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_CurrentStatus" Association="Models.FK_Object_CurrentStatus">
+            <End Role="CurrentStatu" EntitySet="CurrentStatus" />
+            <End Role="Object" EntitySet="Objects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_EstateStatus" Association="Models.FK_House_EstateStatus">
+            <End Role="EstateStatu" EntitySet="EstateStatus" />
+            <End Role="House" EntitySet="Houses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_StructureStatus" Association="Models.FK_House_StructureStatus">
+            <End Role="StructureStatu" EntitySet="StructureStatus" />
+            <End Role="House" EntitySet="Houses" />
+          </AssociationSet>
+          </EntityContainer>
         <ComplexType Name="ObjectFullAddress4_Result">
           <Property Type="String" Name="fullAdress" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="ID_ORDER" Nullable="true" />
@@ -478,14 +703,116 @@
           <NavigationProperty Name="AdminArea1" Relationship="Models.FK_AdminArea_AdminArea" FromRole="AdminArea" ToRole="AdminArea1" />
           <NavigationProperty Name="AdminArea2" Relationship="Models.FK_AdminArea_AdminArea" FromRole="AdminArea1" ToRole="AdminArea" />
           <NavigationProperty Name="GUPassports" Relationship="Models.FK_GUPassports_AdminArea" FromRole="AdminArea" ToRole="GUPassport" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="Ground_Type">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Guid" Nullable="false" />
           <Property Name="GroundName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GUPassports" Relationship="Models.FK_GUPassports_Ground_Types" FromRole="Ground_Type" ToRole="GUPassport" />
+          <NavigationProperty Name="GUPassports" Relationship="Models.FK_GUPassports_Ground_Types" FromRole="Ground_Types" ToRole="GUPassport" />
+        </EntityType>
+        <EntityType Name="GUPassport_Site">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="GUPassport_ID" Type="Guid" Nullable="false" />
+          <Property Name="Block_Number" Type="Int16" Nullable="false" />
+          <Property Name="Row_Number" Type="Int16" Nullable="false" />
+          <Property Name="Site_Number" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Content_Text" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Content_Transliteration" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Content_Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Content_Direction" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Object_ID" Type="Guid" />
+          <Property Name="Minutes" Type="Int16" />
+          <Property Name="tsc" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="GUPassport" Relationship="Models.FK_GUPasssport_Sites_GUPassports" FromRole="GUPassport_Sites" ToRole="GUPassport" />
+          <Property Name="HouseID" Type="Guid" />
+          <Property Name="upserted" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="Sotr_ID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="House" Relationship="Models.FK_GUPassport_Sites_House" FromRole="GUPassport_Site" ToRole="House" />
+        </EntityType>
+        <EntityType Name="GUPassport_State">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="startdate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="Sotr_ID" Type="Guid" Nullable="false" />
+          <Property Name="tsc" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="upserted" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="NextID" Type="Guid" />
+          <Property Name="GUPassport_ID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="GUPassport" Relationship="Models.FK_GUPasssport_States_GUPassports1" FromRole="GUPassport_State" ToRole="GUPassport" />
+        </EntityType>
+        <EntityType Name="GUPassport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="Installation_ID" Type="Guid" Nullable="false" />
+          <Property Name="nextID" Type="Guid" />
+          <Property Name="startdate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="enddate" Type="DateTime" Precision="0" />
+          <Property Name="upserted" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="Sotr_ID" Type="Guid" Nullable="false" />
+          <Property Name="tsc" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="UNOM" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HouseID" Type="Guid" Nullable="false" />
+          <Property Name="AdmidArea_ID" Type="Guid" Nullable="false" />
+          <Property Name="WGS84" Type="Geography" />
+          <Property Name="EGKO" Type="Geometry" />
+          <Property Name="Ground_Type_ID" Type="Guid" Nullable="false" />
+          <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sidewalk_width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Condition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Reconstruction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Closed_loop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Electricity_connection" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Plan" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="AdminArea" Relationship="Models.FK_GUPassports_AdminArea" FromRole="GUPassport" ToRole="AdminArea" />
+          <NavigationProperty Name="Ground_Types" Relationship="Models.FK_GUPassports_Ground_Types" FromRole="GUPassport" ToRole="Ground_Types" />
+          <NavigationProperty Name="GUPassport_Sites" Relationship="Models.FK_GUPasssport_Sites_GUPassports" FromRole="GUPassport" ToRole="GUPassport_Sites" />
+          <NavigationProperty Name="GUPassport_States" Relationship="Models.FK_GUPasssport_States_GUPassports" FromRole="GUPassport" ToRole="GUPassport_States" />
+          <NavigationProperty Name="Installation" Relationship="Models.FK_GUPassports_Installation" FromRole="GUPassport" ToRole="Installation" />
+          <NavigationProperty Name="GUPassport_States1" Relationship="Models.FK_GUPasssport_States_GUPassports1" FromRole="GUPassport" ToRole="GUPassport_State" />
+          <NavigationProperty Name="House" Relationship="Models.FK_GUPassports_House" FromRole="GUPassport" ToRole="House" />
+        </EntityType>
+        <EntityType Name="Installation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="tsc" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="upserted" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="Persons_ID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="GUPassports" Relationship="Models.FK_GUPassports_Installation" FromRole="Installation" ToRole="GUPassport" />
+        </EntityType>
+        <EntityType Name="proverkaGU">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ts" />
+          </Key>
+          <Property Name="Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Okrug" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Raion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorAdress" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Fakt" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Maket" Type="Boolean" />
+          <Property Name="Passport" Type="Boolean" />
+          <Property Name="Prim" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Checking" Type="Boolean" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Plash" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ts" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="updated" Type="DateTimeOffset" Precision="7" />
         </EntityType>
         <Association Name="FK_AdminArea_AdminArea">
           <End Type="Models.AdminArea" Role="AdminArea" Multiplicity="0..1" />
@@ -499,6 +826,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GUPassports_AdminArea">
+          <End Type="Models.AdminArea" Role="AdminArea" Multiplicity="1" />
+          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminArea">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GUPassport">
+              <PropertyRef Name="AdmidArea_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GUPassports_Ground_Types">
+          <End Type="Models.Ground_Type" Role="Ground_Types" Multiplicity="1" />
+          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ground_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GUPassport">
+              <PropertyRef Name="Ground_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GUPasssport_Sites_GUPassports">
+          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="1" />
+          <End Type="Models.GUPassport_Site" Role="GUPassport_Sites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GUPassport">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GUPassport_Sites">
+              <PropertyRef Name="GUPassport_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GUPasssport_States_GUPassports">
+          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="1" />
+          <End Type="Models.GUPassport_State" Role="GUPassport_States" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GUPassport">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GUPassport_States">
+              <PropertyRef Name="GUPassport_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GUPassports_Installation">
+          <End Type="Models.Installation" Role="Installation" Multiplicity="1" />
+          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Installation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GUPassport">
+              <PropertyRef Name="Installation_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GUPasssport_States_GUPassports1">
+          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="1" />
+          <End Type="Models.GUPassport_State" Role="GUPassport_State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GUPassport">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GUPassport_State">
+              <PropertyRef Name="GUPassport_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="currentUserID_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="Int32" Name="UID" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="ActualStatu">
+          <Key>
+            <PropertyRef Name="ACTSTATID" />
+          </Key>
+          <Property Name="ACTSTATID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Objects" Relationship="Models.FK_Object_ActualStatus" FromRole="ActualStatu" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="AddressObjectType">
+          <Key>
+            <PropertyRef Name="LEVEL" />
+            <PropertyRef Name="SCNAME" />
+          </Key>
+          <Property Name="LEVEL" Type="Int32" Nullable="false" />
+          <Property Name="SCNAME" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SOCRNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KOD_T_ST" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Objects" Relationship="Models.FK_Object_Object" FromRole="AddressObjectType" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="CenterStatu">
+          <Key>
+            <PropertyRef Name="CENTERSTID" />
+          </Key>
+          <Property Name="CENTERSTID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Objects" Relationship="Models.FK_Object_CenterStatus" FromRole="CenterStatu" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="CurrentStatu">
+          <Key>
+            <PropertyRef Name="CURENTSTID" />
+          </Key>
+          <Property Name="CURENTSTID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Objects" Relationship="Models.FK_Object_CurrentStatus" FromRole="CurrentStatu" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="EstateStatu">
+          <Key>
+            <PropertyRef Name="ESTSTATID" />
+          </Key>
+          <Property Name="ESTSTATID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SHORTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Houses" Relationship="Models.FK_House_EstateStatus" FromRole="EstateStatu" ToRole="House" />
+        </EntityType>
         <EntityType Name="House">
           <Key>
             <PropertyRef Name="HOUSEID" />
@@ -510,7 +957,7 @@
           <Property Name="TERRIFNSUL" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="OKATO" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
           <Property Name="OKTMO" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="UPDATEDATE" Type="DateTime" />
+          <Property Name="UPDATEDATE" Type="DateTime" Precision="0" />
           <Property Name="HOUSENUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ESTSTATUS" Type="Int32" Nullable="false" />
           <Property Name="BUILDNUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -519,13 +966,42 @@
           <Property Name="HOUSEID" Type="Guid" Nullable="false" />
           <Property Name="HOUSEGUID" Type="Guid" Nullable="false" />
           <Property Name="AOGUID" Type="Guid" />
-          <Property Name="STARTDATE" Type="DateTime" Nullable="false" />
-          <Property Name="ENDDATE" Type="DateTime" Nullable="false" />
+          <Property Name="STARTDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ENDDATE" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="STATSTATUS" Type="Int32" />
           <Property Name="NORMDOC" Type="Guid" />
           <Property Name="COUNTER" Type="Int32" />
           <Property Name="CADNUM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DIVTYPE" Type="Int32" />
+          <NavigationProperty Name="GUPassport_Sites" Relationship="Models.FK_GUPassport_Sites_House" FromRole="House" ToRole="GUPassport_Site" />
+          <NavigationProperty Name="GUPassports" Relationship="Models.FK_GUPassports_House" FromRole="House" ToRole="GUPassport" />
+          <NavigationProperty Name="EstateStatu" Relationship="Models.FK_House_EstateStatus" FromRole="House" ToRole="EstateStatu" />
+          <NavigationProperty Name="StructureStatu" Relationship="Models.FK_House_StructureStatus" FromRole="House" ToRole="StructureStatu" />
+        </EntityType>
+        <EntityType Name="HouseStateStatu">
+          <Key>
+            <PropertyRef Name="HOUSESTID" />
+          </Key>
+          <Property Name="HOUSESTID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NormativeDocument">
+          <Key>
+            <PropertyRef Name="NORMDOCID" />
+          </Key>
+          <Property Name="NORMDOCID" Type="Guid" Nullable="false" />
+          <Property Name="DOCNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DOCDATE" Type="DateTime" Precision="0" />
+          <Property Name="DOCNUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DOCTYPE" Type="Int32" Nullable="false" />
+          <Property Name="DOCIMGID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="NormativeDocumentType">
+          <Key>
+            <PropertyRef Name="NDTYPEID" />
+          </Key>
+          <Property Name="NDTYPEID" Type="Int64" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Object">
           <Key>
@@ -550,7 +1026,7 @@
           <Property Name="TERRIFNSUL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="OKATO" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
           <Property Name="OKTMO" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
-          <Property Name="UPDATEDATE" Type="DateTime" />
+          <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
           <Property Name="SHORTNAME" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="AOLEVEL" Type="Int32" />
           <Property Name="PARENTGUID" Type="Guid" />
@@ -563,8 +1039,8 @@
           <Property Name="CENTSTATUS" Type="Int32" />
           <Property Name="OPERSTATUS" Type="Int32" />
           <Property Name="CURRSTATUS" Type="Int32" />
-          <Property Name="STARTDATE" Type="DateTime" />
-          <Property Name="ENDDATE" Type="DateTime" />
+          <Property Name="STARTDATE" Type="DateTime" Precision="3" />
+          <Property Name="ENDDATE" Type="DateTime" Precision="3" />
           <Property Name="NORMDOC" Type="Guid" />
           <Property Name="LIVESTATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
           <Property Name="CADNUM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -576,192 +1052,132 @@
           <Property Name="OFFNAME_PREFIX" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="OFFNAME_NAME" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="CONVERTSTREET" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ActualStatu" Relationship="Models.FK_Object_ActualStatus" FromRole="Object" ToRole="ActualStatu" />
+          <NavigationProperty Name="AddressObjectType" Relationship="Models.FK_Object_Object" FromRole="Object" ToRole="AddressObjectType" />
+          <NavigationProperty Name="CenterStatu" Relationship="Models.FK_Object_CenterStatus" FromRole="Object" ToRole="CenterStatu" />
+          <NavigationProperty Name="CurrentStatu" Relationship="Models.FK_Object_CurrentStatus" FromRole="Object" ToRole="CurrentStatu" />
         </EntityType>
-        <EntityType Name="GUPassport_Site">
+        <EntityType Name="OperationStatu">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="OPERSTATID" />
           </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="GUPassport_ID" Type="Guid" Nullable="false" />
-          <Property Name="Block_Number" Type="Int16" Nullable="false" />
-          <Property Name="Row_Number" Type="Int16" Nullable="false" />
-          <Property Name="Site_Number" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="Content_Text" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Content_Transliteration" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Content_Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Content_Direction" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Object_ID" Type="Guid" />
-          <Property Name="Address_ID" Type="Guid" />
-          <Property Name="Minutes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="tsc" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
-          <NavigationProperty Name="GUPassport" Relationship="Models.FK_GUPasssport_Sites_GUPassports" FromRole="GUPassport_Site" ToRole="GUPassport" />
+          <Property Name="OPERSTATID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="GUPassport">
+        <EntityType Name="StructureStatu">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="STRSTATID" />
           </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="prev" Type="Guid" />
-          <Property Name="next" Type="Guid" />
-          <Property Name="startdate" Type="DateTime" Nullable="false" />
-          <Property Name="enddate" Type="DateTime" />
-          <Property Name="insertdate" Type="DateTimeOffset" Nullable="false" />
-          <Property Name="updatedate" Type="DateTimeOffset" />
-          <Property Name="Sotr_ID" Type="Guid" Nullable="false" />
-          <Property Name="tsc" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="UNOM" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HouseID" Type="Guid" Nullable="false" />
-          <Property Name="AdmidArea_ID" Type="Guid" Nullable="false" />
-          <Property Name="WGS84" Type="Geography" />
-          <Property Name="EGKO" Type="Geometry" />
-          <Property Name="Ground_Type_ID" Type="Guid" Nullable="false" />
-          <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Sidewalk_width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Condition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Patency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Reconstruction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Closed_loop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Electricity_connection" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Plan" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="AdminArea" Relationship="Models.FK_GUPassports_AdminArea" FromRole="GUPassport" ToRole="AdminArea" />
-          <NavigationProperty Name="Ground_Types" Relationship="Models.FK_GUPassports_Ground_Types" FromRole="GUPassport" ToRole="Ground_Type" />
-          <NavigationProperty Name="GUPassport_Sites" Relationship="Models.FK_GUPasssport_Sites_GUPassports" FromRole="GUPassport" ToRole="GUPassport_Site" />
-          <NavigationProperty Name="GUPassport_States" Relationship="Models.FK_GUPasssport_States_GUPassports" FromRole="GUPassport" ToRole="GUPassport_State" />
-          <NavigationProperty Name="GUPassports1" Relationship="Models.FK_GUPassports_GUPassports" FromRole="GUPassport" ToRole="GUPassport1" />
-          <NavigationProperty Name="GUPassport1" Relationship="Models.FK_GUPassports_GUPassports" FromRole="GUPassport1" ToRole="GUPassport" />
-          <NavigationProperty Name="GUPassports11" Relationship="Models.FK_GUPassports_GUPassports1" FromRole="GUPassport" ToRole="GUPassport1" />
-          <NavigationProperty Name="GUPassport2" Relationship="Models.FK_GUPassports_GUPassports1" FromRole="GUPassport1" ToRole="GUPassport" />
+          <Property Name="STRSTATID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SHORTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Houses" Relationship="Models.FK_House_StructureStatus" FromRole="StructureStatu" ToRole="House" />
         </EntityType>
-        <Association Name="FK_GUPassports_AdminArea">
-          <End Type="Models.AdminArea" Role="AdminArea" Multiplicity="1" />
-          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AdminArea">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GUPassport">
-              <PropertyRef Name="AdmidArea_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GUPassports_Ground_Types">
-          <End Type="Models.Ground_Type" Role="Ground_Type" Multiplicity="1" />
-          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ground_Type">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="GUPassport">
-              <PropertyRef Name="Ground_Type_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GUPasssport_Sites_GUPassports">
-          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="1" />
+        <Association Name="FK_GUPassport_Sites_House">
+          <End Type="Models.House" Role="House" Multiplicity="0..1" />
           <End Type="Models.GUPassport_Site" Role="GUPassport_Site" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GUPassport">
-              <PropertyRef Name="id" />
+            <Principal Role="House">
+              <PropertyRef Name="HOUSEID" />
             </Principal>
             <Dependent Role="GUPassport_Site">
-              <PropertyRef Name="GUPassport_ID" />
+              <PropertyRef Name="HouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GUPasssport_States_GUPassports">
-          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="1" />
-          <End Type="Models.GUPassport_State" Role="GUPassport_State" Multiplicity="*" />
+        <Association Name="FK_GUPassports_House">
+          <End Type="Models.House" Role="House" Multiplicity="1" />
+          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GUPassport">
-              <PropertyRef Name="id" />
+            <Principal Role="House">
+              <PropertyRef Name="HOUSEID" />
             </Principal>
-            <Dependent Role="GUPassport_State">
-              <PropertyRef Name="GUPasssport_ID" />
+            <Dependent Role="GUPassport">
+              <PropertyRef Name="HouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GUPassports_GUPassports">
-          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="0..1" />
-          <End Type="Models.GUPassport" Role="GUPassport1" Multiplicity="*" />
+        <Association Name="FK_Object_ActualStatus">
+          <End Type="Models.ActualStatu" Role="ActualStatu" Multiplicity="0..1" />
+          <End Type="Models.Object" Role="Object" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GUPassport">
-              <PropertyRef Name="id" />
+            <Principal Role="ActualStatu">
+              <PropertyRef Name="ACTSTATID" />
             </Principal>
-            <Dependent Role="GUPassport1">
-              <PropertyRef Name="next" />
+            <Dependent Role="Object">
+              <PropertyRef Name="ACTSTATUS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GUPassports_GUPassports1">
-          <End Type="Models.GUPassport" Role="GUPassport" Multiplicity="0..1" />
-          <End Type="Models.GUPassport" Role="GUPassport1" Multiplicity="*" />
+        <Association Name="FK_Object_Object">
+          <End Type="Models.AddressObjectType" Role="AddressObjectType" Multiplicity="0..1" />
+          <End Type="Models.Object" Role="Object" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GUPassport">
-              <PropertyRef Name="id" />
+            <Principal Role="AddressObjectType">
+              <PropertyRef Name="LEVEL" />
+              <PropertyRef Name="SCNAME" />
             </Principal>
-            <Dependent Role="GUPassport1">
-              <PropertyRef Name="prev" />
+            <Dependent Role="Object">
+              <PropertyRef Name="AOLEVEL" />
+              <PropertyRef Name="SHORTNAME" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Object_CenterStatus">
+          <End Type="Models.CenterStatu" Role="CenterStatu" Multiplicity="0..1" />
+          <End Type="Models.Object" Role="Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CenterStatu">
+              <PropertyRef Name="CENTERSTID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="CENTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_CurrentStatus">
+          <End Type="Models.CurrentStatu" Role="CurrentStatu" Multiplicity="0..1" />
+          <End Type="Models.Object" Role="Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CurrentStatu">
+              <PropertyRef Name="CURENTSTID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="CURRSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_EstateStatus">
+          <End Type="Models.EstateStatu" Role="EstateStatu" Multiplicity="1" />
+          <End Type="Models.House" Role="House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstateStatu">
+              <PropertyRef Name="ESTSTATID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="ESTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_StructureStatus">
+          <End Type="Models.StructureStatu" Role="StructureStatu" Multiplicity="0..1" />
+          <End Type="Models.House" Role="House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StructureStatu">
+              <PropertyRef Name="STRSTATID" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="STRSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище ModelsContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="proverkaGU">
-            <EntityTypeMapping TypeName="Models.proverkaGU">
-              <MappingFragment StoreEntitySet="proverkaGU">
-                <ScalarProperty Name="updated" ColumnName="updated" />
-                <ScalarProperty Name="ts" ColumnName="ts" />
-                <ScalarProperty Name="Plash" ColumnName="Plash" />
-                <ScalarProperty Name="Num" ColumnName="Num" />
-                <ScalarProperty Name="Okrug" ColumnName="Okrug" />
-                <ScalarProperty Name="Raion" ColumnName="Raion" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="Dom" ColumnName="Dom" />
-                <ScalarProperty Name="ErrorAdress" ColumnName="ErrorAdress" />
-                <ScalarProperty Name="Fakt" ColumnName="Fakt" />
-                <ScalarProperty Name="Maket" ColumnName="Maket" />
-                <ScalarProperty Name="Passport" ColumnName="Passport" />
-                <ScalarProperty Name="Prim" ColumnName="Prim" />
-                <ScalarProperty Name="Checking" ColumnName="Checking" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="Models.proverkaGU">
-              <ModificationFunctionMapping>
-                <UpdateFunction FunctionName="Хранилище Models.updateProverkaGU" >
-                  <ScalarProperty Name="updated" ParameterName="updated" Version="Current" />
-                  <ScalarProperty Name="Plash" ParameterName="Плашки" Version="Current" />
-                  <ScalarProperty Name="Fakt" ParameterName="Fact" Version="Current" />
-                  <ScalarProperty Name="Checking" ParameterName="Проверено" Version="Current" />
-                  <ScalarProperty Name="Prim" ParameterName="Примечание" Version="Current" />
-                  <ScalarProperty Name="Passport" ParameterName="Наличие_согласованного_паспорта" Version="Current" />
-                  <ScalarProperty Name="Maket" ParameterName="Наличие_согласованного_макета" Version="Current" />
-                  <ScalarProperty Name="ErrorAdress" ParameterName="Ошибки_в_адресации_ГУ" Version="Current" />
-                  <ScalarProperty Name="ID" ParameterName="id" Version="Current" />
-                </UpdateFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="updateProverkaGU" FunctionName="Хранилище Models.updateProverkaGU" />
-          <EntitySetMapping Name="GUPassport_States">
-            <EntityTypeMapping TypeName="Models.GUPassport_State">
-              <MappingFragment StoreEntitySet="GUPassport_States">
-                <ScalarProperty Name="Sotr_ID" ColumnName="Sotr_ID" />
-                <ScalarProperty Name="updatedate" ColumnName="updatedate" />
-                <ScalarProperty Name="insertdate" ColumnName="insertdate" />
-                <ScalarProperty Name="enddate" ColumnName="enddate" />
-                <ScalarProperty Name="startdate" ColumnName="startdate" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="GUPasssport_ID" ColumnName="GUPasssport_ID" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ObjectFullAddress4" FunctionName="Хранилище Models.ObjectFullAddress4">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Models.ObjectFullAddress4_Result">
@@ -794,6 +1210,167 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="GUPassport_Sites">
+            <EntityTypeMapping TypeName="Models.GUPassport_Site">
+              <MappingFragment StoreEntitySet="GUPassport_Sites">
+                <ScalarProperty Name="Sotr_ID" ColumnName="Sotr_ID" />
+                <ScalarProperty Name="upserted" ColumnName="upserted" />
+                <ScalarProperty Name="HouseID" ColumnName="HouseID" />
+                <ScalarProperty Name="tsc" ColumnName="tsc" />
+                <ScalarProperty Name="Minutes" ColumnName="Minutes" />
+                <ScalarProperty Name="Object_ID" ColumnName="Object_ID" />
+                <ScalarProperty Name="Content_Direction" ColumnName="Content_Direction" />
+                <ScalarProperty Name="Content_Address" ColumnName="Content_Address" />
+                <ScalarProperty Name="Content_Transliteration" ColumnName="Content_Transliteration" />
+                <ScalarProperty Name="Content_Text" ColumnName="Content_Text" />
+                <ScalarProperty Name="Site_Number" ColumnName="Site_Number" />
+                <ScalarProperty Name="Row_Number" ColumnName="Row_Number" />
+                <ScalarProperty Name="Block_Number" ColumnName="Block_Number" />
+                <ScalarProperty Name="GUPassport_ID" ColumnName="GUPassport_ID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GUPassport_States">
+            <EntityTypeMapping TypeName="Models.GUPassport_State">
+              <MappingFragment StoreEntitySet="GUPassport_States">
+                <ScalarProperty Name="GUPassport_ID" ColumnName="GUPassport_ID" />
+                <ScalarProperty Name="NextID" ColumnName="NextID" />
+                <ScalarProperty Name="upserted" ColumnName="upserted" />
+                <ScalarProperty Name="tsc" ColumnName="tsc" />
+                <ScalarProperty Name="Sotr_ID" ColumnName="Sotr_ID" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GUPassports">
+            <EntityTypeMapping TypeName="Models.GUPassport">
+              <MappingFragment StoreEntitySet="GUPassports">
+                <ScalarProperty Name="Plan" ColumnName="Plan" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Electricity_connection" ColumnName="Electricity_connection" />
+                <ScalarProperty Name="Closed_loop" ColumnName="Closed_loop" />
+                <ScalarProperty Name="Reconstruction" ColumnName="Reconstruction" />
+                <ScalarProperty Name="Patency" ColumnName="Patency" />
+                <ScalarProperty Name="Condition" ColumnName="Condition" />
+                <ScalarProperty Name="Sidewalk_width" ColumnName="Sidewalk_width" />
+                <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+                <ScalarProperty Name="Ground_Type_ID" ColumnName="Ground_Type_ID" />
+                <ScalarProperty Name="EGKO" ColumnName="EGKO" />
+                <ScalarProperty Name="WGS84" ColumnName="WGS84" />
+                <ScalarProperty Name="AdmidArea_ID" ColumnName="AdmidArea_ID" />
+                <ScalarProperty Name="HouseID" ColumnName="HouseID" />
+                <ScalarProperty Name="UNOM" ColumnName="UNOM" />
+                <ScalarProperty Name="tsc" ColumnName="tsc" />
+                <ScalarProperty Name="Sotr_ID" ColumnName="Sotr_ID" />
+                <ScalarProperty Name="upserted" ColumnName="upserted" />
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="nextID" ColumnName="nextID" />
+                <ScalarProperty Name="Installation_ID" ColumnName="Installation_ID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Installations">
+            <EntityTypeMapping TypeName="Models.Installation">
+              <MappingFragment StoreEntitySet="Installation">
+                <ScalarProperty Name="Persons_ID" ColumnName="Persons_ID" />
+                <ScalarProperty Name="upserted" ColumnName="upserted" />
+                <ScalarProperty Name="tsc" ColumnName="tsc" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proverkaGU">
+            <EntityTypeMapping TypeName="Models.proverkaGU">
+              <MappingFragment StoreEntitySet="proverkaGU">
+                <ScalarProperty Name="updated" ColumnName="updated" />
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="Plash" ColumnName="Plash" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Checking" ColumnName="Checking" />
+                <ScalarProperty Name="Prim" ColumnName="Prim" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Maket" ColumnName="Maket" />
+                <ScalarProperty Name="Fakt" ColumnName="Fakt" />
+                <ScalarProperty Name="ErrorAdress" ColumnName="ErrorAdress" />
+                <ScalarProperty Name="Dom" ColumnName="Dom" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Raion" ColumnName="Raion" />
+                <ScalarProperty Name="Okrug" ColumnName="Okrug" />
+                <ScalarProperty Name="Num" ColumnName="Num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Models.proverkaGU">
+              <ModificationFunctionMapping>
+                <UpdateFunction FunctionName="Хранилище Models.updateProverkaGU">
+                  <ScalarProperty Name="Checking" ParameterName="Проверено" Version="Current" />
+                  <ScalarProperty Name="Prim" ParameterName="Примечание" Version="Current" />
+                  <ScalarProperty Name="Passport" ParameterName="Наличие_согласованного_паспорта" Version="Current" />
+                  <ScalarProperty Name="Maket" ParameterName="Наличие_согласованного_макета" Version="Current" />
+                  <ScalarProperty Name="Plash" ParameterName="Плашки" Version="Current" />
+                  <ScalarProperty Name="Plash" ParameterName="Fact" Version="Current" />
+                  <ScalarProperty Name="Fakt" ParameterName="Ошибки_в_адресации_ГУ" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="id" Version="Current" />
+                  <ScalarProperty Name="updated" ParameterName="updated" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="currentUserID" FunctionName="Хранилище Models.currentUserID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.currentUserID_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ActualStatus">
+            <EntityTypeMapping TypeName="Models.ActualStatu">
+              <MappingFragment StoreEntitySet="ActualStatus">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ACTSTATID" ColumnName="ACTSTATID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddressObjectTypes">
+            <EntityTypeMapping TypeName="Models.AddressObjectType">
+              <MappingFragment StoreEntitySet="AddressObjectType">
+                <ScalarProperty Name="KOD_T_ST" ColumnName="KOD_T_ST" />
+                <ScalarProperty Name="SOCRNAME" ColumnName="SOCRNAME" />
+                <ScalarProperty Name="SCNAME" ColumnName="SCNAME" />
+                <ScalarProperty Name="LEVEL" ColumnName="LEVEL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CenterStatus">
+            <EntityTypeMapping TypeName="Models.CenterStatu">
+              <MappingFragment StoreEntitySet="CenterStatus">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="CENTERSTID" ColumnName="CENTERSTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentStatus">
+            <EntityTypeMapping TypeName="Models.CurrentStatu">
+              <MappingFragment StoreEntitySet="CurrentStatus">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="CURENTSTID" ColumnName="CURENTSTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstateStatus">
+            <EntityTypeMapping TypeName="Models.EstateStatu">
+              <MappingFragment StoreEntitySet="EstateStatus">
+                <ScalarProperty Name="SHORTNAME" ColumnName="SHORTNAME" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ESTSTATID" ColumnName="ESTSTATID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Houses">
             <EntityTypeMapping TypeName="Models.House">
               <MappingFragment StoreEntitySet="House">
@@ -820,6 +1397,34 @@
                 <ScalarProperty Name="TERRIFNSFL" ColumnName="TERRIFNSFL" />
                 <ScalarProperty Name="IFNSFL" ColumnName="IFNSFL" />
                 <ScalarProperty Name="POSTALCODE" ColumnName="POSTALCODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HouseStateStatus">
+            <EntityTypeMapping TypeName="Models.HouseStateStatu">
+              <MappingFragment StoreEntitySet="HouseStateStatus">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="HOUSESTID" ColumnName="HOUSESTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NormativeDocuments">
+            <EntityTypeMapping TypeName="Models.NormativeDocument">
+              <MappingFragment StoreEntitySet="NormativeDocument">
+                <ScalarProperty Name="DOCIMGID" ColumnName="DOCIMGID" />
+                <ScalarProperty Name="DOCTYPE" ColumnName="DOCTYPE" />
+                <ScalarProperty Name="DOCNUM" ColumnName="DOCNUM" />
+                <ScalarProperty Name="DOCDATE" ColumnName="DOCDATE" />
+                <ScalarProperty Name="DOCNAME" ColumnName="DOCNAME" />
+                <ScalarProperty Name="NORMDOCID" ColumnName="NORMDOCID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NormativeDocumentTypes">
+            <EntityTypeMapping TypeName="Models.NormativeDocumentType">
+              <MappingFragment StoreEntitySet="NormativeDocumentType">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="NDTYPEID" ColumnName="NDTYPEID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -874,52 +1479,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GUPassport_Sites">
-            <EntityTypeMapping TypeName="Models.GUPassport_Site">
-              <MappingFragment StoreEntitySet="GUPassport_Sites">
-                <ScalarProperty Name="tsc" ColumnName="tsc" />
-                <ScalarProperty Name="Minutes" ColumnName="Minutes" />
-                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
-                <ScalarProperty Name="Object_ID" ColumnName="Object_ID" />
-                <ScalarProperty Name="Content_Direction" ColumnName="Content_Direction" />
-                <ScalarProperty Name="Content_Address" ColumnName="Content_Address" />
-                <ScalarProperty Name="Content_Transliteration" ColumnName="Content_Transliteration" />
-                <ScalarProperty Name="Content_Text" ColumnName="Content_Text" />
-                <ScalarProperty Name="Site_Number" ColumnName="Site_Number" />
-                <ScalarProperty Name="Row_Number" ColumnName="Row_Number" />
-                <ScalarProperty Name="Block_Number" ColumnName="Block_Number" />
-                <ScalarProperty Name="GUPassport_ID" ColumnName="GUPassport_ID" />
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="OperationStatus">
+            <EntityTypeMapping TypeName="Models.OperationStatu">
+              <MappingFragment StoreEntitySet="OperationStatus">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="OPERSTATID" ColumnName="OPERSTATID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GUPassports">
-            <EntityTypeMapping TypeName="Models.GUPassport">
-              <MappingFragment StoreEntitySet="GUPassports">
-                <ScalarProperty Name="Plan" ColumnName="Plan" />
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="Electricity_connection" ColumnName="Electricity_connection" />
-                <ScalarProperty Name="Closed_loop" ColumnName="Closed_loop" />
-                <ScalarProperty Name="Reconstruction" ColumnName="Reconstruction" />
-                <ScalarProperty Name="Patency" ColumnName="Patency" />
-                <ScalarProperty Name="Condition" ColumnName="Condition" />
-                <ScalarProperty Name="Sidewalk_width" ColumnName="Sidewalk_width" />
-                <ScalarProperty Name="Visibility" ColumnName="Visibility" />
-                <ScalarProperty Name="Ground_Type_ID" ColumnName="Ground_Type_ID" />
-                <ScalarProperty Name="EGKO" ColumnName="EGKO" />
-                <ScalarProperty Name="WGS84" ColumnName="WGS84" />
-                <ScalarProperty Name="AdmidArea_ID" ColumnName="AdmidArea_ID" />
-                <ScalarProperty Name="HouseID" ColumnName="HouseID" />
-                <ScalarProperty Name="UNOM" ColumnName="UNOM" />
-                <ScalarProperty Name="tsc" ColumnName="tsc" />
-                <ScalarProperty Name="Sotr_ID" ColumnName="Sotr_ID" />
-                <ScalarProperty Name="updatedate" ColumnName="updatedate" />
-                <ScalarProperty Name="insertdate" ColumnName="insertdate" />
-                <ScalarProperty Name="enddate" ColumnName="enddate" />
-                <ScalarProperty Name="startdate" ColumnName="startdate" />
-                <ScalarProperty Name="next" ColumnName="next" />
-                <ScalarProperty Name="prev" ColumnName="prev" />
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="StructureStatus">
+            <EntityTypeMapping TypeName="Models.StructureStatu">
+              <MappingFragment StoreEntitySet="StructureStatus">
+                <ScalarProperty Name="SHORTNAME" ColumnName="SHORTNAME" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="STRSTATID" ColumnName="STRSTATID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -936,12 +1509,12 @@
     </Connection>
     <Options>
       <DesignerInfoPropertySet>
-        <DesignerProperty Name="ValidateOnBuild" Value="False" />
+        <DesignerProperty Name="ValidateOnBuild" Value="True" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
-        <DesignerProperty Name="SynchronizePropertyFacets" Value="False" />
+        <DesignerProperty Name="SynchronizePropertyFacets" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

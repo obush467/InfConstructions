@@ -5,21 +5,40 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="85f9016bd49d41b69aa43f437ce8d9a4" Name="Diagram1" ZoomLevel="96">
-        <EntityTypeShape EntityType="Models.proverkaGU" Width="1.5" PointX="0.75" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.GUPassport_State" Width="2.25" PointX="6.375" PointY="0.625" />
-        <EntityTypeShape EntityType="Models.AdminArea" Width="1.5" PointX="0.75" PointY="5.5" />
-        <EntityTypeShape EntityType="Models.Ground_Type" Width="1.5" PointX="1.125" PointY="14.5" />
+        <EntityTypeShape EntityType="Models.AdminArea" Width="1.5" PointX="0.625" PointY="5" />
+        <EntityTypeShape EntityType="Models.Ground_Type" Width="1.5" PointX="0.625" PointY="3.125" />
+        <EntityTypeShape EntityType="Models.GUPassport_Site" Width="1.5" PointX="4.125" PointY="0.75" />
+        <EntityTypeShape EntityType="Models.GUPassport_State" Width="1.5" PointX="5.25" PointY="5.625" />
+        <EntityTypeShape EntityType="Models.GUPassport" Width="1.5" PointX="2.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Models.Installation" Width="1.5" PointX="0.625" PointY="0.75" />
+        <EntityTypeShape EntityType="Models.proverkaGU" Width="1.5" PointX="10.125" PointY="0.5" />
         <AssociationConnector Association="Models.FK_AdminArea_AdminArea" />
-        <EntityTypeShape EntityType="Models.House" Width="1.5" PointX="3.375" PointY="8.75" />
-        <EntityTypeShape EntityType="Models.Object" Width="1.5" PointX="9.375" PointY="0.625" />
-        <EntityTypeShape EntityType="Models.GUPassport_Site" Width="1.5" PointX="6.125" PointY="5.125" />
-        <EntityTypeShape EntityType="Models.GUPassport" Width="1.5" PointX="3.875" PointY="0.625" />
         <AssociationConnector Association="Models.FK_GUPassports_AdminArea" />
         <AssociationConnector Association="Models.FK_GUPassports_Ground_Types" />
         <AssociationConnector Association="Models.FK_GUPasssport_Sites_GUPassports" />
         <AssociationConnector Association="Models.FK_GUPasssport_States_GUPassports" />
-        <AssociationConnector Association="Models.FK_GUPassports_GUPassports" />
-        <AssociationConnector Association="Models.FK_GUPassports_GUPassports1" />
+        <AssociationConnector Association="Models.FK_GUPassports_Installation" />
+        <AssociationConnector Association="Models.FK_GUPasssport_States_GUPassports1" />
+        <EntityTypeShape EntityType="Models.ActualStatu" Width="1.5" PointX="9.75" PointY="13.625" />
+        <EntityTypeShape EntityType="Models.AddressObjectType" Width="1.5" PointX="9.75" PointY="15.875" />
+        <EntityTypeShape EntityType="Models.CenterStatu" Width="1.5" PointX="7.5" PointY="2.25" />
+        <EntityTypeShape EntityType="Models.CurrentStatu" Width="1.5" PointX="9.75" PointY="10.75" />
+        <EntityTypeShape EntityType="Models.EstateStatu" Width="1.5" PointX="15" PointY="7.75" />
+        <EntityTypeShape EntityType="Models.House" Width="1.5" PointX="12.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Models.HouseStateStatu" Width="1.5" PointX="7.5" PointY="0.5" />
+        <EntityTypeShape EntityType="Models.NormativeDocument" Width="1.5" PointX="5.75" PointY="9.75" />
+        <EntityTypeShape EntityType="Models.NormativeDocumentType" Width="1.5" PointX="15.125" PointY="0.5" />
+        <EntityTypeShape EntityType="Models.Object" Width="1.5" PointX="12.75" PointY="7.125" />
+        <EntityTypeShape EntityType="Models.OperationStatu" Width="1.5" PointX="15.125" PointY="2.125" />
+        <EntityTypeShape EntityType="Models.StructureStatu" Width="1.5" PointX="15" PointY="9.875" />
+        <AssociationConnector Association="Models.FK_GUPassport_Sites_House" />
+        <AssociationConnector Association="Models.FK_GUPassports_House" />
+        <AssociationConnector Association="Models.FK_Object_ActualStatus" />
+        <AssociationConnector Association="Models.FK_Object_Object" />
+        <AssociationConnector Association="Models.FK_Object_CenterStatus" />
+        <AssociationConnector Association="Models.FK_Object_CurrentStatus" />
+        <AssociationConnector Association="Models.FK_House_EstateStatus" />
+        <AssociationConnector Association="Models.FK_House_StructureStatus" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

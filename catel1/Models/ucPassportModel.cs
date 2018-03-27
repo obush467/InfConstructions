@@ -23,6 +23,16 @@ namespace InfConstractions.Models
                        select site;
             }
         }
+        protected IQueryable<GUPassport_State> queryPassportStates
+        { get
+            {
+                return from state in Context.GUPassport_States
+                       where state.GUPassport_ID == Passport.id
+                       orderby state.startdate
+                       select state;
+            }
+        }
+
         #endregion
         #region Constructors
         public ucPassportModel(Entities context)
@@ -34,10 +44,10 @@ namespace InfConstractions.Models
         public ucPassportModel(Entities context, Guid passportID) : this(context)
         {
             Passport = context.GUPassports.Where<GUPassport>(p => (p.id == passportID)).First<GUPassport>();
-            queryPassportSites.Load();
-            PassportSites = new ObservableCollection<GUPassport_Site>(queryPassportSites);
+            Refresh();
             PassportSites.CollectionChanged += passportSitesChanged;
-            Ground_Types = new ObservableCollection<Ground_Type>(Context.Ground_Types.ToList());
+            PassportStates.CollectionChanged += passportStatesChanged;
+            
         }
 
         private void passportSitesChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -60,11 +70,30 @@ namespace InfConstractions.Models
             }
         }
 
+        private void passportStatesChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (GUPassport_State newItem in e.NewItems)
+                {
+                    newItem.id = Guid.NewGuid();
+                    newItem.GUPassport_ID = Passport.id;
+                    Context.GUPassport_States.Add(newItem);
+                }
+            }
+            if (e.OldItems != null)
+            {
+                foreach (GUPassport_State oldItem in e.OldItems)
+                {
+                    Context.GUPassport_States.Remove(oldItem);
+                }
+            }
+        }
+
         public ucPassportModel(Entities context,GUPassport passport):this(context)
         {
             Passport = passport;
-            PassportSites = new ObservableCollection<GUPassport_Site>(context.GUPassport_Sites.Where<GUPassport_Site>(site => site.id == passport.id).ToList<GUPassport_Site>());           
-            PassportStates =new ObservableCollection<GUPassport_State>(context.GUPassport_States.Where<GUPassport_State>(site => site.id == passport.id));
+            Refresh();
         }
         #endregion
         #region Properties 
@@ -80,10 +109,10 @@ namespace InfConstractions.Models
         #region Metods
         internal void Refresh()
         {
-            //throw new NotImplementedException();
             Passport = Context.GUPassports.Where<GUPassport>(p => (p.id == Passport.id)).First<GUPassport>();
             PassportSites = new ObservableCollection<GUPassport_Site>(queryPassportSites.ToList());
-            PassportStates = new ObservableCollection<GUPassport_State>(Context.GUPassport_States.Where<GUPassport_State>(site => site.id == Passport.id));
+            PassportStates = new ObservableCollection<GUPassport_State>(queryPassportStates.ToList());
+            Ground_Types = new ObservableCollection<Ground_Type>(Context.Ground_Types.ToList());
         }
         #endregion
     }

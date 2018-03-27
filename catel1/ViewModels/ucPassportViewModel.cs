@@ -83,6 +83,24 @@
 
         #endregion
         #region Properties  
+
+        public bool EnableEdit { get
+            {
+                switch (PassportStates.Where(s => (s.NextID == null)).FirstOrDefault().State)
+                {
+                    case "согласован":
+                        return false;
+                        //break;
+                    case "исключён":
+                        return false;
+                        //break;
+                    case "аннулирован":
+                        return false;
+                        //break;
+                    default: return true;
+                }
+            } private set { } }
+
         public string Title {
             get { return GetProperty(() => Title); }
             private set {SetProperty(() => Title, value); }
@@ -91,8 +109,6 @@
         {
             get { return GetProperty(() => Context); }
             private set { SetProperty(() => Context, value); }
-            /*get { return Model.Context; }
-            set { Model.Context=value; }*/
         }
         public GUPassport Passport
         {
@@ -102,7 +118,7 @@
         {
             get { return Model.Address; }
         }
-        [AtLeastChooseOneItem(ErrorMessage ="asssssssssssssssssssssssssss")]
+        //[AtLeastChooseOneItem(ErrorMessage ="asssssssssssssssssssssssssss")]
         public ObservableCollection<GUPassport_Site> PassportSites { get { return Model.PassportSites; } }
         public ObservableCollection<GUPassport_State> PassportStates { get { return Model.PassportStates; } }
         public ObservableCollection<Ground_Type> Ground_Types { get { return Model.Ground_Types; } }

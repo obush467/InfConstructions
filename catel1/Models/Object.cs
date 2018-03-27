@@ -59,5 +59,10 @@ namespace InfConstractions.Models
         public string OFFNAME_PREFIX { get; set; }
         public string OFFNAME_NAME { get; set; }
         public string CONVERTSTREET { get; set; }
+    
+        public virtual ActualStatu ActualStatu { get; set; }
+        public virtual AddressObjectType AddressObjectType { get; set; }
+        public virtual CenterStatu CenterStatu { get; set; }
+        public virtual CurrentStatu CurrentStatu { get; set; }
     }
 }

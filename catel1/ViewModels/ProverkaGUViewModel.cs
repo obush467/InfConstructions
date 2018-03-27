@@ -16,10 +16,7 @@
 
     public class ProverkaGUViewModel : ViewModelBase,ISupportServices
     {
-        private IDocumentManagerService documentManagerService;
-
-        // [ServiceProperty(Key = "PassportService")]
-        IPassportService PassportService { get { return GetService<IPassportService>("PassportService"); } }
+        protected IPassportService PassportService { get { return GetService<IPassportService>("PassportService"); } }
         protected IDocumentManagerService DocumentManagerService { get; set; }
 
         

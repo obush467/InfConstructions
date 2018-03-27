@@ -19,17 +19,15 @@ namespace InfConstractions.Models
         {
             this.GUPassport_Sites = new HashSet<GUPassport_Site>();
             this.GUPassport_States = new HashSet<GUPassport_State>();
-            this.GUPassports1 = new HashSet<GUPassport>();
-            this.GUPassports11 = new HashSet<GUPassport>();
+            this.GUPassport_States1 = new HashSet<GUPassport_State>();
         }
     
         public System.Guid id { get; set; }
-        public Nullable<System.Guid> prev { get; set; }
-        public Nullable<System.Guid> next { get; set; }
+        public System.Guid Installation_ID { get; set; }
+        public Nullable<System.Guid> nextID { get; set; }
         public System.DateTime startdate { get; set; }
         public Nullable<System.DateTime> enddate { get; set; }
-        public System.DateTimeOffset insertdate { get; set; }
-        public Nullable<System.DateTimeOffset> updatedate { get; set; }
+        public System.DateTimeOffset upserted { get; set; }
         public System.Guid Sotr_ID { get; set; }
         public byte[] tsc { get; set; }
         public string UNOM { get; set; }
@@ -54,11 +52,9 @@ namespace InfConstractions.Models
         public virtual ICollection<GUPassport_Site> GUPassport_Sites { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GUPassport_State> GUPassport_States { get; set; }
+        public virtual Installation Installation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GUPassport> GUPassports1 { get; set; }
-        public virtual GUPassport GUPassport1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GUPassport> GUPassports11 { get; set; }
-        public virtual GUPassport GUPassport2 { get; set; }
+        public virtual ICollection<GUPassport_State> GUPassport_States1 { get; set; }
+        public virtual House House { get; set; }
     }
 }

@@ -24,10 +24,13 @@ namespace InfConstractions.Models
         public string Content_Address { get; set; }
         public string Content_Direction { get; set; }
         public Nullable<System.Guid> Object_ID { get; set; }
-        public Nullable<System.Guid> Address_ID { get; set; }
-        public string Minutes { get; set; }
+        public Nullable<short> Minutes { get; set; }
         public byte[] tsc { get; set; }
+        public Nullable<System.Guid> HouseID { get; set; }
+        public System.DateTimeOffset upserted { get; set; }
+        public System.Guid Sotr_ID { get; set; }
     
         public virtual GUPassport GUPassport { get; set; }
+        public virtual House House { get; set; }
     }
 }

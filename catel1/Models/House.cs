@@ -14,6 +14,13 @@ namespace InfConstractions.Models
     
     public partial class House
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public House()
+        {
+            this.GUPassport_Sites = new HashSet<GUPassport_Site>();
+            this.GUPassports = new HashSet<GUPassport>();
+        }
+    
         public string POSTALCODE { get; set; }
         public string IFNSFL { get; set; }
         public string TERRIFNSFL { get; set; }
@@ -37,5 +44,12 @@ namespace InfConstractions.Models
         public Nullable<int> COUNTER { get; set; }
         public string CADNUM { get; set; }
         public Nullable<int> DIVTYPE { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GUPassport_Site> GUPassport_Sites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GUPassport> GUPassports { get; set; }
+        public virtual EstateStatu EstateStatu { get; set; }
+        public virtual StructureStatu StructureStatu { get; set; }
     }
 }

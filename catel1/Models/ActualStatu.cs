@@ -12,17 +12,18 @@ namespace InfConstractions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class GUPassport_State
+    public partial class ActualStatu
     {
-        public System.Guid id { get; set; }
-        public string State { get; set; }
-        public System.DateTimeOffset startdate { get; set; }
-        public System.Guid Sotr_ID { get; set; }
-        public byte[] tsc { get; set; }
-        public System.DateTimeOffset upserted { get; set; }
-        public Nullable<System.Guid> NextID { get; set; }
-        public System.Guid GUPassport_ID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ActualStatu()
+        {
+            this.Objects = new HashSet<Object>();
+        }
     
-        public virtual GUPassport GUPassport { get; set; }
+        public int ACTSTATID { get; set; }
+        public string NAME { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Object> Objects { get; set; }
     }
 }

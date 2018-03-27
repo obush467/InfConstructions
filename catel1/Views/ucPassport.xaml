@@ -36,8 +36,8 @@
         <Label x:Name="lPatency" Content="{Binding Source={StaticResource fnPatency}}" Grid.Column="0" Grid.Row="0" Margin="3,175,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Height="22" Width="81"/>
         <Label x:Name="lWGS84" Content="{Binding Source={StaticResource fnWGS84}}" Grid.Column="0" Grid.Row="0" Margin="3,199,0,0" HorizontalAlignment="Left" Width="110" d:LayoutOverrides="LeftMargin, RightMargin" Height="21" VerticalAlignment="Top"/>
         <Label x:Name="lAddress" Content="{Binding Source={StaticResource fnAddress}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,82" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="33" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lOkrug" Content="{Binding Source={StaticResource fnOkrug}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,134" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="32" d:LayoutOverrides="LeftMargin, RightMargin"/>
-        <Label x:Name="lRaion" Content="{Binding Source={StaticResource fnRaion}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,112" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="34" d:LayoutOverrides="LeftMargin, RightMargin"/>
+        <Label x:Name="lOkrug" Content="{Binding Source={StaticResource fnOkrug}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,134" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="129" d:LayoutOverrides="LeftMargin, RightMargin"/>
+        <Label x:Name="lRaion" Content="{Binding Source={StaticResource fnRaion}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,109" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="34" d:LayoutOverrides="LeftMargin, RightMargin"/>
         <dxe:TextEdit x:Name="teUNOM" Grid.Column="0" Grid.Row="0" Margin="121,1,4,0" Text="{Binding Passport.UNOM}" IsEnabled="True"  VerticalAlignment="Top" Height="22" />
         <dxe:DateEdit HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Margin="50,25,0,0" EditValue="{Binding Passport.startdate}" NullText="{Binding Mode=OneWay, Source={StaticResource NullData}}" NullValue="{Binding NullDate,Mode=OneWay}" VerticalAlignment="Top" Width="97" d:LayoutOverrides="HorizontalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Height="22"/>
         <dxe:DateEdit HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" Margin="0,25,5,0" EditValue="{Binding Passport.enddate}" NullText="{Binding Mode=OneWay, Source={StaticResource NullData}}" NullValue="{Binding NullDate,Mode=OneWay}"  VerticalAlignment="Top" Width="95" Height="22" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"  />
@@ -63,7 +63,8 @@
                                ValidateRow="TableView_ValidateRow" 
                                InvalidRowException="TableView_InvalidRowException" 
                                ShowValidationAttributeErrors="True"
-                               AllowCommitOnValidationAttributeError="False">
+                               AllowCommitOnValidationAttributeError="False"
+                               IsEnabled="{Binding EnableEdit}">
                     <dxg:TableView.RowCellMenuCustomizations>
                         <dxb:BarButtonItem Name="deleteRowItem" Content="{Binding Mode=OneWay, Source={StaticResource DelPassportSite}}" Command="{x:Static dxg:GridCommands.DeleteFocusedRow}" />
                     </dxg:TableView.RowCellMenuCustomizations>
@@ -120,7 +121,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <dxe:ImageEdit x:Name="ieFoto"  Grid.Column="0" Grid.Row="1" Margin="3,3,3,3" EditValue="{Binding Passport.Foto, Mode=TwoWay}" AllowDrop="True" AllowNullInput="True" />
+            <dxe:ImageEdit x:Name="ieFoto"  Grid.Column="0" Grid.Row="1"  Margin="3,3,3,3" EditValue="{Binding Passport.Foto, Mode=TwoWay}" AllowDrop="True" AllowNullInput="True" />
             <dxe:ImageEdit x:Name="iePlan"  Grid.Column="1" Grid.Row="1" Margin="3,3,3,3" EditValue="{Binding Passport.Plan, Mode=TwoWay}" AllowDrop="True" AllowNullInput="True"/>
         </Grid>
         <Label x:Name="lOkrug_Copy" Content="{Binding Source={StaticResource fnReconstruction}}" Grid.Column="0" Grid.Row="0" Margin="3,224,0,209" HorizontalAlignment="Left" Width="114" d:LayoutOverrides="LeftMargin, RightMargin"/>

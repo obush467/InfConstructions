@@ -27,7 +27,7 @@ namespace InfConstractions.Views
                 Visibility = Visibility.Hidden;
             }
             catch (Exception e)
-            { MessageBox.Show("Ошибка при старте"); }
+            { MessageBox.Show("Ошибка при старте " + e.Message ); }
         }
 
         private void DockManagerDocumentClosing(object sender, System.ComponentModel.CancelEventArgs e)
