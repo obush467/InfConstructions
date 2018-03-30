@@ -105,11 +105,13 @@ namespace InfConstractions.Models
         public ObservableCollection<GUPassport_Site> PassportSites { get; protected set; }
         public ObservableCollection<GUPassport_State> PassportStates { get; protected set; }
         public ObservableCollection<Ground_Type> Ground_Types { get; protected set; }
+        public ObservableCollection<Program> Programs { get; protected set; }
         #endregion
         #region Metods
         internal void Refresh()
         {
             Passport = Context.GUPassports.Where<GUPassport>(p => (p.id == Passport.id)).First<GUPassport>();
+            Programs = new ObservableCollection<Program>(Context.Programs.ToList());
             PassportSites = new ObservableCollection<GUPassport_Site>(queryPassportSites.ToList());
             PassportStates = new ObservableCollection<GUPassport_State>(queryPassportStates.ToList());
             Ground_Types = new ObservableCollection<Ground_Type>(Context.Ground_Types.ToList());

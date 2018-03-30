@@ -19,9 +19,11 @@
 
     public class MainWindowViewModel : ViewModelBase
     {
-        IPassportService PassportService { get { return GetService<IPassportService>(); } }
+        Guid proverkaGU_key = new Guid("99B84C49-D814-4028-8889-6ED5E7023FF5");
+        IOpenFileDialogService OpenFileDialogService { get { return GetService<IOpenFileDialogService>(); } }
+        ISaveFileDialogService SaveFileDialogService { get { return GetService<ISaveFileDialogService>(); } }
         formLoginViewModel vm = new formLoginViewModel(new SqlConnection());
-        protected IDocumentManagerService DocumentManagerService { get { return GetService<IDocumentManagerService>(); } }
+        public IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
         #region Constructors
         public MainWindowViewModel()
         {
@@ -31,9 +33,6 @@
                 mainWindowModel = new MainWindowModel();
                 var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
                 u.ShowDialogAsync(vm, completeLogin);
-                #region CommandsCreate
-
-                #endregion
             }
             catch (Exception)
             { }
@@ -87,27 +86,56 @@
         }
         #endregion
         #region Commands
-        public void Close()
+        [Command(CanExecuteMethodName = "CancmExit",
+            Name = "cmExit",
+            UseCommandManager = true)]
+        public void Exit()
         {
             //_navigationService.CloseApplication();
+            Application.Current.MainWindow.Close();
         }
-        public bool CanClose()
+        public bool CancmExit()
         {
             return true;
         }
 
-        [Command(CanExecuteMethodName = "CanProverkaGU",
-            Name = "ProverkaGUCommand",
+        [Command(CanExecuteMethodName = "CancmProverkaGU",
+            Name = "cmProverkaGU",
             UseCommandManager = true)]
         public void ProverkaGU()
         {
-                IDocument doc1;
-                doc1 = DocumentManagerService.CreateDocument("ProverkaGUView", ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext, DocumentManagerService)));
-                doc1.Id = DocumentManagerService.Documents.Count<IDocument>();
-                doc1.Title = "Проверка ГУ";
-                doc1.Show();
+             
+            DocumentManagerService.FindDocumentByIdOrCreate(proverkaGU_key, (ds) =>
+            {
+                ProverkaGUViewModel _vmCreated = ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext, DocumentManagerService));
+                IDocument _docCreated = ds.CreateDocument("ProverkaGUView",_vmCreated );
+                _docCreated.Id = proverkaGU_key;
+                _docCreated.Title = _vmCreated.Title;
+                return _docCreated;
+            }).Show();
         }
-        public bool CanProverkaGU()
+        public bool CancmProverkaGU()
+        {
+            if (efConnection.State != System.Data.ConnectionState.Closed)
+            { return true; }
+            else
+            { return false; }
+        }
+        [Command(CanExecuteMethodName = "CancmOpenRichEdit",
+            Name = "cmOpenRichEdit",
+            UseCommandManager = true)]
+        public void OpenRichEdit()
+        {
+
+            DocumentManagerService.FindDocumentByIdOrCreate(proverkaGU_key, (ds) =>
+            {
+                IDocument doc1 = ds.CreateDocument("ucWord", ViewModelSource.Create(() => new ucWordViewModel()));
+                doc1.Id = proverkaGU_key.ToString();
+                doc1.Title = "Документ Word";
+                return doc1;
+            }).Show();
+        }
+        public bool CancmOpenRichEdit()
         {
             if (efConnection.State != System.Data.ConnectionState.Closed)
             { return true; }
@@ -115,7 +143,6 @@
             { return false; }
         }
 
-       
         #endregion
     }
 }

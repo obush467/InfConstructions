@@ -14,46 +14,18 @@ using DevExpress.Mvvm.POCO;
 
 namespace InfConstractions.Services
 {
-    public interface IPassportService
+    public interface ITitleService
     {
-        void Show(Guid passportID, IDocumentManagerService docService);
-        ucPassportViewModel Passport(Guid passportID);
-        Dictionary<Guid, ucPassportViewModel> Passports { get; }
-
+       string Title { get; set; }
     }
-    public class svPassports : ServiceBase, IPassportService
+    public class TitleService : ServiceBase, ITitleService
     {
-        private Dictionary<Guid, ucPassportViewModel> _passports = new Dictionary<Guid, ucPassportViewModel>();
-
-        public svPassports(IDocumentManagerService docServise)
+        public static readonly DependencyProperty TitleProperty =
+                DependencyProperty.Register("Title", typeof(string), typeof(TitleService), new PropertyMetadata("Hello"));
+        public TitleService()
         { }
-        public svPassports()
-        { }
-        void IPassportService.Show(Guid passportID, IDocumentManagerService docService)
-        {
 
-            //{ docService.FindDocumentById(passportID.ToString()).Show(); }
-            docService.FindDocumentByIdOrCreate(passportID, (ds) =>
-            {
-                IDocument doc1 = ds.CreateDocument("ucPassport", ViewModelSource.Create(() => new ucPassportViewModel(passportID)));
-                //doc1.Id = passportID.ToString();
-                doc1.Title = "Паспорт " + Passport(passportID).Passport.UNOM;
-                //doc1.Show();
-                return doc1;
-            }).Show();
-        }
-        public ucPassportViewModel Passport(Guid passportID)
-        {
-            if (!_passports.ContainsKey(passportID))
-            {
-                _passports.Add(passportID, OpenPassport(passportID));
-            }
-                   return _passports[passportID];
-        }
-
-        ucPassportViewModel OpenPassport(Guid passportID)
-        { return new ucPassportViewModel(new Entities(App.mainConnection), passportID); }
-        Dictionary<Guid, ucPassportViewModel> IPassportService.Passports
-        { get { return _passports; } }
+        public string Title
+        { get;set;}
     }
 }

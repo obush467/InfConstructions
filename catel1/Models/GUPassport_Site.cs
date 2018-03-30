@@ -15,7 +15,13 @@ namespace InfConstractions.Models
     public partial class GUPassport_Site
     {
         public System.Guid id { get; set; }
+        public byte[] tsc { get; set; }
+        public System.DateTimeOffset upserted { get; set; }
         public System.Guid GUPassport_ID { get; set; }
+        public Nullable<System.Guid> Object_ID { get; set; }
+        public Nullable<System.Guid> HouseID { get; set; }
+        public System.Guid Sotr_ID { get; set; }
+        public Nullable<System.Guid> Program_ID { get; set; }
         public short Block_Number { get; set; }
         public short Row_Number { get; set; }
         public string Site_Number { get; set; }
@@ -23,12 +29,7 @@ namespace InfConstractions.Models
         public string Content_Transliteration { get; set; }
         public string Content_Address { get; set; }
         public string Content_Direction { get; set; }
-        public Nullable<System.Guid> Object_ID { get; set; }
         public Nullable<short> Minutes { get; set; }
-        public byte[] tsc { get; set; }
-        public Nullable<System.Guid> HouseID { get; set; }
-        public System.DateTimeOffset upserted { get; set; }
-        public System.Guid Sotr_ID { get; set; }
     
         public virtual GUPassport GUPassport { get; set; }
         public virtual House House { get; set; }

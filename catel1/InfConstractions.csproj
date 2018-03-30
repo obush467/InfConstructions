@@ -151,6 +151,7 @@
     <Reference Include="DevExpress.ExpressApp.EF.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.PivotGrid.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Map.v17.1.Core, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Mvvm.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Mvvm.v17.1.DataModel, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Mvvm.v17.1.DataModel.EF6, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -169,12 +170,15 @@
     <Reference Include="DevExpress.Xpf.Controls.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Core.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.DataAccess.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.DemoBase.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Docking.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpf.DocumentViewer.v17.1.Core, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Gauges.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v17.1.Core, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Layout.v17.1.Core, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpf.LayoutControl.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Map.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.NavBar.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.PdfViewer.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Printing.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -341,8 +345,11 @@
     <Compile Include="Config\DBConfig.cs" />
     <Compile Include="Config\DefaultConnection - Копировать.cs" />
     <Compile Include="Config\DefaultConnection.cs" />
+    <Compile Include="Converters\DBGeographyToLatLongConverter.cs" />
+    <Compile Include="Converters\ViewTypeToBoolConverter.cs" />
     <Compile Include="DomainObject1.cs" />
-    <Compile Include="Models\ActualStatu.cs">
+    <Compile Include="Enumerators.cs" />
+    <Compile Include="Models\ActualStatus.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AddressObjectType.cs">
@@ -351,17 +358,19 @@
     <Compile Include="Models\AdminArea.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CenterStatu.cs">
+    <Compile Include="Models\CenterStatus.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CurrentStatu.cs">
+    <Compile Include="Models\CurrentStatus.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\currentUserID_Result.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities_part.cs" />
-    <Compile Include="Models\EstateStatu.cs">
+    <Compile Include="Models\EstateStatus.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fullAddress_Result.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ground_Type.cs">
@@ -370,22 +379,60 @@
     <Compile Include="Models\GUPassport.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GUPassport_File.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GUPassport_Site.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GUPassport_Site_partial.cs" />
     <Compile Include="Models\GUPassport_State.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\House.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HouseStateStatu.cs">
+    <Compile Include="Models\HouseStateStatus.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Installation.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NormativeDocument.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NormativeDocumentType.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Object.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ObjectFullAddress4_Result.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OperationStatus.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Organization.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Person.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Program.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\proverkaGU.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StructureStatus.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkTask.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\MapDemoModule.cs" />
+    <Compile Include="Models\Entities_part.cs" />
+    <Compile Include="Models\GUPassport_Site_partial.cs" />
     <Compile Include="Models\mainModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -402,27 +449,6 @@
       <DependentUpon>mainModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\MainWindowModel.cs" />
-    <Compile Include="Models\NormativeDocument.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NormativeDocumentType.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Object.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ObjectFullAddress4_Result.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\OperationStatu.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\proverkaGU.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StructureStatu.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ucPassportModel.cs" />
     <Compile Include="Models\ProverkaGUModel.cs" />
     <Compile Include="Models\formLoginModel.cs" />
@@ -439,12 +465,14 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\svPassports.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="ViewModels\ucMapViewModel.cs" />
     <Compile Include="ViewModels\ucPassportViewModel.cs" />
     <Compile Include="Views\mainSplash.xaml.cs">
       <DependentUpon>mainSplash.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\mainSplashViewModel.cs" />
-    <Compile Include="ViewModels\AddressAssignViewModel.cs" />
+    <Compile Include="ViewModels\ucAddressAssignViewModel.cs" />
     <Compile Include="ViewModels\formLoginViewModel.cs" />
     <Compile Include="ViewModels\ProverkaGUViewModel.cs" />
     <Compile Include="ViewModels\ucLoggerViewModel.cs" />
@@ -457,14 +485,17 @@
     <Compile Include="Views\PageShell.xaml.cs">
       <DependentUpon>PageShell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProverkaGU.xaml.cs">
-      <DependentUpon>ProverkaGU.xaml</DependentUpon>
+    <Compile Include="Views\ProverkaGUView.xaml.cs">
+      <DependentUpon>ProverkaGUView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AddressAssign.xaml.cs">
-      <DependentUpon>AddressAssign.xaml</DependentUpon>
+    <Compile Include="Views\ucAddressAssign.xaml.cs">
+      <DependentUpon>ucAddressAssign.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\formLogin.xaml.cs">
       <DependentUpon>formLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucMap.xaml.cs">
+      <DependentUpon>ucMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ucLogger.xaml.cs">
       <DependentUpon>ucLogger.xaml</DependentUpon>
@@ -496,11 +527,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProverkaGU.xaml">
+    <Page Include="Views\ProverkaGUView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AddressAssign.xaml">
+    <Page Include="Views\ucAddressAssign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -525,6 +556,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ucMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ucLogger.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

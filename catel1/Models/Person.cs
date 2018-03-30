@@ -12,18 +12,27 @@ namespace InfConstractions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NormativeDocumentType
+    public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NormativeDocumentType()
+        public Person()
         {
-            this.NormativeDocuments = new HashSet<NormativeDocument>();
+            this.Person1 = new HashSet<Person>();
         }
     
-        public long NDTYPEID { get; set; }
-        public string NAME { get; set; }
+        public System.Guid ID { get; set; }
+        public byte[] tsc { get; set; }
+        public System.DateTimeOffset upserted { get; set; }
+        public Nullable<System.Guid> NextID { get; set; }
+        public string Name { get; set; }
+        public string Patronymic { get; set; }
+        public string Family { get; set; }
+        public Nullable<System.DateTime> birthday { get; set; }
+        public System.DateTime startdate { get; set; }
+        public Nullable<System.DateTime> enddate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NormativeDocument> NormativeDocuments { get; set; }
+        public virtual ICollection<Person> Person1 { get; set; }
+        public virtual Person Person2 { get; set; }
     }
 }

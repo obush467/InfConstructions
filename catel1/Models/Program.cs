@@ -12,18 +12,16 @@ namespace InfConstractions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NormativeDocumentType
+    public partial class Program
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NormativeDocumentType()
-        {
-            this.NormativeDocuments = new HashSet<NormativeDocument>();
-        }
-    
-        public long NDTYPEID { get; set; }
-        public string NAME { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NormativeDocument> NormativeDocuments { get; set; }
+        public System.Guid ID { get; set; }
+        public byte[] tsc { get; set; }
+        public Nullable<System.Guid> NextID { get; set; }
+        public Nullable<System.Guid> ParentID { get; set; }
+        public string Name { get; set; }
+        public System.DateTimeOffset upserted { get; set; }
+        public System.Guid upserter { get; set; }
+        public Nullable<System.DateTime> startdate { get; set; }
+        public Nullable<System.DateTime> enddate { get; set; }
     }
 }

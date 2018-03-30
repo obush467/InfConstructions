@@ -33,22 +33,22 @@ namespace InfConstractions.Models
         #region Constructors
 
         [InjectionConstructor]
-        public ProverkaGUModel(Entities _context):this()
-        {
-            Context = _context;
-            Context.proverkaGU.Load();
-            ProverkaGU = new ObservableCollection<proverkaGU>(Context.proverkaGU);     
-            SuspendValidations(false);
-            Validate(true);            
-        }
-
-        [InjectionConstructor]
-        public ProverkaGUModel()
+        public ProverkaGUModel(Entities _context)
         {
             SuspendValidations(true);
             #region CONFIGURATION
             LoadConfig();
             #endregion
+            Context = _context;
+            Context.proverkaGUs.Load();
+            ProverkaGU = new ObservableCollection<proverkaGU>(Context.proverkaGUs);     
+            SuspendValidations(false);
+            Validate(true);            
+        }
+
+        [InjectionConstructor]
+        public ProverkaGUModel():this( new Entities(App.mainConnection))
+        {                     
         }
 
         #if NET
@@ -87,7 +87,7 @@ namespace InfConstractions.Models
         {
             Context.SaveChanges();
             var ctx = ((IObjectContextAdapter)Context).ObjectContext;
-            ctx.Refresh(RefreshMode.StoreWins, (from o in Context.proverkaGU select o));
+            ctx.Refresh(RefreshMode.StoreWins, (from o in Context.proverkaGUs select o));
             //ProverkaGU = new ObservableCollection<proverkaGU>(from o in Context.proverkaGU select o);
         }
         #endregion

@@ -51,6 +51,13 @@
     <v:String x:Key="DelPassportSite">Удалить плашку</v:String>
     <v:String x:Key="fnGround_Type">Тип поверхности</v:String>
     <v:String x:Key="emNotNullValue">Тип поверхности</v:String>
+    <v:String x:Key="fnProgram">Программа</v:String>
+    <v:String x:Key="mnFile">_Файл</v:String>
+    <v:String x:Key="mnExit">Выход</v:String>
+    <v:String x:Key="mnClose">_Закрыть</v:String>
+    <v:String x:Key="mnWindows">_Окна</v:String>
+    <v:String x:Key="mnOpenRichEdit">Открыть Word</v:String>
+    <v:String x:Key="mnOpenSpreadSheet">Открыть Excel</v:String>
     <x:Array x:Key="PassportDirections" Type="sys:String" 
             xmlns:sys="clr-namespace:System;assembly=mscorlib">
         <sys:String>Вперёд</sys:String>

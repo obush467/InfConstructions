@@ -12,17 +12,16 @@ namespace InfConstractions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EstateStatu
+    public partial class HouseStateStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EstateStatu()
+        public HouseStateStatus()
         {
             this.Houses = new HashSet<House>();
         }
     
-        public int ESTSTATID { get; set; }
+        public int HOUSESTID { get; set; }
         public string NAME { get; set; }
-        public string SHORTNAME { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<House> Houses { get; set; }

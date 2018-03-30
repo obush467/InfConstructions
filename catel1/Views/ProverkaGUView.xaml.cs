@@ -15,6 +15,8 @@ namespace InfConstractions.Views
     using System;
     using System.Collections.Generic;
     using Catel.Logging;
+    using DevExpress.XtraGrid.Views.Base;
+    using System.Drawing;
 
     public partial class ProverkaGUView
     {
@@ -57,7 +59,7 @@ namespace InfConstractions.Views
                     foreach (proverkaGU t in l)
                     {
                         ((ProverkaGUViewModel)DataContext).Context.Entry<proverkaGU>(t).Reload();
-                        ((ProverkaGUViewModel)DataContext).Context.proverkaGU.Attach(t);
+                        ((ProverkaGUViewModel)DataContext).Context.proverkaGUs.Attach(t);
                         LogData logd = new LogData();
                         logd.Add("Num", t.Num);
                         logd.Add("Okrug", t.Okrug);
@@ -80,6 +82,21 @@ namespace InfConstractions.Views
         {
             cLink.BestFitWidth = 30;
         }
+
+        private void GridView_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            GridView View = sender as GridView;
+            if (e.RowHandle >= 0)
+            {
+                var newPassport = View.GetRowCellDisplayText(e.RowHandle, View.Columns["newPassport"]);
+                if (newPassport != null)
+                {
+                    e.Appearance.BackColor = Color.Salmon;
+                    e.Appearance.BackColor2 = Color.SeaShell;
+                }
+            }
+        }
+    
     }
 
 

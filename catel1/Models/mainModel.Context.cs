@@ -20,6 +20,7 @@ namespace InfConstractions.Models
         public Entities()
             : base("name=Entities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -27,27 +28,32 @@ namespace InfConstractions.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<NormativeDocument> NormativeDocuments { get; set; }
         public virtual DbSet<AdminArea> AdminAreas { get; set; }
         public virtual DbSet<Ground_Type> Ground_Types { get; set; }
-        public virtual DbSet<GUPassport_Site> GUPassport_Sites { get; set; }
-        public virtual DbSet<GUPassport_State> GUPassport_States { get; set; }
         public virtual DbSet<GUPassport> GUPassports { get; set; }
+        public virtual DbSet<GUPassport_File> GUPassport_Files { get; set; }
+        public virtual DbSet<GUPassport_Site> GUPassport_Sites { get; set; }
         public virtual DbSet<Installation> Installations { get; set; }
-        public virtual DbSet<proverkaGU> proverkaGU { get; set; }
-        public virtual DbSet<ActualStatu> ActualStatus { get; set; }
+        public virtual DbSet<Organization> Organizations { get; set; }
+        public virtual DbSet<Person> Persons { get; set; }
+        public virtual DbSet<Program> Programs { get; set; }
+        public virtual DbSet<WorkTask> WorkTasks { get; set; }
+        public virtual DbSet<ActualStatus> ActualStatuses { get; set; }
         public virtual DbSet<AddressObjectType> AddressObjectTypes { get; set; }
-        public virtual DbSet<CenterStatu> CenterStatus { get; set; }
-        public virtual DbSet<CurrentStatu> CurrentStatus { get; set; }
-        public virtual DbSet<EstateStatu> EstateStatus { get; set; }
+        public virtual DbSet<CenterStatus> CenterStatuses { get; set; }
+        public virtual DbSet<CurrentStatus> CurrentStatuses { get; set; }
+        public virtual DbSet<EstateStatus> EstateStatuses { get; set; }
         public virtual DbSet<House> Houses { get; set; }
-        public virtual DbSet<HouseStateStatu> HouseStateStatus { get; set; }
-        public virtual DbSet<NormativeDocument> NormativeDocuments { get; set; }
+        public virtual DbSet<HouseStateStatus> HouseStateStatuses { get; set; }
         public virtual DbSet<NormativeDocumentType> NormativeDocumentTypes { get; set; }
         public virtual DbSet<Object> Objects { get; set; }
-        public virtual DbSet<OperationStatu> OperationStatus { get; set; }
-        public virtual DbSet<StructureStatu> StructureStatus { get; set; }
+        public virtual DbSet<OperationStatus> OperationStatuses { get; set; }
+        public virtual DbSet<StructureStatus> StructureStatuses { get; set; }
+        public virtual DbSet<proverkaGU> proverkaGUs { get; set; }
+        public virtual DbSet<GUPassport_State> GUPassport_States { get; set; }
     
-        public virtual int updateProverkaGU(Nullable<int> id, string ошибки_в_адресации_ГУ, string fact, string плашки, Nullable<bool> наличие_согласованного_макета, Nullable<bool> наличие_согласованного_паспорта, string примечание, Nullable<bool> проверено, Nullable<System.DateTimeOffset> updated)
+        public virtual int updateProverkaGU(Nullable<int> id, string ошибки_в_адресации_ГУ, string fact, string плашки, Nullable<bool> наличие_согласованного_макета, Nullable<bool> наличие_согласованного_паспорта, string примечание, Nullable<bool> проверено, Nullable<System.DateTimeOffset> updated, Nullable<System.Guid> newPassportID)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -85,7 +91,11 @@ namespace InfConstractions.Models
                 new ObjectParameter("updated", updated) :
                 new ObjectParameter("updated", typeof(System.DateTimeOffset));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateProverkaGU", idParameter, ошибки_в_адресации_ГУParameter, factParameter, плашкиParameter, наличие_согласованного_макетаParameter, наличие_согласованного_паспортаParameter, примечаниеParameter, провереноParameter, updatedParameter);
+            var newPassportIDParameter = newPassportID.HasValue ?
+                new ObjectParameter("newPassportID", newPassportID) :
+                new ObjectParameter("newPassportID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateProverkaGU", idParameter, ошибки_в_адресации_ГУParameter, factParameter, плашкиParameter, наличие_согласованного_макетаParameter, наличие_согласованного_паспортаParameter, примечаниеParameter, провереноParameter, updatedParameter, newPassportIDParameter);
         }
     
         [DbFunction("Entities", "ObjectFullAddress4")]
@@ -118,6 +128,12 @@ namespace InfConstractions.Models
         public virtual IQueryable<currentUserID_Result> currentUserID()
         {
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<currentUserID_Result>("[Entities].[currentUserID]()");
+        }
+    
+        [DbFunction("Entities", "fullAddress")]
+        public virtual IQueryable<fullAddress_Result> fullAddress()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fullAddress_Result>("[Entities].[fullAddress]()");
         }
     }
 }

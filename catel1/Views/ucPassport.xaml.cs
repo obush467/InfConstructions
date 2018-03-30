@@ -17,6 +17,7 @@ using System.Data.Entity.Infrastructure;
 using InfConstractions.ViewModels;
 using DevExpress.Xpf.Grid;
 using System.Data.Entity;
+using InfConstractions.Converters;
 
 namespace InfConstractions.Views
 {

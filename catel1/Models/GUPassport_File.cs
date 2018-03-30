@@ -12,9 +12,12 @@ namespace InfConstractions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class HouseStateStatu
+    public partial class GUPassport_File
     {
-        public int HOUSESTID { get; set; }
-        public string NAME { get; set; }
+        public System.Guid ID { get; set; }
+        public System.Guid Passport_ID { get; set; }
+        public byte[] tsc { get; set; }
+        public System.DateTimeOffset upserted { get; set; }
+        public System.Guid upserter { get; set; }
     }
 }

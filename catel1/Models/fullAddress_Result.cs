@@ -10,20 +10,10 @@
 namespace InfConstractions.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class NormativeDocumentType
+    public partial class fullAddress_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NormativeDocumentType()
-        {
-            this.NormativeDocuments = new HashSet<NormativeDocument>();
-        }
-    
-        public long NDTYPEID { get; set; }
-        public string NAME { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NormativeDocument> NormativeDocuments { get; set; }
+        public Nullable<System.Guid> ID { get; set; }
+        public string fullAddress { get; set; }
     }
 }

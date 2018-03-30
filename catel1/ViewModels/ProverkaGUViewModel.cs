@@ -11,41 +11,45 @@
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
 
     public class ProverkaGUViewModel : ViewModelBase,ISupportServices
     {
-        protected IPassportService PassportService { get { return GetService<IPassportService>("PassportService"); } }
         protected IDocumentManagerService DocumentManagerService { get; set; }
+        protected ISplashScreenService SplashScreenServiceLoad { get { return this.GetService<ISplashScreenService>(); } }
 
-        
         #region Constractors
-        public ProverkaGUViewModel(Entities context) : this(new ProverkaGUModel(context))
-        { }
-        public ProverkaGUViewModel(ProverkaGUModel _proverkaGUModel)
+        public ProverkaGUViewModel(Entities context) 
         {
-            proverkaGUModel = _proverkaGUModel;
-        }
-        public ProverkaGUViewModel()
-        {
-        }
+            
+            proverkaGUModel = new ProverkaGUModel(context);
+            Title = "Проверка ГУ";
 
+        }
+        public ProverkaGUViewModel():this(new Entities(App.mainConnection))
+        {
+        }
         public ProverkaGUViewModel(Entities context, IDocumentManagerService documentManagerService) : this(context)
         {
             DocumentManagerService = documentManagerService;
         }
-
+        public ProverkaGUViewModel(Entities context, IDocumentManagerService documentManagerService,ViewModelBase parentViewModel) : this(context,documentManagerService)
+        {
+            this.SetParentViewModel(parentViewModel);
+        }
         public static ProverkaGUViewModel Create()
         { return ViewModelSource.Create(() => new ProverkaGUViewModel()); }
 
         public static ProverkaGUViewModel Create(Entities context) 
         { return ViewModelSource.Create(() => new ProverkaGUViewModel(context)); }
-        public static ProverkaGUViewModel Create(ProverkaGUModel _proverkaGUModel)
-        { return ViewModelSource.Create(() => new ProverkaGUViewModel(_proverkaGUModel)); }
-
+        public static ProverkaGUViewModel Create(Entities context, IDocumentManagerService documentManagerService)
+        { return ViewModelSource.Create(() => new ProverkaGUViewModel(context, documentManagerService)); }
         #endregion
-        public string Title { get { return "Проверка ГУ"; } }
+        public string Title { get; set; }
         public ProverkaGUModel proverkaGUModel
         {
             get ;set; 
@@ -88,33 +92,43 @@
             return true;
         }
 
-       [Command(CanExecuteMethodName = "CanucPassport",
-       Name = "ucPassportCommand",
-       UseCommandManager = true)]
+        [Command(CanExecuteMethodName = "CanucPassport",
+        Name = "ucPassportCommand",
+        UseCommandManager = true)]
         public void ucPassport(object UNOM)
         {
-            IQueryable<GUPassport> passportID =
+            SplashScreenServiceLoad.ShowSplashScreen("mainSplash");
+            IQueryable<GUPassport> passportQuery =
                     from passport
                     in Context.GUPassports
                     where (passport.UNOM == UNOM.ToString())
                     orderby passport.startdate descending
                     select passport;
-           if (passportID.Count()>0)
-            PassportService.Show(passportID.FirstOrDefault<GUPassport>().id, DocumentManagerService);
+            if (passportQuery.Count() > 0)
+            {
+                GUPassport _passport = passportQuery.FirstOrDefault<GUPassport>();
+                IDocument _doc =
+                DocumentManagerService.FindDocumentByIdOrCreate(_passport.id.ToString(), (ds) =>
+                {
+                    IDocument _docCreated = ds.CreateDocument("ucPassport", ViewModelSource.Create(() => new ucPassportViewModel(_passport.id)));
+                    _docCreated.Id = _passport.id.ToString();
+                    _docCreated.Title = "Паспорт " + _passport.UNOM;
+                    return _docCreated;
+                });
+                _doc.Show();
+                SplashScreenServiceLoad.HideSplashScreen();
+            }
         }
         public bool CanucPassport(object UNOM)
         {
             IQueryable<GUPassport> passportID =
         from passport
         in Context.GUPassports
-        where (passport.UNOM == UNOM.ToString())
+        where (passport.UNOM == UNOM)
         orderby passport.startdate descending
         select passport;
-            if (passportID.Count() > 0) return true; else return false;
+            if ((passportID!=null) & ( passportID.Count() > 0)) return true; else return false;
         }
-
-
-
         #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿<dx:DXWindow xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"  xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  x:Name="mainWindow" x:Class="InfConstractions.Views.MainWindow"  
+﻿<dx:DXWindow xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"  xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"  xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  x:Name="mainWindow" x:Class="InfConstractions.Views.MainWindow"  
              mc:Ignorable="d" ResizeMode="CanResize" WindowStartupLocation="CenterScreen"  
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
@@ -17,7 +17,13 @@
     DataContext="{dxmvvm:ViewModelSource Type=vm:MainWindowViewModel}"
     >
     <dxmvvm:Interaction.Behaviors>
-        <dx:DXSplashScreenService x:Name="mainSplash" ShowSplashScreenOnLoading="True" State="Загрузка" SplashScreenType="{x:Type v:mainSplash}"/>
+        <dx:DXSplashScreenService SplashScreenStartupLocation="CenterOwner">
+            <dx:DXSplashScreenService.ViewTemplate>
+                <DataTemplate>
+                    <v:mainSplash/>
+                </DataTemplate>
+            </dx:DXSplashScreenService.ViewTemplate>
+        </dx:DXSplashScreenService>
     </dxmvvm:Interaction.Behaviors>
     <Grid x:Name="LayoutRoot" Margin="0">
         <Grid.RowDefinitions>
@@ -25,24 +31,35 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <dxb:MainMenuControl x:Name="menu" Height="36" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="0">
-            <dxb:BarButtonItem Content="Выход" Command="{Binding cmClose}"/>
-            <dxb:BarButtonItem Content="Окна" x:Name="miWindows" />
+            <dxb:BarSubItem Name="bsFile" CategoryName="PassportMenus" Content="{Binding Source={StaticResource mnFile}}">
+                <dxb:BarButtonItem Content="{Binding Source={StaticResource mnOpenRichEdit}}" Command="{Binding cmOpenRichEdit}"/>
+                <dxb:BarButtonItem Content="{Binding Source={StaticResource mnOpenSpreadSheet}}" Command="{Binding cmOpenSpreadSheet}"/>
+                <dxb:BarButtonItem Content="{Binding Source={StaticResource mnExit}}" Command="{Binding cmExit}"/>
+            </dxb:BarSubItem>
+            <dxb:BarSubItem Name="bsWindows" CategoryName="WindowsMenus" Content="{Binding Source={StaticResource mnWindows}}">
+              
+            </dxb:BarSubItem>
         </dxb:MainMenuControl>
             <dxdo:DockLayoutManager x:Name="dockManager_main" Margin="0,0,0,0" Grid.Row="1" >
             <dxdo:LayoutGroup x:Name="classesContent" Orientation="Horizontal" Height="auto" AllowSplitters="True">
                 <dxdo:LayoutGroup x:Name="mainPanel" Orientation="Horizontal">
-                    <dxdo:LayoutPanel x:Name="leftPanel" ItemWidth="100" >
-                        <dxdo:DockLayoutManager>
-                            <dxdo:LayoutGroup Orientation="Horizontal">
-                            </dxdo:LayoutGroup>
-                        </dxdo:DockLayoutManager>
-                    </dxdo:LayoutPanel>
+                    <dxdo:LayoutPanel x:Name="leftPanel" ItemWidth="150" AllowClose="False" AllowSizing="False" AllowHide="False">
+                                    <dxn:NavBarControl >
+                                        <dxn:NavBarControl.View>
+                                            <dxn:NavigationPaneView dxn:ScrollingSettings.ScrollMode="Buttons" />
+                                        </dxn:NavBarControl.View>
+                                        <dxn:NavBarControl.Groups>
+                                            <dxn:NavBarGroup Name="dfgdfgdfg" Header="Задачи">
+                                                <dxn:NavBarItem Content="Проверка паспортов ГУ" Command="{Binding cmProverkaGU}"/>
+                                            </dxn:NavBarGroup>
+                                        </dxn:NavBarControl.Groups>
+                                    </dxn:NavBarControl>
+                                </dxdo:LayoutPanel>
                     <dxdo:LayoutGroup x:Name="centerPanel" Orientation="Vertical">
                         <dxdo:TabbedGroup x:Name="centerTop" Visibility="Collapsed" Expanded="False" ShowCaption="True">
                             <dxdo:LayoutPanel >
                             </dxdo:LayoutPanel>
                             <dxdo:LayoutPanel >
-                              
                             </dxdo:LayoutPanel>
                             <dxdo:LayoutPanel />
                         </dxdo:TabbedGroup>
@@ -53,16 +70,12 @@
                             <dxdo:LayoutGroup x:Name="leftCenterPanel" Caption="leftCenterPanel" Visibility="Hidden"/>
                             <dxdo:LayoutGroup x:Name="rightCenterPanel" Caption="rightCenterPanel" Orientation="Horizontal" Visibility="Hidden"/>
                             <dxdo:DocumentGroup x:Name="docPanel" Orientation="Horizontal">
-
                                 <dxdo:DocumentPanel x:Name="ld_mosgorbti" Caption="mosgorbti.ru" ShowCaption="True">
                                     <eo:WebControl x:Name="w1">
                                         <eo:WebControl.WebView>
                                             <eo:WebView x:Name="w11"  Url="http://www.mosgorbti.ru/map.aspx?displayMode=verticalScrollBookmark=0&amp;form_login-form=1&amp;fd_login-form=1&amp;mode=&amp;form_Main=1&amp;back-url=&amp;region=&amp;show-route=&amp;clickableTBTI=1&amp;hideZoom=&amp;rotateBuildingNames=&amp;searchForm=&amp;showSearchForm=1&amp;showStreetPaths=&amp;scale=1&amp;fd_Main=1"></eo:WebView>
                                         </eo:WebControl.WebView>
                                     </eo:WebControl>
-                                </dxdo:DocumentPanel>
-                                <dxdo:DocumentPanel x:Name="ld_Word" Caption="mosgorbti.ru" ShowCaption="True">
-                                    <v:ucWord/>
                                 </dxdo:DocumentPanel>
                                 <dxdo:DocumentPanel x:Name="ld_yandex" Caption="Yandex.ru" ShowCaption="True">
                                         <eo:WebControl Canvas.ZIndex="0">
@@ -82,7 +95,7 @@
                         </dxdo:LayoutGroup  >
                         <dxdo:TabbedGroup x:Name="centerBottom" Caption="mainBottom" ItemHeight="100">
                                 <dxdo:LayoutPanel Caption="Журнал">
-                                    <v:ucLogger></v:ucLogger>
+                                    <v:ucLogger Visibility="Visible" ></v:ucLogger>
                                 </dxdo:LayoutPanel>
                             </dxdo:TabbedGroup>
                     </dxdo:LayoutGroup>

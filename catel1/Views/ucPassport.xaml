@@ -11,13 +11,23 @@
     xmlns:dxpdf="http://schemas.devexpress.com/winfx/2008/xaml/pdf" 
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+    xmlns:Converters="clr-namespace:InfConstractions.Converters"
+    xmlns:orchestra="https://github.com/orcomp/orchestra" xmlns:Converters1="clr-namespace:Catel.Windows.Data.Converters;assembly=Catel.Extensions.Controls"
+    xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
     x:Class="InfConstractions.Views.ucPassport"
     mc:Ignorable="d" 
     d:DesignHeight="900" 
+    d:DesignWidth="900"
     Width="auto"
     >
-    <Grid Margin="1,0,1,1">
+    <UserControl.Resources>
+        <orchestra:PathToStringConverter x:Key="PathToStringConverter"/>
+        <Converters1:OutputTypeConverter x:Key="OutputTypeConverter"/>
+        <Converters:DBGeographyToLatLongConverter x:Key="WGS84Converter" />
+    </UserControl.Resources>
+    <Grid Margin="1,1,1,1" Grid.Row="2">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="455"/>
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -25,37 +35,54 @@
             <ColumnDefinition Width="300" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Label x:Name="lNumber" Content="{Binding Source={StaticResource fnNumber}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="37" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lStartDate" Content="{Binding Source={StaticResource fnStartDate}}" Grid.Column="0" Grid.Row="0" Margin="3,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="41" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lEndDate" Content="{Binding Source={StaticResource fnEndDate}}" Grid.Column="0" Grid.Row="0" Margin="0,25,103,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="46" Height="22" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lPrev" Content="{Binding Source={StaticResource fnPrev}}" Grid.Column="0" Grid.Row="0" Margin="3,50,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="73" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lNext" Content="{Binding Source={StaticResource fnNext}}" Grid.Column="0" Grid.Row="0" Margin="3,75,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="66" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lVisibility" Content="{Binding Source={StaticResource fnVisibility}}" Grid.Column="0" Grid.Row="0" Margin="3,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="107" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lSidewalk_width" Content="{Binding Source={StaticResource fnSidewalk_width}}" Grid.Column="0" Grid.Row="0" Margin="3,125,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="98" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lCondition" Content="{Binding Source={StaticResource fnCondition}}" Grid.Column="0" Grid.Row="0" Margin="3,150,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="58" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lPatency" Content="{Binding Source={StaticResource fnPatency}}" Grid.Column="0" Grid.Row="0" Margin="3,175,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Height="22" Width="81"/>
-        <Label x:Name="lWGS84" Content="{Binding Source={StaticResource fnWGS84}}" Grid.Column="0" Grid.Row="0" Margin="3,199,0,0" HorizontalAlignment="Left" Width="110" d:LayoutOverrides="LeftMargin, RightMargin" Height="21" VerticalAlignment="Top"/>
-        <Label x:Name="lAddress" Content="{Binding Source={StaticResource fnAddress}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,82" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="33" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Label x:Name="lOkrug" Content="{Binding Source={StaticResource fnOkrug}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,134" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="129" d:LayoutOverrides="LeftMargin, RightMargin"/>
-        <Label x:Name="lRaion" Content="{Binding Source={StaticResource fnRaion}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,109" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="34" d:LayoutOverrides="LeftMargin, RightMargin"/>
-        <dxe:TextEdit x:Name="teUNOM" Grid.Column="0" Grid.Row="0" Margin="121,1,4,0" Text="{Binding Passport.UNOM}" IsEnabled="True"  VerticalAlignment="Top" Height="22" />
-        <dxe:DateEdit HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Margin="50,25,0,0" EditValue="{Binding Passport.startdate}" NullText="{Binding Mode=OneWay, Source={StaticResource NullData}}" NullValue="{Binding NullDate,Mode=OneWay}" VerticalAlignment="Top" Width="97" d:LayoutOverrides="HorizontalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Height="22"/>
-        <dxe:DateEdit HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" Margin="0,25,5,0" EditValue="{Binding Passport.enddate}" NullText="{Binding Mode=OneWay, Source={StaticResource NullData}}" NullValue="{Binding NullDate,Mode=OneWay}"  VerticalAlignment="Top" Width="95" Height="22" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"  />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,50,4,0" Text="{Binding Passport.prev}" IsEnabled="False" VerticalAlignment="Top" Height="22" d:LayoutOverrides="TopMargin, BottomMargin" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,75,4,0" Text="{Binding Passport.next}" IsEnabled="False" VerticalAlignment="Top" Height="22" d:LayoutOverrides="TopMargin, BottomMargin" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,100,4,0" Text="{Binding Passport.Visibility}" IsEnabled="True" VerticalAlignment="Top" Height="22" d:LayoutOverrides="TopMargin, BottomMargin" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,125,4,0" Text="{Binding Passport.Sidewalk_width}" IsEnabled="True" VerticalAlignment="Top" Height="22" d:LayoutOverrides="TopMargin, BottomMargin" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,150,4,0" Text="{Binding Passport.Condition}" IsEnabled="True" VerticalAlignment="Top" Height="22" d:LayoutOverrides="TopMargin, BottomMargin" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,175,4,0" Text="{Binding Passport.Patency}" IsEnabled="True" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment, TopMargin, BottomMargin" Height="22" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,199,4,0" Text="{Binding Passport.WGS84}"  VerticalContentAlignment="Top" IsEnabled="True" Height="22" VerticalAlignment="Top" />
-        <dxe:TextEdit Grid.Row="0" Margin="121,0,4,132" Text="{Binding Okrug.shortName}" IsReadOnly="True" IsEnabled="True" VerticalAlignment="Bottom" Height="22" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,0,4,108" Text="{Binding Raion.shortName}" IsEnabled="True" IsReadOnly="True" Height="22" VerticalAlignment="Bottom" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="43,0,5,82" Text="{Binding Address, Mode=OneWay}" TextWrapping="Wrap" AcceptsReturn="True" IsEnabled="True" IsReadOnly="True" VerticalAlignment="Bottom" Height="22" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
-        <dx:SimpleButton x:Name="btExport" Grid.Column="0" Grid.Row="0" Content="{Binding Mode=OneWay, Source={StaticResource Export}}" HorizontalAlignment="Left" Command="{Binding GenerateDOCXCommand}" Height="27" Margin="5,0,0,36" VerticalAlignment="Bottom" Width="117" ButtonKind="Simple" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
-        <dx:SimpleButton x:Name="btSave" Grid.Column="0" Grid.Row="0" Content="{Binding Mode=OneWay, Source={StaticResource Save}}" HorizontalAlignment="Left" Command="{Binding SaveChangesCommand}" Height="27" Margin="3,0,0,3" VerticalAlignment="Bottom" Width="84" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <dx:SimpleButton x:Name="btCancel" Grid.Column="0" Grid.Row="0" Content="{Binding Mode=OneWay, Source={StaticResource Cancel}}" Command="{Binding CancelCommand}" Height="27" Margin="91,0,125,3" VerticalAlignment="Bottom" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <dx:SimpleButton x:Name="btSaveClose" Grid.Column="0" Grid.Row="0" Content="{Binding Mode=OneWay, Source={StaticResource Refresh}}" HorizontalAlignment="Right" Command="{Binding RefreshCommand}" Height="27" Margin="0,0,3,3" VerticalAlignment="Bottom" Width="117" ButtonKind="Simple" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
-        <dxg:GridControl x:Name="sitesGrid" AutoGenerateColumns="None" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding PassportSites}" EnableSmartColumnsGeneration="True"  Margin="0,3,0,0" SelectionMode="Cell" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+        <dxb:MainMenuControl Grid.Row="0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+            <dxb:BarSubItem x:Name="bsPassport" CategoryName="PassportMenus" Content="_Паспорт">
+                <dxb:BarButtonItem Content="Обновить" Command="{Binding RefreshCommand}"/>
+                <dxb:BarButtonItem Content="Сохранить" Command="{Binding SaveChangesCommand}"/>
+                <dxb:BarButtonItem Content="Экспортировать" Command="{Binding GenerateDOCXCommand}"/>
+                <dxb:BarButtonItem Content="Закрыть" Command="{Binding cmClose}"/>
+            </dxb:BarSubItem>
+        </dxb:MainMenuControl>
+        <Label x:Name="lNumber" Content="{Binding Source={StaticResource fnNumber}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="37" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Label x:Name="lStartDate" Content="{Binding Source={StaticResource fnStartDate}}" Grid.Column="0" Grid.Row="1" Margin="3,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="41" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Label x:Name="lEndDate" Content="{Binding Source={StaticResource fnEndDate}}" Grid.Column="0" Grid.Row="1" Margin="0,25,103,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="46" Height="22" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Label x:Name="lPrev" Content="{Binding Source={StaticResource fnProgram}}" Grid.Column="0" Grid.Row="1" Margin="3,50,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="73" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Label x:Name="lNext" Content="{Binding Source={StaticResource fnNext}}" Grid.Column="0" Grid.Row="1" Margin="3,75,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="66" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Label x:Name="lVisibility" Content="{Binding Source={StaticResource fnVisibility}}" Grid.Column="0" Grid.Row="1" Margin="3,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="107" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Label x:Name="lSidewalk_width" Content="{Binding Source={StaticResource fnSidewalk_width}}" Grid.Column="0" Grid.Row="1" Margin="3,125,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="98" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Label x:Name="lCondition" Content="{Binding Source={StaticResource fnCondition}}" Grid.Column="0" Grid.Row="1" Margin="3,150,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="58" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Label x:Name="lPatency" Content="{Binding Source={StaticResource fnPatency}}" Grid.Column="0" Grid.Row="1" Margin="3,175,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Height="22" Width="81"/>
+        <Label x:Name="lWGS84" Content="{Binding Source={StaticResource fnWGS84}}" Grid.Column="0" Grid.Row="1" Margin="3,199,0,0" HorizontalAlignment="Left" Width="110" d:LayoutOverrides="LeftMargin, RightMargin" Height="21" VerticalAlignment="Top"/>
+        <Label x:Name="lAddress" Content="{Binding Source={StaticResource fnAddress}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,82" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="33" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Label x:Name="lOkrug" Content="{Binding Source={StaticResource fnOkrug}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,134" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="129" d:LayoutOverrides="LeftMargin, RightMargin"/>
+        <Label x:Name="lRaion" Content="{Binding Source={StaticResource fnRaion}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,109" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="34" d:LayoutOverrides="LeftMargin, RightMargin"/>
+        <dxe:TextEdit x:Name="teUNOM" Grid.Column="0" Grid.Row="1" Margin="121,1,4,0" Text="{Binding Passport.UNOM}" IsEnabled="True"  VerticalAlignment="Top" Height="22" />
+        <dxe:DateEdit HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" Margin="50,25,0,0" EditValue="{Binding Passport.startdate}" NullText="{Binding Mode=OneWay, Source={StaticResource NullData}}" NullValue="{Binding NullDate, Mode=OneWay}" VerticalAlignment="Top" Width="97" d:LayoutOverrides="HorizontalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Height="22"/>
+        <dxe:DateEdit HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="0,25,5,0" EditValue="{Binding Passport.enddate}" NullText="{Binding Mode=OneWay, Source={StaticResource NullData}}" NullValue="{Binding NullDate, Mode=OneWay}"  VerticalAlignment="Top" Width="95" Height="22" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"  />
+        <dxe:ComboBoxEdit   AllowUpdateTwoWayBoundPropertiesOnSynchronization="True"
+                            DisplayMember="Name"
+                            ValueMember="ID"
+                            EditValue="{Binding Passport.Program_ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            Grid.Row="1" 
+                            Margin="121,50,4,158" 
+                            ItemsSource="{Binding Programs}" 
+                            IsEnabled="True" 
+                            VerticalAlignment="Top" 
+                            Height="22" />
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,75,4,0" Text="{Binding Passport.next}" IsEnabled="False" VerticalAlignment="Top" Height="22" d:LayoutOverrides="TopMargin, BottomMargin" />
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,100,4,0" Text="{Binding Passport.Visibility}" IsEnabled="True" VerticalAlignment="Top" Height="22" d:LayoutOverrides="TopMargin, BottomMargin" />
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,125,4,0" Text="{Binding Passport.Sidewalk_width}" IsEnabled="True" VerticalAlignment="Top" Height="22" d:LayoutOverrides="TopMargin, BottomMargin" />
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,150,4,0" Text="{Binding Passport.Condition}" IsEnabled="True" VerticalAlignment="Top" Height="22" d:LayoutOverrides="TopMargin, BottomMargin" />
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,175,4,0" Text="{Binding Passport.Patency}" IsEnabled="True" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment, TopMargin, BottomMargin" Height="22" />
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,199,4,0"  VerticalContentAlignment="Top" IsEnabled="True" Height="22" VerticalAlignment="Top" Text="{Binding Passport.WGS84, Converter={StaticResource WGS84Converter}}" />
+        <dxe:TextEdit Grid.Row="1" Margin="121,0,4,132" Text="{Binding Okrug.shortName}" IsReadOnly="True" IsEnabled="True" VerticalAlignment="Bottom" Height="22" />
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,0,4,108" Text="{Binding Raion.shortName}" IsEnabled="True" IsReadOnly="True" Height="22" VerticalAlignment="Bottom" />
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="43,0,5,82" Text="{Binding Address, Mode=OneWay}" TextWrapping="Wrap" AcceptsReturn="True" IsEnabled="True" IsReadOnly="True" VerticalAlignment="Bottom" Height="22" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+        <dx:SimpleButton x:Name="btExport" Grid.Column="0" Grid.Row="1" Content="{Binding Mode=OneWay, Source={StaticResource Export}}" HorizontalAlignment="Left" Command="{Binding GenerateDOCXCommand}" Height="27" Margin="5,0,0,36" VerticalAlignment="Bottom" Width="117" ButtonKind="Simple" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+        <dx:SimpleButton x:Name="btSave" Grid.Column="0" Grid.Row="1" Content="{Binding Mode=OneWay, Source={StaticResource Save}}" HorizontalAlignment="Left" Command="{Binding SaveChangesCommand}" Height="27" Margin="3,0,0,3" VerticalAlignment="Bottom" Width="84" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <dx:SimpleButton x:Name="btCancel" Grid.Column="0" Grid.Row="1" Content="{Binding Mode=OneWay, Source={StaticResource Cancel}}" Command="{Binding CancelCommand}" Height="27" Margin="91,0,125,3" VerticalAlignment="Bottom" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <dx:SimpleButton x:Name="btSaveClose" Grid.Column="0" Grid.Row="1" Content="{Binding Mode=OneWay, Source={StaticResource Refresh}}" HorizontalAlignment="Right" Command="{Binding RefreshCommand}" Height="27" Margin="0,0,3,3" VerticalAlignment="Bottom" Width="117" ButtonKind="Simple" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+        <dxg:GridControl x:Name="sitesGrid" AutoGenerateColumns="None" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding PassportSites}" EnableSmartColumnsGeneration="True"  Margin="0,3,0,0" SelectionMode="Cell" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
             <dxg:GridControl.View>
                 <dxg:TableView x:Name="view" AutoWidth="True" 
                                NewItemRowPosition="Top" 
@@ -66,7 +93,7 @@
                                AllowCommitOnValidationAttributeError="False"
                                IsEnabled="{Binding EnableEdit}">
                     <dxg:TableView.RowCellMenuCustomizations>
-                        <dxb:BarButtonItem Name="deleteRowItem" Content="{Binding Mode=OneWay, Source={StaticResource DelPassportSite}}" Command="{x:Static dxg:GridCommands.DeleteFocusedRow}" />
+                        <dxb:BarButtonItem x:Name="deleteRowItem" Content="{Binding Mode=OneWay, Source={StaticResource DelPassportSite}}" Command="{x:Static dxg:GridCommands.DeleteFocusedRow}" />
                     </dxg:TableView.RowCellMenuCustomizations>
                 </dxg:TableView>
             </dxg:GridControl.View>
@@ -112,8 +139,13 @@
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
             <dxg:GridColumn FieldName="Minutes" Header="Минуты" Width="60" ReadOnly="False" AllowEditing="True" />
+            <dxg:GridColumn FieldName="Program_ID" Header="{Binding Mode=OneWay, Source={StaticResource fnProgram}}" Width="60" ReadOnly="False" AllowEditing="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:ComboBoxEditSettings ItemsSource="{Binding Programs}" DisplayMember="Name" ValueMember="ID"  />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
         </dxg:GridControl>
-        <Grid Grid.Row="1" Width="auto" Grid.ColumnSpan="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+        <Grid Grid.Row="2" Width="auto" Grid.ColumnSpan="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
             <Grid.RowDefinitions>
                 <RowDefinition />
             </Grid.RowDefinitions>
@@ -121,19 +153,19 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <dxe:ImageEdit x:Name="ieFoto"  Grid.Column="0" Grid.Row="1"  Margin="3,3,3,3" EditValue="{Binding Passport.Foto, Mode=TwoWay}" AllowDrop="True" AllowNullInput="True" />
-            <dxe:ImageEdit x:Name="iePlan"  Grid.Column="1" Grid.Row="1" Margin="3,3,3,3" EditValue="{Binding Passport.Plan, Mode=TwoWay}" AllowDrop="True" AllowNullInput="True"/>
+            <dxe:ImageEdit x:Name="ieFoto"  Grid.Column="0" Grid.Row="2"  Margin="3,3,3,3" EditValue="{Binding Passport.Foto, Mode=TwoWay}" AllowDrop="True" AllowNullInput="True" />
+            <dxe:ImageEdit x:Name="iePlan"  Grid.Column="1" Grid.Row="2" Margin="3,3,3,3" EditValue="{Binding Passport.Plan, Mode=TwoWay}" AllowDrop="True" AllowNullInput="True"/>
         </Grid>
-        <Label x:Name="lOkrug_Copy" Content="{Binding Source={StaticResource fnReconstruction}}" Grid.Column="0" Grid.Row="0" Margin="3,224,0,209" HorizontalAlignment="Left" Width="114" d:LayoutOverrides="LeftMargin, RightMargin"/>
-        <Label x:Name="lRaion_Copy" Content="{Binding Source={StaticResource fnClosed_loop}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,184" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="111" d:LayoutOverrides="LeftMargin, RightMargin"/>
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,224,4,209" Text="{Binding Passport.Reconstruction, Mode=TwoWay}" IsEnabled="True" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="0" Margin="121,0,4,184" Text="{Binding Passport.Closed_loop}" IsEnabled="True" VerticalAlignment="Bottom" Height="22" />
-        <Label x:Name="lGround_Type" Content="{Binding Source={StaticResource fnGround_Type}}" Grid.Column="0" Grid.Row="0" Margin="3,0,0,160" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="114" d:LayoutOverrides="LeftMargin, RightMargin"/>
+        <Label x:Name="lOkrug_Copy" Content="{Binding Source={StaticResource fnReconstruction}}" Grid.Column="0" Grid.Row="1" Margin="3,224,0,209" HorizontalAlignment="Left" Width="114" d:LayoutOverrides="LeftMargin, RightMargin"/>
+        <Label x:Name="lRaion_Copy" Content="{Binding Source={StaticResource fnClosed_loop}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,184" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="111" d:LayoutOverrides="LeftMargin, RightMargin"/>
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,224,4,209" Text="{Binding Passport.Reconstruction, Mode=TwoWay}" IsEnabled="True" />
+        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,0,4,184" Text="{Binding Passport.Closed_loop}" IsEnabled="True" VerticalAlignment="Bottom" Height="22" />
+        <Label x:Name="lGround_Type" Content="{Binding Source={StaticResource fnGround_Type}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,160" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="114" d:LayoutOverrides="LeftMargin, RightMargin"/>
         <dxe:ComboBoxEdit   AllowUpdateTwoWayBoundPropertiesOnSynchronization="True"
                             DisplayMember="GroundName"
                             ValueMember="id"
                             EditValue="{Binding Passport.Ground_Type_ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                            Grid.Row="0" 
+                            Grid.Row="1" 
                             Margin="121,0,4,158" 
                             ItemsSource="{Binding Ground_Types}" 
                             IsEnabled="True" 

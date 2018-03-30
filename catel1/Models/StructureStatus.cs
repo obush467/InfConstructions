@@ -12,18 +12,19 @@ namespace InfConstractions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NormativeDocumentType
+    public partial class StructureStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NormativeDocumentType()
+        public StructureStatus()
         {
-            this.NormativeDocuments = new HashSet<NormativeDocument>();
+            this.Houses = new HashSet<House>();
         }
     
-        public long NDTYPEID { get; set; }
+        public int STRSTATID { get; set; }
         public string NAME { get; set; }
+        public string SHORTNAME { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NormativeDocument> NormativeDocuments { get; set; }
+        public virtual ICollection<House> Houses { get; set; }
     }
 }

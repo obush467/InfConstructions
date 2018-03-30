@@ -17,8 +17,6 @@ namespace InfConstractions.Models
 
         internal sealed class GUPassport_SiteMetadata
         {
-
-
             public System.Guid id { get; set; }
             public System.Guid GUPassport_ID { get; set; }
             [Required(AllowEmptyStrings = false, ErrorMessage = "Значение не может быть пустым. Выберите из списка.")]
@@ -36,7 +34,7 @@ namespace InfConstractions.Models
             [Required(AllowEmptyStrings = false, ErrorMessage = "Значение не может быть пустым. Выберите из списка.")]
             public string Content_Direction { get; set; }
             public Nullable<System.Guid> Object_ID { get; set; }
-            public Nullable<System.Guid> Address_ID { get; set; }
+            public Nullable<System.Guid> HouseID { get; set; }
             [Required(AllowEmptyStrings = false, ErrorMessage = "Значение не может быть пустым")]
             public string Minutes { get; set; }
             public byte[] tsc { get; set; }

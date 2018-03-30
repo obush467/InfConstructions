@@ -12,19 +12,18 @@ namespace InfConstractions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class StructureStatu
+    public partial class CenterStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StructureStatu()
+        public CenterStatus()
         {
-            this.Houses = new HashSet<House>();
+            this.Objects = new HashSet<Object>();
         }
     
-        public int STRSTATID { get; set; }
+        public int CENTERSTID { get; set; }
         public string NAME { get; set; }
-        public string SHORTNAME { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<House> Houses { get; set; }
+        public virtual ICollection<Object> Objects { get; set; }
     }
 }

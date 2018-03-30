@@ -12,9 +12,12 @@ namespace InfConstractions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class OperationStatu
+    public partial class WorkTask
     {
-        public int OPERSTATID { get; set; }
-        public string NAME { get; set; }
+        public System.Guid ID { get; set; }
+        public byte[] tcs { get; set; }
+        public System.DateTimeOffset upserted { get; set; }
+        public System.Guid upserter { get; set; }
+        public string Name { get; set; }
     }
 }

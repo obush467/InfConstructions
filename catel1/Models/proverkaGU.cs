@@ -29,5 +29,6 @@ namespace InfConstractions.Models
         public string Plash { get; set; }
         public byte[] ts { get; set; }
         public Nullable<System.DateTimeOffset> updated { get; set; }
+        public Nullable<System.Guid> newPassportID { get; set; }
     }
 }

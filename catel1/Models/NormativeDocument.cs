@@ -18,7 +18,11 @@ namespace InfConstractions.Models
         public string DOCNAME { get; set; }
         public Nullable<System.DateTime> DOCDATE { get; set; }
         public string DOCNUM { get; set; }
-        public int DOCTYPE { get; set; }
+        public long DOCTYPE { get; set; }
         public Nullable<int> DOCIMGID { get; set; }
+    
+        public virtual NormativeDocument NormativeDocument1 { get; set; }
+        public virtual NormativeDocument NormativeDocument2 { get; set; }
+        public virtual NormativeDocumentType NormativeDocumentType { get; set; }
     }
 }

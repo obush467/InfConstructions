@@ -10,9 +10,11 @@ namespace InfConstractions.Models
     [MetadataType(typeof(proverkaGUMetadata))]
     public partial class proverkaGU
     {
+        public string Link { get { return "\\\\moscow.gbumac.ru\\МАЦ\\Мониторинг\\Каталог_ГУ\\Проверка_паспортов_ГУ\\Документы\\" + Num; } }
+        public bool ExistNewPassport { get { if (newPassportID != null) return true; else return false; } }
         internal sealed class proverkaGUMetadata
-        {
-            public string Link { get { return "\\\\moscow.gbumac.ru\\МАЦ\\Мониторинг\\Каталог_ГУ\\Проверка_паспортов_ГУ\\Документы\\" + Num; } }
+         {  
+            public string Link { get;}
             [Required(AllowEmptyStrings = false, ErrorMessage = "Значение не может быть пустым")]
             public string Num { get; set; }
             [Required(AllowEmptyStrings = false, ErrorMessage = "Значение не может быть пустым. Выберите из списка.")]
@@ -35,6 +37,7 @@ namespace InfConstractions.Models
             [Timestamp]
             public byte[] ts { get; set; }
             public Nullable<System.DateTimeOffset> updated { get; set; }
+            public bool ExistNewPassport { get; }
 
         }
     }

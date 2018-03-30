@@ -57,7 +57,6 @@
         {
             
         }
-        IPassportService PassportService { get { return GetService<IPassportService>(); } }
         #region Constractors
         public ucPassportViewModel()
         {
@@ -118,10 +117,10 @@
         {
             get { return Model.Address; }
         }
-        //[AtLeastChooseOneItem(ErrorMessage ="asssssssssssssssssssssssssss")]
         public ObservableCollection<GUPassport_Site> PassportSites { get { return Model.PassportSites; } }
         public ObservableCollection<GUPassport_State> PassportStates { get { return Model.PassportStates; } }
         public ObservableCollection<Ground_Type> Ground_Types { get { return Model.Ground_Types; } }
+        public ObservableCollection<Program> Programs { get { return Model.Programs; } }
         public object NullDate { get { return null;} }
         public AdminArea Okrug { get { return Model.Okrug; } }
         public AdminArea Raion { get { return Model.Raion; } }
