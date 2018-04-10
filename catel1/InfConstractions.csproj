@@ -358,6 +358,9 @@
     <Compile Include="Models\AdminArea.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AllAddressObjects_Result.cs">
+      <DependentUpon>mainModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CenterStatus.cs">
       <DependentUpon>mainModel.tt</DependentUpon>
     </Compile>
@@ -450,7 +453,6 @@
     </Compile>
     <Compile Include="Models\MainWindowModel.cs" />
     <Compile Include="Models\ucPassportModel.cs" />
-    <Compile Include="Models\ProverkaGUModel.cs" />
     <Compile Include="Models\formLoginModel.cs" />
     <Compile Include="Models\proverkaGU_linked.cs" />
     <Compile Include="Properties\SplashScreen1.cs">

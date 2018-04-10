@@ -35,7 +35,7 @@ namespace InfConstractions.Models
         public string OKTMO { get; set; }
         public Nullable<System.DateTime> UPDATEDATE { get; set; }
         public string SHORTNAME { get; set; }
-        public Nullable<int> AOLEVEL { get; set; }
+        public int AOLEVEL { get; set; }
         public Nullable<System.Guid> PARENTGUID { get; set; }
         public System.Guid AOID { get; set; }
         public Nullable<System.Guid> PREVID { get; set; }

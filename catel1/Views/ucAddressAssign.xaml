@@ -17,15 +17,25 @@
     d:DesignHeight="900" 
     d:DesignWidth="900"
     Width="auto"
-    x:Class="InfConstractions.Views.AddressAssign"
-    x:Name="ucAddressAssign"
-    DataContext="{dxmvvm:ViewModelSource Type=vm:ucAddressAssignViewModel}">
-    <Grid>
+    x:Class="InfConstractions.Views.ucAddressAssign"
+    x:Name="AddressAssign"
+
+    Visibility="Visible">
+    <Grid Margin="0" x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <dxb:MainMenuControl Grid.Row="0" />
+        <dxb:MainMenuControl Grid.Row="0" >
+            <dxb:BarButtonItem Content="gsdfdsfsdf"/>
+        </dxb:MainMenuControl>
+        <dxg:TreeListControl x:Name="trlAddress" Grid.Row="1" ItemsSource="{Binding treeAddress, Mode=OneTime}" Margin="0" >
+            <dxg:TreeListControl.View>
+                <dxg:TreeListView x:Name="trlAddressView1" AutoWidth="True"
+                                  KeyFieldName="ID" ParentFieldName="PARENTGUID" TreeDerivationMode="Selfreference"/>
+            </dxg:TreeListControl.View>
+            <dxg:TreeListColumn FieldName="Name" Header="Адрес"/>
+        </dxg:TreeListControl>
     </Grid>
 
 </UserControl>

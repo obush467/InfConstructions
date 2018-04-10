@@ -135,5 +135,11 @@ namespace InfConstractions.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fullAddress_Result>("[Entities].[fullAddress]()");
         }
+    
+        [DbFunction("Entities", "AllAddressObjects")]
+        public virtual IQueryable<AllAddressObjects_Result> AllAddressObjects()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<AllAddressObjects_Result>("[Entities].[AllAddressObjects]()");
+        }
     }
 }

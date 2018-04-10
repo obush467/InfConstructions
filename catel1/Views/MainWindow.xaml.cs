@@ -38,7 +38,16 @@ namespace InfConstractions.Views
 
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-           //if (((MainWindowViewModel)DataContext).CancmProverkaGU()) ((MainWindowViewModel)DataContext).cmProverkaGU();
+            ucAddressAssign ap=new ucAddressAssign();
+
+            
+            
+            AddressPanel.Visibility= Visibility.Visible;
+            leftCenterPanel.Visibility = Visibility.Visible;
+            dockManager_main.LayoutController.Activate(leftCenterPanel);
+            dockManager_main.LayoutController.Activate(AddressPanel);
+            AddressPanel.Content = new Uri("Views\\ucAddressAssign.xaml",UriKind.Relative);
+            ap.Visibility = Visibility.Visible;
         }
 
         private void WebBrowser_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)

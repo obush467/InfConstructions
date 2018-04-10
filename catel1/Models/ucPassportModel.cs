@@ -112,7 +112,8 @@ namespace InfConstractions.Models
         {
             Passport = Context.GUPassports.Where<GUPassport>(p => (p.id == Passport.id)).First<GUPassport>();
             Programs = new ObservableCollection<Program>(Context.Programs.ToList());
-            PassportSites = new ObservableCollection<GUPassport_Site>(queryPassportSites.ToList());
+            //PassportSites = new ObservableCollection<GUPassport_Site>(queryPassportSites.ToList());
+            PassportSites = new ObservableCollection<GUPassport_Site>(Context.GetGUPassport_Sites(Passport.id));
             PassportStates = new ObservableCollection<GUPassport_State>(queryPassportStates.ToList());
             Ground_Types = new ObservableCollection<Ground_Type>(Context.Ground_Types.ToList());
         }

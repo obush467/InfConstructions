@@ -275,7 +275,7 @@
           <Property Name="OKTMO" Type="nvarchar" MaxLength="11" />
           <Property Name="UPDATEDATE" Type="datetime2" Precision="3" />
           <Property Name="SHORTNAME" Type="nvarchar" MaxLength="10" />
-          <Property Name="AOLEVEL" Type="int" />
+          <Property Name="AOLEVEL" Type="int" Nullable="false" />
           <Property Name="PARENTGUID" Type="uniqueidentifier" />
           <Property Name="AOID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PREVID" Type="uniqueidentifier" />
@@ -495,68 +495,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Object_ActualStatus">
-          <End Role="ActualStatus" Type="Self.ActualStatus" Multiplicity="0..1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ActualStatus">
-              <PropertyRef Name="ACTSTATID" />
-            </Principal>
-            <Dependent Role="Object">
-              <PropertyRef Name="ACTSTATUS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Object_CenterStatus">
-          <End Role="CenterStatus" Type="Self.CenterStatus" Multiplicity="0..1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CenterStatus">
-              <PropertyRef Name="CENTERSTID" />
-            </Principal>
-            <Dependent Role="Object">
-              <PropertyRef Name="CENTSTATUS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Object_CurrentStatus">
-          <End Role="CurrentStatus" Type="Self.CurrentStatus" Multiplicity="0..1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CurrentStatus">
-              <PropertyRef Name="CURENTSTID" />
-            </Principal>
-            <Dependent Role="Object">
-              <PropertyRef Name="CURRSTATUS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Object_ObjectTypes">
-          <End Role="AddressObjectType" Type="Self.AddressObjectType" Multiplicity="0..1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AddressObjectType">
-              <PropertyRef Name="LEVEL" />
-              <PropertyRef Name="SCNAME" />
-            </Principal>
-            <Dependent Role="Object">
-              <PropertyRef Name="AOLEVEL" />
-              <PropertyRef Name="SHORTNAME" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Object_OperationStatus">
-          <End Role="OperationStatus" Type="Self.OperationStatus" Multiplicity="0..1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OperationStatus">
-              <PropertyRef Name="OPERSTATID" />
-            </Principal>
-            <Dependent Role="Object">
-              <PropertyRef Name="OPERSTATUS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Persons_Persons">
           <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
           <End Role="Person1" Type="Self.Person" Multiplicity="*" />
@@ -615,6 +553,17 @@
           <Parameter Name="Проверено" Type="bit" Mode="In" />
           <Parameter Name="updated" Type="datetimeoffset" Mode="In" />
           <Parameter Name="newPassportID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="AllAddressObjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="fias">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="uniqueidentifier" />
+                <Property Name="PARENTGUID" Type="uniqueidentifier" />
+                <Property Name="Name" Type="nvarchar" MaxLength="4000" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
         </Function>
         <EntityContainer Name="Хранилище ModelsContainer">
           <EntitySet Name="AdminArea" EntityType="Self.AdminArea" Schema="dbo" store:Type="Tables" />
@@ -711,26 +660,6 @@
           <AssociationSet Name="FK_NormativeDocument_NormativeDocumentType" Association="Self.FK_NormativeDocument_NormativeDocumentType">
             <End Role="NormativeDocumentType" EntitySet="NormativeDocumentType" />
             <End Role="NormativeDocument" EntitySet="NormativeDocument" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Object_ActualStatus" Association="Self.FK_Object_ActualStatus">
-            <End Role="ActualStatus" EntitySet="ActualStatus" />
-            <End Role="Object" EntitySet="Object" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Object_CenterStatus" Association="Self.FK_Object_CenterStatus">
-            <End Role="CenterStatus" EntitySet="CenterStatus" />
-            <End Role="Object" EntitySet="Object" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Object_CurrentStatus" Association="Self.FK_Object_CurrentStatus">
-            <End Role="CurrentStatus" EntitySet="CurrentStatus" />
-            <End Role="Object" EntitySet="Object" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Object_ObjectTypes" Association="Self.FK_Object_ObjectTypes">
-            <End Role="AddressObjectType" EntitySet="AddressObjectType" />
-            <End Role="Object" EntitySet="Object" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Object_OperationStatus" Association="Self.FK_Object_OperationStatus">
-            <End Role="OperationStatus" EntitySet="OperationStatus" />
-            <End Role="Object" EntitySet="Object" />
           </AssociationSet>
           <AssociationSet Name="FK_Persons_Persons" Association="Self.FK_Persons_Persons">
             <End Role="Person" EntitySet="Person" />
@@ -863,6 +792,7 @@
             <End Role="GUPassport" EntitySet="GUPassports" />
             <End Role="GUPassport_State" EntitySet="GUPassport_States" />
           </AssociationSet>
+          <FunctionImport Name="AllAddressObjects" IsComposable="true" ReturnType="Collection(Models.AllAddressObjects_Result)" />
           </EntityContainer>
         <ComplexType Name="ObjectFullAddress4_Result">
           <Property Type="String" Name="fullAdress" Nullable="true" MaxLength="500" />
@@ -1173,7 +1103,7 @@
           <Property Name="OKTMO" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
           <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
           <Property Name="SHORTNAME" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="AOLEVEL" Type="Int32" />
+          <Property Name="AOLEVEL" Type="Int32" Nullable="false" />
           <Property Name="PARENTGUID" Type="Guid" />
           <Property Name="AOID" Type="Guid" Nullable="false" />
           <Property Name="PREVID" Type="Guid" />
@@ -1474,6 +1404,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="AllAddressObjects_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="Guid" Name="PARENTGUID" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="4000" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1873,6 +1808,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AllAddressObjects" FunctionName="Хранилище Models.AllAddressObjects">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.AllAddressObjects_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PARENTGUID" ColumnName="PARENTGUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

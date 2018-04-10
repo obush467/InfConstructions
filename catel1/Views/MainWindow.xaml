@@ -67,7 +67,10 @@
                             <dxmvvm:Interaction.Behaviors>
                                 <dxdo:TabbedDocumentUIService DocumentGroup="{Binding ElementName=docPanel}" />
                             </dxmvvm:Interaction.Behaviors>
-                            <dxdo:LayoutGroup x:Name="leftCenterPanel" Caption="leftCenterPanel" Visibility="Hidden"/>
+                            <dxdo:LayoutGroup x:Name="leftCenterPanel" Caption="leftCenterPanel" Visibility="Hidden">
+                                <dxdo:LayoutPanel x:Name="AddressPanel" Visibility="Hidden">
+                                </dxdo:LayoutPanel>
+                            </dxdo:LayoutGroup>
                             <dxdo:LayoutGroup x:Name="rightCenterPanel" Caption="rightCenterPanel" Orientation="Horizontal" Visibility="Hidden"/>
                             <dxdo:DocumentGroup x:Name="docPanel" Orientation="Horizontal">
                                 <dxdo:DocumentPanel x:Name="ld_mosgorbti" Caption="mosgorbti.ru" ShowCaption="True">

@@ -11,6 +11,7 @@ namespace InfConstractions.Views
     {
         public ucAddressAssign()
         {
+            DataContext = new ucAddressAssignViewModel(new Models.Entities(App.mainConnection));
         }
     }
 }

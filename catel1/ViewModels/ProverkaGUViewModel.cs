@@ -10,12 +10,15 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
+    using System.Configuration;
+    using System.Data.Entity;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
+    using InfConstractions.Config;
 
     public class ProverkaGUViewModel : ViewModelBase,ISupportServices
     {
@@ -25,8 +28,12 @@
         #region Constractors
         public ProverkaGUViewModel(Entities context) 
         {
-            
-            proverkaGUModel = new ProverkaGUModel(context);
+
+            //proverkaGUModel = new ProverkaGUModel(context);
+            LoadConfig();
+            Context = context;
+            Context.proverkaGUs.Load();
+            ProverkaGU = new ObservableCollection<proverkaGU>(Context.proverkaGUs);
             Title = "Проверка ГУ";
 
         }
@@ -50,20 +57,23 @@
         { return ViewModelSource.Create(() => new ProverkaGUViewModel(context, documentManagerService)); }
         #endregion
         public string Title { get; set; }
-        public ProverkaGUModel proverkaGUModel
+        /*-public ProverkaGUModel proverkaGUModel
         {
             get ;set; 
-        }
-
+        }*/
+        public Configuration Config { get; protected set; }
+        public DefaultConnectionConfig _config_connection { get; set; }
         public Entities Context
         {
-            get { return proverkaGUModel.Context; }
-            set { proverkaGUModel.Context=value; }
+            get; protected set;
+            /*get { return proverkaGUModel.Context; }
+            set { proverkaGUModel.Context=value; }*/
         }
 
         public ObservableCollection<proverkaGU> ProverkaGU
         {
-            get { return proverkaGUModel.ProverkaGU;}
+            get; protected set;
+            /*get { return proverkaGUModel.ProverkaGU;}*/
         }
 
         #region Commands
@@ -85,11 +95,14 @@
             UseCommandManager = true)]
         public void cmRefresh()
         {
-            proverkaGUModel.Refresh();
+           // proverkaGUModel.Refresh();
+            Context.SaveChanges();
+            Context.proverkaGUs.Load();
+            ProverkaGU = new ObservableCollection<proverkaGU>(Context.proverkaGUs);
         }
         public bool CancmRefresh()
         {           
-            return true;
+            return Context.ChangeTracker.HasChanges();
         }
 
         [Command(CanExecuteMethodName = "CanucPassport",
@@ -128,6 +141,18 @@
         orderby passport.startdate descending
         select passport;
             if ((passportID!=null) & ( passportID.Count() > 0)) return true; else return false;
+        }
+        #endregion
+
+        #region Methods
+        public void LoadConfig()
+        {
+            Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        }
+
+        public void SaveConfig()
+        {
+            Config.Save(ConfigurationSaveMode.Full);
         }
         #endregion
     }
