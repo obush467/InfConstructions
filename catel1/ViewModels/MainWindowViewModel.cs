@@ -16,21 +16,28 @@
     using Catel.IoC;
     using DevExpress.Mvvm.DataAnnotations;
     using Services;
+    using System.Collections.Generic;
 
     public class MainWindowViewModel : ViewModelBase
     {
-        Guid proverkaGU_key = new Guid("99B84C49-D814-4028-8889-6ED5E7023FF5");
+        #region Fields
+        protected Guid proverkaGU_key = new Guid("99B84C49-D814-4028-8889-6ED5E7023FF5");
+        protected formLoginViewModel vm =  new formLoginViewModel();
+        #endregion
+        #region Services
         IOpenFileDialogService OpenFileDialogService { get { return GetService<IOpenFileDialogService>(); } }
         ISaveFileDialogService SaveFileDialogService { get { return GetService<ISaveFileDialogService>(); } }
-        formLoginViewModel vm = new formLoginViewModel(new SqlConnection());
-        public IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
+        IDialogService DialogService { get { return GetService<IDialogService>(); } }
+        public IDocumentManagerService DocumentManagerService { get { return GetService<IDocumentManagerService>(); } }
+        #endregion
         #region Constructors
         public MainWindowViewModel()
         {
             try
             {
                 vmVisibility = Visibility.Hidden;
-                mainWindowModel = new MainWindowModel();
+                sqlConnection = new SqlConnection();
+                efConnection = new EntityConnection();
                 var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
                 u.ShowDialogAsync(vm, completeLogin);
             }
@@ -42,23 +49,22 @@
         public string Title { get { return "InfConstractions"; } }
         public Entities mainContext
         {
-            get { return mainWindowModel.mainContext; }       
-            set { mainWindowModel.mainContext=value; }
+            get { return GetProperty<Entities>(() => mainContext); }
+            private set { SetProperty<Entities>(() => mainContext, value); }
         }
-        public MainWindowModel mainWindowModel { get; set;}
         public SqlConnection sqlConnection
         {
-            get { return GetProperty<SqlConnection>(()=> mainWindowModel.sqlConnection); }
-            private set { SetProperty<SqlConnection>(()=> mainWindowModel.sqlConnection, value); }
+            get { return GetProperty<SqlConnection>(()=> sqlConnection); }
+            private set { SetProperty<SqlConnection>(()=> sqlConnection, value); }
         }
         public EntityConnection efConnection
         {
-            get { return mainWindowModel.efConnection; }
-            set { mainWindowModel.efConnection= value; }
+            get { return GetProperty<EntityConnection>(() => efConnection); }
+            private set { SetProperty<EntityConnection>(() => efConnection, value); }
         }
         public Visibility vmVisibility
         {
-            get { return GetProperty<System.Windows.Visibility>(() => vmVisibility); }
+            get { return GetProperty(() => vmVisibility); }
             set { SetProperty<Visibility>(() => vmVisibility, value); }
         }
         #endregion
@@ -73,8 +79,9 @@
             {
                 try
                 {
-                    mainWindowModel.sqlConnection = vm.Connection;
-                    mainWindowModel.efConnection = vm.efConnection;
+                    sqlConnection = vm.sqlConnection;
+                    efConnection = vm.efConnection;
+                    mainContext = new Entities(efConnection);
                 }
                 catch (Exception ex)
                 { MessageBox.Show(ex.Message); }
@@ -91,7 +98,6 @@
             UseCommandManager = true)]
         public void Exit()
         {
-            //_navigationService.CloseApplication();
             Application.Current.MainWindow.Close();
         }
         public bool CancmExit()
@@ -116,7 +122,7 @@
         }
         public bool CancmProverkaGU()
         {
-            if (efConnection.State != System.Data.ConnectionState.Closed)
+            if (efConnection!=null && efConnection.State != System.Data.ConnectionState.Closed)
             { return true; }
             else
             { return false; }
@@ -126,7 +132,7 @@
             UseCommandManager = true)]
         public void OpenRichEdit()
         {
-
+            DialogService.ShowDialog(null, "dsfdsfds", ViewModelSource.Create(() => new dxwLoginViewModel()));
             DocumentManagerService.FindDocumentByIdOrCreate(proverkaGU_key, (ds) =>
             {
                 IDocument doc1 = ds.CreateDocument("ucWord", ViewModelSource.Create(() => new ucWordViewModel()));
@@ -137,7 +143,7 @@
         }
         public bool CancmOpenRichEdit()
         {
-            if (efConnection.State != System.Data.ConnectionState.Closed)
+            if (efConnection!=null && efConnection.State != System.Data.ConnectionState.Closed)
             { return true; }
             else
             { return false; }

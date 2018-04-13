@@ -4,6 +4,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:InfConstractions.Views"
+    xmlns:localDD="clr-namespace:InfConstractions.Views.DragDrop"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
     xmlns:vm="clr-namespace:InfConstractions.ViewModels" 
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
@@ -13,29 +14,55 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
     xmlns:Converters="clr-namespace:InfConstractions.Converters"
     xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     mc:Ignorable="d" 
     d:DesignHeight="900" 
     d:DesignWidth="900"
     Width="auto"
     x:Class="InfConstractions.Views.ucAddressAssign"
     x:Name="AddressAssign"
-
-    Visibility="Visible">
+    DataContext="{dxmvvm:ViewModelSource Type={x:Type vm:ucAddressAssignViewModel}}"
+    Visibility="Visible" Loaded="AddressAssign_Loaded">
     <Grid Margin="0" x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <dxb:MainMenuControl Grid.Row="0" >
-            <dxb:BarButtonItem Content="gsdfdsfsdf"/>
+        <dxb:MainMenuControl Grid.Row="0" AllowCustomizationMenu="True" BarItemDisplayMode="ContentAndGlyph" >
+            <dxb:BarSubItem x:Name="bsAddress" Content="Адрес">
+                <dxb:BarButtonItem Content="Адрес"/>
+            </dxb:BarSubItem>
         </dxb:MainMenuControl>
-        <dxg:TreeListControl x:Name="trlAddress" Grid.Row="1" ItemsSource="{Binding treeAddress, Mode=OneTime}" Margin="0" >
+        <dxg:TreeListControl 
+            x:Name="trlAddress" 
+            Grid.Row="1" 
+            AllowDrop="True"
+            ItemsSource="{Binding treeAddress, Mode=OneTime}" 
+            Margin="0" 
+            SelectedItem="{Binding SelectedAddress, Mode=OneWayToSource}" 
+            SelectionMode="None">
+            <dxmvvm:Interaction.Behaviors>
+                <dxg:TreeListDragDropManager AllowDrag="True" 
+                                             AllowDrop="True" 
+                                             AllowScrolling="True" 
+                                             StartDrag="TreeListDragDropManager_StartDrag" 
+                                             ViewTreeDerivationMode="Selfreference" />
+            </dxmvvm:Interaction.Behaviors>
             <dxg:TreeListControl.View>
-                <dxg:TreeListView x:Name="trlAddressView1" AutoWidth="True"
-                                  KeyFieldName="ID" ParentFieldName="PARENTGUID" TreeDerivationMode="Selfreference"/>
+                <dxg:TreeListView x:Name="trlAddressView1" 
+                                  AutoWidth="True"
+                                  KeyFieldName="ID" 
+                                  ParentFieldName="PARENTGUID" 
+                                  TreeDerivationMode="Selfreference"
+                                  AllowEditing="False" 
+                                  AllowDrop="True" 
+                                  AutoMoveRowFocus="False"                                
+                                 >
+                </dxg:TreeListView>
             </dxg:TreeListControl.View>
-            <dxg:TreeListColumn FieldName="Name" Header="Адрес"/>
+            <dxg:TreeListColumn FieldName="itemAddress" Header="Адрес"/>
         </dxg:TreeListControl>
+
     </Grid>
 
 </UserControl>

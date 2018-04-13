@@ -24,20 +24,33 @@
                 </DataTemplate>
             </dx:DXSplashScreenService.ViewTemplate>
         </dx:DXSplashScreenService>
+        <dx:DialogService DialogWindowStartupLocation="CenterOwner">
+            <dx:DialogService.ViewTemplate>
+                <DataTemplate>
+                    <v:dxwLogin/>
+                </DataTemplate>
+            </dx:DialogService.ViewTemplate>
+            <dx:DialogService.DialogStyle>
+                <Style TargetType="dx:DXDialogWindow">
+                    <Setter Property="Width" Value="350"/>
+                    <Setter Property="Height" Value="200"/>
+                    <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+                </Style>
+            </dx:DialogService.DialogStyle>
+        </dx:DialogService>
     </dxmvvm:Interaction.Behaviors>
     <Grid x:Name="LayoutRoot" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="10" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <dxb:MainMenuControl x:Name="menu" Height="36" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="0">
-            <dxb:BarSubItem Name="bsFile" CategoryName="PassportMenus" Content="{Binding Source={StaticResource mnFile}}">
+        <dxb:MainMenuControl x:Name="menuMain" Height="36" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="0">
+            <dxb:BarSubItem Name="bsFile" CategoryName="FilesMenus" Content="{Binding Source={StaticResource mnFile}}">
                 <dxb:BarButtonItem Content="{Binding Source={StaticResource mnOpenRichEdit}}" Command="{Binding cmOpenRichEdit}"/>
                 <dxb:BarButtonItem Content="{Binding Source={StaticResource mnOpenSpreadSheet}}" Command="{Binding cmOpenSpreadSheet}"/>
                 <dxb:BarButtonItem Content="{Binding Source={StaticResource mnExit}}" Command="{Binding cmExit}"/>
             </dxb:BarSubItem>
             <dxb:BarSubItem Name="bsWindows" CategoryName="WindowsMenus" Content="{Binding Source={StaticResource mnWindows}}">
-              
             </dxb:BarSubItem>
         </dxb:MainMenuControl>
             <dxdo:DockLayoutManager x:Name="dockManager_main" Margin="0,0,0,0" Grid.Row="1" >
@@ -49,7 +62,7 @@
                                             <dxn:NavigationPaneView dxn:ScrollingSettings.ScrollMode="Buttons" />
                                         </dxn:NavBarControl.View>
                                         <dxn:NavBarControl.Groups>
-                                            <dxn:NavBarGroup Name="dfgdfgdfg" Header="Задачи">
+                                            <dxn:NavBarGroup Name="nbMain" Header="Задачи">
                                                 <dxn:NavBarItem Content="Проверка паспортов ГУ" Command="{Binding cmProverkaGU}"/>
                                             </dxn:NavBarGroup>
                                         </dxn:NavBarControl.Groups>
@@ -103,7 +116,6 @@
                             </dxdo:TabbedGroup>
                     </dxdo:LayoutGroup>
                 </dxdo:LayoutGroup>
-
             </dxdo:LayoutGroup >
         </dxdo:DockLayoutManager>
     </Grid>

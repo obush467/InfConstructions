@@ -13,27 +13,37 @@ namespace InfConstractions.ViewModels
     using Catel.Services;
     using Catel;
     using System.Data.Entity.Core.EntityClient;
-    using Views;
+    using Config;
+    using System.Data.Sql;
+    using System.Data;
+    using Catel.Logging;
     using System.Windows;
+    using System;
 
     public class formLoginViewModel : ViewModelBase
     {
         public CommandBindingCollection CommandBindings = new CommandBindingCollection();
+        public Configuration Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        public DefaultConnectionConfig _config_connection { get; set; }
+        public Logins _config_Logins { get; set; }
         #region Constructors
-        public formLoginViewModel(SqlConnection connection) : this()
-        {
-            Argument.IsNotNull(()=> connection);
-            Connection = connection;
-        }
-        public formLoginViewModel(formLoginModel _formLoginModel)
-        {
-            Argument.IsNotNull("Model", _formLoginModel);
-            Model = _formLoginModel;
-        }
-        public formLoginViewModel ():this(new formLoginModel())
+        public formLoginViewModel ()
         {
             //ValidateModelsOnInitialization = false;
-
+            SuspendValidations(true);
+            sqlConnectionStringBuilder = new SqlConnectionStringBuilder();
+            efConnectionStringBuilder = new EntityConnectionStringBuilder();
+            ServersCollection = new ObservableCollection<string>();
+            sqlConnection = new SqlConnection();
+            efConnection = new EntityConnection();
+            #region CONFIGURATION
+            AuthenticationTypes = new List<string>();
+            AuthenticationTypes.Add("Проверка подлинности SQl Server");
+            AuthenticationTypes.Add("Проверка подлинности Windows");
+            AuthenticationTypes.Add("Универсальная проверка подлинности Active Directory");
+            AuthenticationTypes.Add("Проверка пароля Active Directory");
+            AuthenticationTypes.Add("Аутентификация Active Directory");
+            LoadConfig();
             //Создание и регистрация команд
             ICommandManager cManager = new CommandManager();
             cmRefreshServersList = new Command(OncmRefreshServersListExecute, OncmRefreshServersListCanExecute);
@@ -42,6 +52,7 @@ namespace InfConstractions.ViewModels
             cmConnectionStringConstruct = new Command(OncmConnectionStringConstructExecute);
             cManager.CreateCommand("cmConnectionStringConstruct");
             cManager.RegisterCommand("cmConnectionStringConstruct", cmConnectionStringConstruct, this);
+            #endregion
             //Заполнение CommandBindings
             CommandBindings.Add(new CommandBinding(cmRefreshServersList));
             CommandBindings.Add(new CommandBinding(cmConnectionStringConstruct));
@@ -58,35 +69,29 @@ namespace InfConstractions.ViewModels
         {return true;}
         private void OncmRefreshServersListExecute()
         {
-            // TODO: Handle command logic here
             if (ServersCollection.Count == 0)
-            { Model.RefreshServers();}
+            { RefreshServers();}
         }
         public Command cmConnectionStringConstruct { get; set; }
         private async void OncmConnectionStringConstructExecute()
        {
-            //ConnectionStringBuilder.Clear();
-            ConnectionStringBuilder.PersistSecurityInfo = true; 
-            //ConnectionStringBuilder.DataSource = ServerName;
-            //ConnectionStringBuilder.InitialCatalog = DatabaseName;
-            //ConnectionStringBuilder.UserID =UserName;
-            //Password = "Password";
-            ConnectionStringBuilder.ConnectTimeout = 30;           
-            ConnectionStringBuilder.MultipleActiveResultSets = true;
-            ConnectionStringBuilder.ApplicationName = App.Current.MainWindow.Title;
+            sqlConnectionStringBuilder.PersistSecurityInfo = true; 
+            sqlConnectionStringBuilder.ConnectTimeout = 30;           
+            sqlConnectionStringBuilder.MultipleActiveResultSets = true;
+            sqlConnectionStringBuilder.ApplicationName = App.Current.MainWindow.Title;
             Validate(true);
             if (!HasErrors)
             {
-                if (Connection.State != System.Data.ConnectionState.Closed)
-                { Connection.Close(); }
+                if (sqlConnection.State != ConnectionState.Closed)
+                { sqlConnection.Close(); }
                 try
                 {
-                    Connection.ConnectionString = ConnectionStringBuilder.ConnectionString;
-                    Connection.Open();
-                    efStringBuilder.Provider = "System.Data.SqlClient";
-                    efStringBuilder.Metadata = @"res://*/Models.mainModel.csdl|res://*/Models.mainModel.ssdl|res://*/Models.mainModel.msl";
-                    efStringBuilder.ProviderConnectionString = Connection.ConnectionString;                   
-                    efConnection=new EntityConnection (efStringBuilder.ToString());
+                    sqlConnection.ConnectionString = sqlConnectionStringBuilder.ConnectionString;
+                    sqlConnection.Open();
+                    efConnectionStringBuilder.Provider = "System.Data.SqlClient";
+                    efConnectionStringBuilder.Metadata = @"res://*/Models.mainModel.csdl|res://*/Models.mainModel.ssdl|res://*/Models.mainModel.msl";
+                    efConnectionStringBuilder.ProviderConnectionString = sqlConnection.ConnectionString;                   
+                    efConnection=new EntityConnection (efConnectionStringBuilder.ToString());
                     efConnection.Open();
                     App.mainConnection = efConnection;
                     SaveConfig();
@@ -104,26 +109,26 @@ namespace InfConstractions.ViewModels
         #endregion
 
         #region Properties
-        [ViewModelToModel("Model")]
-        public EntityConnectionStringBuilder efStringBuilder
+        public string DatabaseName
         {
-            get { return GetValue<EntityConnectionStringBuilder>(efStringBuilderProperty); }
-            set { SetValue(efStringBuilderProperty, value); }
+            get { return sqlConnectionStringBuilder.InitialCatalog; }
+            set { sqlConnectionStringBuilder.InitialCatalog = value; }
         }
 
-        /// <summary>
-        /// Register the efStringBuilder property so it is known in the class.
-        /// </summary>
-        public static readonly PropertyData efStringBuilderProperty = RegisterProperty("efStringBuilder", typeof(EntityConnectionStringBuilder), null);
-        [ViewModelToModel("Model")]
+        public static readonly PropertyData DatabaseNameProperty = RegisterProperty("DatabaseName", typeof(string), null);
+        public string ServerName
+        {
+            get { return sqlConnectionStringBuilder.DataSource; }
+            set { sqlConnectionStringBuilder.DataSource = value; }
+        }
+        public static readonly PropertyData ServerNameProperty = RegisterProperty("ServerName", typeof(string), null);
         public int AuthenticationType
         {
             get { return GetValue<int>(AuthenticationTypeProperty); }
             set { SetValue(AuthenticationTypeProperty, value); }
         }
-        public static readonly PropertyData AuthenticationTypeProperty = RegisterProperty("AuthenticationType", typeof(int), null);
 
-        [ViewModelToModel("Model")]
+        public static readonly PropertyData AuthenticationTypeProperty = RegisterProperty("AuthenticationType", typeof(int), null);
         public List<string> AuthenticationTypes
         {
             get { return GetValue<List<string>>(AuthenticationTypesProperty); }
@@ -131,85 +136,72 @@ namespace InfConstractions.ViewModels
         }
 
         public static readonly PropertyData AuthenticationTypesProperty = RegisterProperty("AuthenticationTypes", typeof(List<string>), null);
-              
-        [Model]
-        public formLoginModel Model
+        public ObservableCollection<string> Logins
         {
-            get { return GetValue<formLoginModel>(ModelProperty); }
-            set { SetValue(ModelProperty, value); }
-        }
-        public static readonly PropertyData ModelProperty = RegisterProperty("Model", typeof(formLoginModel), null);        
-
-        [ViewModelToModel("Model")]
-        public ObservableCollection<string> ServersCollection
-        {
-            get { return GetValue<ObservableCollection<string>>(ServersCollectionProperty); }
-            private set { SetValue(ServersCollectionProperty, value); }
+            get { return GetValue<ObservableCollection<string>>(LoginsProperty); }
+            private set { SetValue(LoginsProperty, value); }
         }
 
-        public static readonly PropertyData ServersCollectionProperty = RegisterProperty("ServersCollection", typeof(ObservableCollection<string>));
+        public static readonly PropertyData LoginsProperty = RegisterProperty(nameof(Logins), typeof(ObservableCollection<string>), null);
 
-
-        [ViewModelToModel("Model")]
-        public SqlConnection Connection
+        public EntityConnectionStringBuilder efConnectionStringBuilder
         {
-            get { return GetValue<SqlConnection>(ConnectionProperty); }
-            set { SetValue(ConnectionProperty, value); }
+            get { return GetValue<EntityConnectionStringBuilder>(efConnectionStringBuilderProperty); }
+            set { SetValue(efConnectionStringBuilderProperty, value); }
+        }
+        /// <summary>
+        /// Register the ecStringBuild property so it is known in the class.
+        /// </summary>
+        public static readonly PropertyData efConnectionStringBuilderProperty = RegisterProperty("efConnectionStringBuilder", typeof(EntityConnectionStringBuilder), null);
+
+        public SqlConnection sqlConnection
+        {
+            get { return GetValue<SqlConnection>(sqlConnectionProperty); }
+            set { SetValue(sqlConnectionProperty, value); }
         }
 
         /// <summary>
         /// Register the Connection property so it is known in the class.
         /// </summary>
-        public static readonly PropertyData ConnectionProperty = RegisterProperty("Connection", typeof(SqlConnection));
-
-        [ViewModelToModel("Model")]
-        public string ServerName
+        public static readonly PropertyData sqlConnectionProperty = RegisterProperty("sqlConnection", typeof(SqlConnection), null);
+        public string Password
         {
-            get { return GetValue<string>(ServerNameProperty); }
-            set { SetValue(ServerNameProperty, value); }
+            get { return sqlConnectionStringBuilder.Password; }
+            set
+            {
+                sqlConnectionStringBuilder.Password = value;
+                RaisePropertyChanged("Password");
+            }
         }
+        public static readonly PropertyData PasswordProperty = RegisterProperty("Password", typeof(string), null);
 
-        public static readonly PropertyData ServerNameProperty = RegisterProperty("ServerName", typeof(string), null);
+        public SqlConnectionStringBuilder sqlConnectionStringBuilder
+        {
+            get { return GetValue<SqlConnectionStringBuilder>(sqlConnectionStringBuilderProperty); }
+            set { SetValue(sqlConnectionStringBuilderProperty, value); }
+        }
+        public static readonly PropertyData sqlConnectionStringBuilderProperty = RegisterProperty("sqlConnectionStringBuilder", typeof(SqlConnectionStringBuilder), null);
 
-        [ViewModelToModel("Model")]
         public string UserName
         {
-            get { return GetValue<string>(UserNameProperty); }
-            set { SetValue(UserNameProperty, value); }
+            get { return sqlConnectionStringBuilder.UserID; }
+            set
+            {
+                sqlConnectionStringBuilder.UserID = value;
+                RaisePropertyChanged("UserName");
+            }
         }
 
         public static readonly PropertyData UserNameProperty = RegisterProperty("UserName", typeof(string), null);
 
-        [ViewModelToModel("Model")]
-        public string Password
-        {
-            get { return GetValue<string>(PasswordProperty); }
-            set { SetValue(PasswordProperty, value); }
-        }
 
-        public static readonly PropertyData PasswordProperty = RegisterProperty("Password", typeof(string), null);
-        [ViewModelToModel("Model")]
-        public string DatabaseName
+        public ObservableCollection<string> ServersCollection
         {
-            get { return GetValue<string>(DatabaseNameProperty); }
-            set { SetValue(DatabaseNameProperty,value); }
+            get { return GetValue<ObservableCollection<string>>(ServersCollectionProperty); }
+            private set { SetValue(ServersCollectionProperty, value); }
         }
-        
-        public static readonly PropertyData DatabaseNameProperty = RegisterProperty("DatabaseName", typeof(string), null);
-        [ViewModelToModel("Model")]
-        public SqlConnectionStringBuilder ConnectionStringBuilder
-        {
-            get { return GetValue<SqlConnectionStringBuilder>(ConnectionStringBuilderProperty); }
-            private set { SetValue(ConnectionStringBuilderProperty, value); }
-        }
+        public static readonly PropertyData ServersCollectionProperty = RegisterProperty("ServersCollection", typeof(ObservableCollection<string>), null);
 
-        public static readonly PropertyData ConnectionStringBuilderProperty = RegisterProperty("ConnectionStringBuilder", typeof(SqlConnectionStringBuilder));
-        private EntityConnection connection;
-        /// <summary>
-        /// Gets or sets the property value.
-        /// </summary>
-
-        [ViewModelToModel("Model")]
         public EntityConnection efConnection
         {
             get { return GetValue<EntityConnection>(efConnectionProperty); }
@@ -221,31 +213,116 @@ namespace InfConstractions.ViewModels
         /// </summary>
         public static readonly PropertyData efConnectionProperty = RegisterProperty("efConnection", typeof(EntityConnection), null);
 
-        [ViewModelToModel("Model")]
-        public ObservableCollection<string> Logins
-        {
-            get { return GetValue<ObservableCollection<string>>(LoginsProperty); }
-            set { SetValue(LoginsProperty, value); }
-        }
+        private EntityConnection connection;
+        /// <summary>
+        /// Gets or sets the property value.
+        /// </summary>
 
-        public static readonly PropertyData LoginsProperty = RegisterProperty(nameof(Logins), typeof(ObservableCollection<string>), null);
         #endregion
 
         #region Metods
+        protected override void ValidateFields(List<IFieldValidationResult> validationResults)
+        {
+            if (string.IsNullOrWhiteSpace(DatabaseName))
+            {
+                validationResults.Add(FieldValidationResult.CreateError(DatabaseNameProperty, "Требуется имя базы данных"));
+            }
+            if (string.IsNullOrWhiteSpace(ServerName))
+            {
+                validationResults.Add(FieldValidationResult.CreateError(ServerNameProperty, "Требуется имя сервера"));
+            }
+            if ((AuthenticationType == 0))
+            {
+                if (string.IsNullOrWhiteSpace(UserName))
+                { validationResults.Add(FieldValidationResult.CreateError(UserNameProperty, "Требуется имя входа")); }
+                if (string.IsNullOrWhiteSpace(Password))
+                { validationResults.Add(FieldValidationResult.CreateError(PasswordProperty, "Требуется пароль")); }
+            }
+        }
+
+        protected override void OnPropertyChanged(AdvancedPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            string a = e.PropertyName;
+            if (a != null)
+                if (a == "AuthenticationType")
+                {
+                    if ((int)e.NewValue == 0)
+                    {
+                        //base.RaisePropertyChanged("AuthenticationType");
+                        sqlConnectionStringBuilder.IntegratedSecurity = false;
+                        sqlConnectionStringBuilder.Remove("Integrated Security");
+                    }
+                    else
+                    {
+                        //base.RaisePropertyChanged("AuthenticationType");
+                        sqlConnectionStringBuilder.IntegratedSecurity = true;
+                        sqlConnectionStringBuilder.Remove("User ID");
+                        sqlConnectionStringBuilder.Remove("Password");
+                    }
+                }
+        }
+
+        /// <summary>
+        /// Обновляет список доступных в сети SQL-серверов
+        /// </summary>
+        public void RefreshServers()
+        {
+            ServersCollection.Clear();
+            try
+            {
+                //Make an initial call to the sql browser service to wake it up
+                SqlDataSourceEnumerator instance = SqlDataSourceEnumerator.Instance;
+                DataTable dt = instance.GetDataSources();
+                DataRow[] rows = dt.Select(string.Empty, "ServerName asc");
+                if (rows.Length > 0)
+                {
+                    foreach (DataRow dr in rows)
+                    {
+                        string serverName = dr["ServerName"].ToString();
+                        string instanceName = dr["InstanceName"].ToString();
+                        if (instanceName.Length > 0)
+                            serverName += "\\" + instanceName;
+                        ServersCollection.Add(serverName);
+                    }
+                }
+                App.Log.Debug((string)Application.Current.FindResource("refreshServers"));
+            }
+            catch (Exception e)
+            {
+                App.Log.Error(e, e.Message);
+            }
+        }
+        public void LoadConfig()
+        {
+            var _config = ((Config)Config.Sections["Config"]);
+            _config_connection = _config.defaultConnection;
+            _config_Logins = _config.Logins;
+            if (!string.IsNullOrWhiteSpace(_config_connection.DefaultDBName))
+            { DatabaseName = _config_connection.DefaultDBName; }
+            if (!string.IsNullOrWhiteSpace(_config_connection.DefaultServerName))
+            { ServerName = _config_connection.DefaultServerName; }
+            if (!string.IsNullOrWhiteSpace(_config_connection.DefaultDBAuthenticationType))
+            { AuthenticationType = AuthenticationTypes.IndexOf(_config_connection.DefaultDBAuthenticationType); }
+            Logins = new ObservableCollection<string>();
+            foreach (Login l in _config_Logins)
+            { Logins.Add(l.Name); }
+        }
         public void SaveConfig()
         {
-            // Model.SaveConfig(ConfigPath);
-            Model.SaveConfig();
+            _config_connection.DefaultServerName = ServerName;
+            _config_connection.DefaultDBName = DatabaseName;
+            _config_connection.DefaultDBAuthenticationType = AuthenticationTypes[AuthenticationType];
+            _config_Logins.Add(UserName);
+            Config.Save(ConfigurationSaveMode.Full);
         }
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
         }
-
         protected override async Task CloseAsync()
         {
             // TODO: unsubscribe from events here
-
             await base.CloseAsync();
         }
         #endregion

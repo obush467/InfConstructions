@@ -70,7 +70,7 @@
                 <TextBlock x:Name="tblDataBaseName" Margin="10,5,5,2" TextWrapping="Wrap" Text="{StaticResource ResourceKey=Auth_CaptionDataBaseName}" Grid.Row="1" Grid.Column="0" d:LayoutOverrides="Height"/>
                 <TextBox x:Name="tbDataBaseName"  Text="{Binding DatabaseName, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="5" Grid.Row="1" TextWrapping="Wrap" IsManipulationEnabled="True" Grid.Column="1" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
                 <TextBlock x:Name="textBlock" Margin="10,5,5,5" TextWrapping="Wrap" Text="{StaticResource ResourceKey=Auth_CaptionNameAuth_type}" d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.Row="2" Grid.Column="0"/>
-                <ComboBox x:Name="cbAutenticationType" SelectedIndex="{Binding Path=AuthenticationType, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" ItemsSource="{Binding Path=AuthenticationTypes}"  Margin="5" Grid.Row="2" d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.Column="1"/>
+                <ComboBox x:Name="cbAutenticationType" SelectedIndex="{Binding Path=AuthenticationType, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" ItemsSource="{Binding Mode=OneWay, Source={StaticResource AuthenticationTypes}}"  Margin="5" Grid.Row="2" d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.Column="1"/>
             </catel.ex.controls:StackGrid>
         </TabItem>
     </TabControl>

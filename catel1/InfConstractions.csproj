@@ -131,16 +131,16 @@
     <ApplicationIcon>Limewire.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Catel.Core.5.1.0\lib\net46\Catel.Core.dll</HintPath>
+    <Reference Include="Catel.Core, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Catel.Core.5.3.0\lib\net46\Catel.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Catel.Extensions.Controls.4.5.4\lib\net46\Catel.Extensions.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Catel.MVVM.5.1.0\lib\net46\Catel.MVVM.dll</HintPath>
+    <Reference Include="Catel.MVVM, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Catel.MVVM.5.3.0\lib\net46\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -169,6 +169,7 @@
     <Reference Include="DevExpress.Xpf.Charts.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Controls.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Core.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Core.v17.1.Extensions, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.DataAccess.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.DemoBase.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Docking.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -176,6 +177,7 @@
     <Reference Include="DevExpress.Xpf.Gauges.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v17.1.Core, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v17.1.Extensions, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Layout.v17.1.Core, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpf.LayoutControl.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Map.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -212,24 +214,16 @@
     <Reference Include="DevExpress.Xpo.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=6847f3395fc61b47, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFrameworkWithHierarchyId.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=6847f3395fc61b47, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFrameworkWithHierarchyId.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EO.Base, Version=17.2.75.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
       <HintPath>..\packages\EO.WebBrowser.17.2.75.0\lib\EO.Base.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EO.Pdf, Version=17.2.75.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
-      <HintPath>..\packages\EO.Pdf.17.2.75.0\lib\EO.Pdf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EO.Pdf.Wpf, Version=17.2.75.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
-      <HintPath>..\packages\EO.Pdf.Wpf.17.2.75.0\lib\EO.Pdf.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EO.WebBrowser, Version=17.2.75.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
@@ -257,8 +251,8 @@
       <HintPath>..\packages\MoreCollection.1.2.2\lib\net45\MoreCollection.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MoreLinq, Version=2.6.20831.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\packages\morelinq.2.7.0\lib\net40\MoreLinq.dll</HintPath>
+    <Reference Include="MoreLinq, Version=2.10.21623.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.2.10.0\lib\net40\MoreLinq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Neutronium.Core, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -271,34 +265,6 @@
     </Reference>
     <Reference Include="Neutronium.WPF, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Neutronium.WPF.1.3.1\lib\Neutronium.WPF.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Orc.Controls, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Orc.Controls.2.0.0\lib\net46\Orc.Controls.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Orc.FileSystem, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Orc.FileSystem.2.0.0\lib\net46\Orc.FileSystem.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Orc.FilterBuilder, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Orc.FilterBuilder.2.0.0\lib\net46\Orc.FilterBuilder.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Orc.Scheduling, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Orc.Scheduling.2.0.0\lib\net46\Orc.Scheduling.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Orc.Sort, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Orc.Sort.2.2.0\lib\net46\Orc.Sort.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Orc.Toolkit, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Orc.Toolkit.1.0.9.0\lib\NET40\Orc.Toolkit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Orchestra.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Orchestra.Core.3.0.0\lib\net46\Orchestra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PassportOperator">
@@ -321,8 +287,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Catel.MVVM.5.3.0\lib\net46\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -343,137 +313,29 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config\DBConfig.cs" />
-    <Compile Include="Config\DefaultConnection - Копировать.cs" />
+    <Compile Include="Config\Login.cs" />
     <Compile Include="Config\DefaultConnection.cs" />
+    <Compile Include="Config\Logins.cs" />
     <Compile Include="Converters\DBGeographyToLatLongConverter.cs" />
     <Compile Include="Converters\ViewTypeToBoolConverter.cs" />
     <Compile Include="DomainObject1.cs" />
     <Compile Include="Enumerators.cs" />
-    <Compile Include="Models\ActualStatus.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AddressObjectType.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AdminArea.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AllAddressObjects_Result.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CenterStatus.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CurrentStatus.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\currentUserID_Result.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EstateStatus.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\fullAddress_Result.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Ground_Type.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GUPassport.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GUPassport_File.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GUPassport_Site.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GUPassport_State.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\House.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\HouseStateStatus.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Installation.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NormativeDocument.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NormativeDocumentType.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Object.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ObjectFullAddress4_Result.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\OperationStatus.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Organization.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Person.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Program.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\proverkaGU.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StructureStatus.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\WorkTask.cs">
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\MapDemoModule.cs" />
-    <Compile Include="Models\Entities_part.cs" />
-    <Compile Include="Models\GUPassport_Site_partial.cs" />
-    <Compile Include="Models\mainModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mainModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\mainModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\mainModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mainModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MainWindowModel.cs" />
-    <Compile Include="Models\ucPassportModel.cs" />
-    <Compile Include="Models\formLoginModel.cs" />
-    <Compile Include="Models\proverkaGU_linked.cs" />
-    <Compile Include="Properties\SplashScreen1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Properties\SplashScreen1.Designer.cs">
-      <DependentUpon>SplashScreen1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\svPassports.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="ViewModels\ucMapViewModel.cs" />
+    <Compile Include="ViewModels\dxwLoginViewModel.cs" />
     <Compile Include="ViewModels\ucPassportViewModel.cs" />
+    <Compile Include="Views\DragDrop\AllAddressDragDropManager.cs" />
+    <Compile Include="Views\dxwLogin.xaml.cs">
+      <DependentUpon>dxwLogin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\mainSplash.xaml.cs">
       <DependentUpon>mainSplash.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\mainSplashViewModel.cs" />
+    <Compile Include="ViewModels\mainSplashViewModel.cs" />
     <Compile Include="ViewModels\ucAddressAssignViewModel.cs" />
     <Compile Include="ViewModels\formLoginViewModel.cs" />
     <Compile Include="ViewModels\ProverkaGUViewModel.cs" />
@@ -496,9 +358,6 @@
     <Compile Include="Views\formLogin.xaml.cs">
       <DependentUpon>formLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ucMap.xaml.cs">
-      <DependentUpon>ucMap.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ucLogger.xaml.cs">
       <DependentUpon>ucLogger.xaml</DependentUpon>
     </Compile>
@@ -513,6 +372,10 @@
       <DependentUpon>ucWord.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ucWordViewModel.cs" />
+    <Page Include="Views\dxwLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\mainSplash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -558,10 +421,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ucMap.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ucLogger.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -597,9 +456,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\SplashScreen1.resx">
-      <DependentUpon>SplashScreen1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -609,36 +466,21 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Models\mainModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>mainModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="InfConstractions.ruleset" />
     <None Include="InfConstractions_1_TemporaryKey.pfx" />
     <None Include="InfConstractions_TemporaryKey.pfx" />
-    <None Include="Models\mainModel.edmx.diagram">
-      <DependentUpon>mainModel.edmx</DependentUpon>
-    </None>
-    <None Include="Models\ORMDataModel1.xpo" />
-    <None Include="Models\ORMDataModel1.xpo.diagram">
-      <DependentUpon>ORMDataModel1.xpo</DependentUpon>
-    </None>
-    <None Include="ORMDataModel1.xpo" />
-    <None Include="ORMDataModel1.xpo.diagram">
-      <DependentUpon>ORMDataModel1.xpo</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
-    <None Include="Readme.txt" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="Templates\паспортГУ.dotx" />
+    <None Include="Templates\паспортГУ1.dotx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
@@ -660,16 +502,6 @@
     <Resource Include="Views\DXSplashScreen\Image.png" />
     <Resource Include="Views\DXSplashScreen\Logo.png" />
     <Resource Include="Limewire.ico" />
-    <Content Include="Models\mainModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>mainModel.edmx</DependentUpon>
-      <LastGenOutput>mainModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\mainModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>mainModel.edmx</DependentUpon>
-      <LastGenOutput>mainModel.cs</LastGenOutput>
-    </Content>
     <Resource Include="Temp.txt" />
     <Content Include="Templates\html\poisk.html" />
     <Content Include="Templates\html\poiskgu.html" />
@@ -711,6 +543,12 @@
       <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InfConstructions.Models\InfConstractions.Models.csproj">
+      <Project>{845d43fa-3dc7-4871-82cb-a52ed0039de7}</Project>
+      <Name>InfConstractions.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Unofficial.Cef.for.Chromiumfx.3.2924.0\build\Unofficial.Cef.for.Chromiumfx.targets" Condition="Exists('..\packages\Unofficial.Cef.for.Chromiumfx.3.2924.0\build\Unofficial.Cef.for.Chromiumfx.targets')" />

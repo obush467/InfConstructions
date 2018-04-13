@@ -1,30 +1,15 @@
-﻿<Catel.Windows.Controls:UserControl
+﻿<UserControl
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:catel="http://catel.codeplex.com"
-                   xmlns:orc="http://www.wildgums.net.au/orc"
-                   xmlns:ViewModels="clr-namespace:InfConstractions.ViewModels"   
-                   xmlns:Catel.Windows.Controls="clr-namespace:Catel.Windows.Controls;assembly=Catel.MVVM" xmlns:Logging="clr-namespace:Orc.Controls.Logging;assembly=Orc.Controls" 
+                   xmlns:ViewModels="clr-namespace:InfConstractions.ViewModels"                    
                    x:Name="ucLogger1" 
                    x:Class="InfConstractions.Views.ucLogger"
                    Height="auto"
                    Width="auto"   
                    >
-    <Catel.Windows.Controls:UserControl.DataContext>
-        <ViewModels:ucLoggerViewModel/>
-    </Catel.Windows.Controls:UserControl.DataContext>
-    <catel:StackGrid>
-        <orc:LogViewerControl x:Name="LogViewerControl" Margin="0,0,0,0" Height="auto"
-			LogEntryDoubleClick="LogViewerControlOnLogRecordDoubleClick"
-			LogFilter="{Binding Text, ElementName=FilterTextBox}"
-			TypeFilter="{Binding SelectedValue, ElementName=OriginComboBox, Mode=OneWay}"
-			ShowDebug="{Binding IsChecked, ElementName=ShowDebugToggleButton}"
-			ShowInfo="{Binding IsChecked, ElementName=ShowInfoToggleButton}"
-			ShowWarning="{Binding IsChecked, ElementName=ShowWarningToggleButton}"
-			ShowError="{Binding IsChecked, ElementName=ShowErrorToggleButton}"
-			EnableTimestamp="{Binding IsChecked, ElementName=EnableTimestampCheckBox}"
-			EnableTextColoring="True" EnableIcons="True"
->
-        </orc:LogViewerControl>
-    </catel:StackGrid>
-</Catel.Windows.Controls:UserControl>
+
+    <Grid>
+
+    </Grid>
+</UserControl>

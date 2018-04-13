@@ -4,7 +4,8 @@
                     xmlns:v="clr-namespace:System;assembly=mscorlib">
     <ImageBrush x:Key="TileBrush" TileMode="FlipX" ViewportUnits="Absolute"
                     Viewport="0 0 32 32" ImageSource="big_smile.png" Opacity="0.4"></ImageBrush>
-    <v:String x:Key="MainTitle">Пророрлорадлвыалдовыадлвыоадлвыа</v:String>
+    <v:String x:Key="TitleMain">Пророрлорадлвыалдовыадлвыоадлвыа</v:String>
+    <v:String x:Key="TitleLogin">Соединение с сервером</v:String>
     <v:String x:Key="loginTitle">Соединение с сервером</v:String>
     <v:String x:Key="Auth_typeServer">Проверка подлинности SQl Server</v:String>
     <v:String x:Key="Auth_typeSystem">Проверка подлинности Windows</v:String>
@@ -58,6 +59,8 @@
     <v:String x:Key="mnWindows">_Окна</v:String>
     <v:String x:Key="mnOpenRichEdit">Открыть Word</v:String>
     <v:String x:Key="mnOpenSpreadSheet">Открыть Excel</v:String>
+    <v:String x:Key="tiLogin">Вход пользователя</v:String>
+    <v:String x:Key="tiConnection">Соединение</v:String>
     <x:Array x:Key="PassportDirections" Type="sys:String" 
             xmlns:sys="clr-namespace:System;assembly=mscorlib">
         <sys:String>Вперёд</sys:String>
@@ -75,5 +78,13 @@
             xmlns:sys="clr-namespace:System;assembly=mscorlib">
         <sys:String>A</sys:String>
         <sys:String>B</sys:String>
+    </x:Array>
+    <x:Array x:Key="AuthenticationTypes" Type="sys:String" 
+            xmlns:sys="clr-namespace:System;assembly=mscorlib">
+        <sys:String>Проверка подлинности SQl Server</sys:String>
+        <sys:String>Проверка подлинности Windows</sys:String>
+        <sys:String>Универсальная проверка подлинности Active Directory</sys:String>
+        <sys:String>Проверка пароля Active Directory</sys:String>
+        <sys:String>Аутентификация Active Directory</sys:String>
     </x:Array>
 </ResourceDictionary>

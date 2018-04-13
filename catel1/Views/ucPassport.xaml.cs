@@ -100,6 +100,31 @@ namespace InfConstractions.Views
 
         }
         #endregion
+
+        private void TextEdit_Drop(object sender, DragEventArgs e)
+        {
+           
+
+        }
+
+        private void TextEdit_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(TreeListView)))
+            {
+                e.Effects = DragDropEffects.Copy;
+                e.Handled = true;
+            }
+        }
+
+        private void TextEdit_DragLeave(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void TextEdit_DragEnter(object sender, DragEventArgs e)
+        {
+
+        }
     }
 }
 

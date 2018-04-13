@@ -12,19 +12,24 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
     xmlns:Converters="clr-namespace:InfConstractions.Converters"
-    xmlns:orchestra="https://github.com/orcomp/orchestra" xmlns:Converters1="clr-namespace:Catel.Windows.Data.Converters;assembly=Catel.Extensions.Controls"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
     x:Class="InfConstractions.Views.ucPassport"
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
     mc:Ignorable="d" 
     d:DesignHeight="900" 
     d:DesignWidth="900"
     Width="auto"
     >
     <UserControl.Resources>
-        <orchestra:PathToStringConverter x:Key="PathToStringConverter"/>
-        <Converters1:OutputTypeConverter x:Key="OutputTypeConverter"/>
         <Converters:DBGeographyToLatLongConverter x:Key="WGS84Converter" />
+        <ResourceDictionary x:Key="12312321312321">
+        </ResourceDictionary>
     </UserControl.Resources>
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:CurrentWindowService Window="{Binding}"/>
+        <dxdo:TabbedDocumentUIService/>
+    </dxmvvm:Interaction.Behaviors>
     <Grid Margin="1,1,1,1" Grid.Row="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -40,7 +45,7 @@
                 <dxb:BarButtonItem Content="Обновить" Command="{Binding RefreshCommand}"/>
                 <dxb:BarButtonItem Content="Сохранить" Command="{Binding SaveChangesCommand}"/>
                 <dxb:BarButtonItem Content="Экспортировать" Command="{Binding GenerateDOCXCommand}"/>
-                <dxb:BarButtonItem Content="Закрыть" Command="{Binding cmClose}"/>
+                <dxb:BarButtonItem Content="Закрыть" Command="{Binding CloseCommand}"/>
             </dxb:BarSubItem>
         </dxb:MainMenuControl>
         <Label x:Name="lNumber" Content="{Binding Source={StaticResource fnNumber}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="37" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
@@ -56,7 +61,14 @@
         <Label x:Name="lAddress" Content="{Binding Source={StaticResource fnAddress}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,82" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="33" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
         <Label x:Name="lOkrug" Content="{Binding Source={StaticResource fnOkrug}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,134" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="22" Width="129" d:LayoutOverrides="LeftMargin, RightMargin"/>
         <Label x:Name="lRaion" Content="{Binding Source={StaticResource fnRaion}}" Grid.Column="0" Grid.Row="1" Margin="3,0,0,109" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="34" d:LayoutOverrides="LeftMargin, RightMargin"/>
-        <dxe:TextEdit x:Name="teUNOM" Grid.Column="0" Grid.Row="1" Margin="121,1,4,0" Text="{Binding Passport.UNOM}" IsEnabled="True"  VerticalAlignment="Top" Height="22" />
+        <dxe:TextEdit x:Name="teUNOM" 
+                      Grid.Column="0" 
+                      Grid.Row="1" 
+                      Margin="121,1,4,0" 
+                      Text="{Binding Passport.UNOM}" 
+                      IsEnabled="True"  
+                      VerticalAlignment="Top" 
+                      Height="22" />
         <dxe:DateEdit HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" Margin="50,25,0,0" EditValue="{Binding Passport.startdate}" NullText="{Binding Mode=OneWay, Source={StaticResource NullData}}" NullValue="{Binding NullDate, Mode=OneWay}" VerticalAlignment="Top" Width="97" d:LayoutOverrides="HorizontalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Height="22"/>
         <dxe:DateEdit HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="0,25,5,0" EditValue="{Binding Passport.enddate}" NullText="{Binding Mode=OneWay, Source={StaticResource NullData}}" NullValue="{Binding NullDate, Mode=OneWay}"  VerticalAlignment="Top" Width="95" Height="22" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"  />
         <dxe:ComboBoxEdit   AllowUpdateTwoWayBoundPropertiesOnSynchronization="True"
@@ -77,7 +89,6 @@
         <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,199,4,0"  VerticalContentAlignment="Top" IsEnabled="True" Height="22" VerticalAlignment="Top" Text="{Binding Passport.WGS84, Converter={StaticResource WGS84Converter}}" />
         <dxe:TextEdit Grid.Row="1" Margin="121,0,4,132" Text="{Binding Okrug.shortName}" IsReadOnly="True" IsEnabled="True" VerticalAlignment="Bottom" Height="22" />
         <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="121,0,4,108" Text="{Binding Raion.shortName}" IsEnabled="True" IsReadOnly="True" Height="22" VerticalAlignment="Bottom" />
-        <dxe:TextEdit Grid.Column="0" Grid.Row="1" Margin="43,0,5,82" Text="{Binding Address, Mode=OneWay}" TextWrapping="Wrap" AcceptsReturn="True" IsEnabled="True" IsReadOnly="True" VerticalAlignment="Bottom" Height="22" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
         <dx:SimpleButton x:Name="btExport" Grid.Column="0" Grid.Row="1" Content="{Binding Mode=OneWay, Source={StaticResource Export}}" HorizontalAlignment="Left" Command="{Binding GenerateDOCXCommand}" Height="27" Margin="5,0,0,36" VerticalAlignment="Bottom" Width="117" ButtonKind="Simple" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
         <dx:SimpleButton x:Name="btSave" Grid.Column="0" Grid.Row="1" Content="{Binding Mode=OneWay, Source={StaticResource Save}}" HorizontalAlignment="Left" Command="{Binding SaveChangesCommand}" Height="27" Margin="3,0,0,3" VerticalAlignment="Bottom" Width="84" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
         <dx:SimpleButton x:Name="btCancel" Grid.Column="0" Grid.Row="1" Content="{Binding Mode=OneWay, Source={StaticResource Cancel}}" Command="{Binding CancelCommand}" Height="27" Margin="91,0,125,3" VerticalAlignment="Bottom" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
@@ -171,5 +182,46 @@
                             IsEnabled="True" 
                             VerticalAlignment="Bottom" 
                             Height="22" />
+        <dxg:LookUpEdit x:Name="lookUpEdit" Margin="43,0,5,83" Grid.Row="1" VerticalAlignment="Bottom"  
+                        Text="{Binding Address,Mode=OneWay}" TextWrapping="Wrap" ItemsSource="{Binding ALLAddress}">
+            <dxg:LookUpEdit.PopupContentTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="20" />
+                        </Grid.RowDefinitions>
+                        <dxg:TreeListControl 
+                        x:Name="trlAddress" 
+                        Grid.Row="0" 
+                        ItemsSource="{Binding treeAddress, Mode=OneTime}" 
+                        Margin="0" 
+                        SelectedItem="{Binding SelectedAddress, Mode=OneWayToSource}" 
+                        SelectionMode="None">
+                            <dxg:TreeListControl.DataContext>
+                                <ViewModels:ucAddressAssignViewModel/>
+                            </dxg:TreeListControl.DataContext>
+                            <dxg:TreeListControl.View>
+                                <dxg:TreeListView x:Name="trlAddressView1" 
+                                  AutoWidth="True"
+                                  KeyFieldName="ID" 
+                                  ParentFieldName="PARENTGUID" 
+                                  TreeDerivationMode="Selfreference"
+                                  AllowEditing="False" 
+                                  AutoMoveRowFocus="False"                                 
+                                 >
+                                </dxg:TreeListView>
+                            </dxg:TreeListControl.View>
+                            <dxg:TreeListColumn FieldName="itemAddress" Header="Адрес"/>
+                        </dxg:TreeListControl>
+                        <UniformGrid Columns="2" Grid.Row="1">
+                            <dx:SimpleButton x:Name="btYes" Content="{Binding Source={StaticResource Save}}" Grid.Row="1" Margin="1,1,1,1" Command="{Binding ChangeAddressCommand}" CommandParameter="{Binding SelectedItem, ElementName=trlAddress}"/>
+                            <dx:SimpleButton x:Name="btNo" Content="{Binding Source={StaticResource Cancel}}" Grid.Row="1" Margin="0,1,1,1" Command="{Binding CancelChangeAddressCommand}"/>
+                        </UniformGrid>
+
+                    </Grid>
+                </ControlTemplate>
+            </dxg:LookUpEdit.PopupContentTemplate>
+        </dxg:LookUpEdit>
     </Grid>
 </UserControl>

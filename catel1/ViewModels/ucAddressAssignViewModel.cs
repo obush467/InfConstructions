@@ -14,6 +14,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using DevExpress.Xpo;
 using System.Linq.Expressions;
+using DevExpress.Mvvm.DataAnnotations;
 
 namespace InfConstractions.ViewModels
 {
@@ -63,7 +64,8 @@ namespace InfConstractions.ViewModels
             //fullHouses = housesQuery.ToList();
             //treeObjectsQuery.Load();
            
-           treeAddress = new ObservableCollection<AllAddressObjects_Result>(Context.AllAddressObjects().ToList());
+           treeAddress = new ObservableCollection<ALLAddressObjectsFull>(Context.ALLAddressObjectsFulls.ToList());
+           treeAddress1 = new ObservableCollection<ALLAddressObjectsFull>();
             //treeAddress = new ObservableCollection<AddressTreeItem>(treeObjectsQuery.ToList());
         }
         #endregion
@@ -74,14 +76,36 @@ namespace InfConstractions.ViewModels
         /// </summary>
         public ObservableCollection<InfConstractions.Models.Object> AddressObjects {get;set;}
         public ObservableCollection<fullAddress_Result> FullAddressObject { get; set; }
-        public ObservableCollection<AllAddressObjects_Result> treeAddress { get; set; }
+        public ObservableCollection<ALLAddressObjectsFull> treeAddress { get; set; }
+        public ObservableCollection<ALLAddressObjectsFull> treeAddress1 { get; set; }
         public IEnumerable fullHouses { get; set; }
+        public ALLAddressObjectsFull SelectedAddress        
+        {
+            get { return GetProperty(() => SelectedAddress); }
+            set { SetProperty(() => SelectedAddress, value); }
+        }
+
+        public ALLAddressObjectsFull ResultAddress
+        {
+            get { return GetProperty(() => ResultAddress); }
+            set { SetProperty(() => ResultAddress, value); }
+        }
         public string Title { get { return "View model title"; } }
 
 
         #endregion
 
         #region Commands
+        [Command(CanExecuteMethodName = "CancmSelect",
+            Name = "SelectCommand",
+            UseCommandManager = true)]
+        public void cmSelect()
+        { ResultAddress = SelectedAddress; }
+
+        public bool CancmSelect()
+        {
+            return true;
+        }
 
         #endregion
 

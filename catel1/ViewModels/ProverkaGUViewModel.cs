@@ -22,9 +22,10 @@
 
     public class ProverkaGUViewModel : ViewModelBase,ISupportServices
     {
+        #region Services
         protected IDocumentManagerService DocumentManagerService { get; set; }
-        protected ISplashScreenService SplashScreenServiceLoad { get { return this.GetService<ISplashScreenService>(); } }
-
+        protected ISplashScreenService SplashScreenServiceLoad { get { return this.GetService<ISplashScreenService>(); } } 
+        #endregion
         #region Constractors
         public ProverkaGUViewModel(Entities context) 
         {
@@ -56,26 +57,30 @@
         public static ProverkaGUViewModel Create(Entities context, IDocumentManagerService documentManagerService)
         { return ViewModelSource.Create(() => new ProverkaGUViewModel(context, documentManagerService)); }
         #endregion
-        public string Title { get; set; }
-        /*-public ProverkaGUModel proverkaGUModel
-        {
-            get ;set; 
-        }*/
-        public Configuration Config { get; protected set; }
-        public DefaultConnectionConfig _config_connection { get; set; }
+        #region Properties
+        public string Title {
+            get { return GetProperty<string>(() => Title); }
+            protected set { SetProperty<string>(() => Title, value); }
+        }
+        public Configuration Config {
+            get { return GetProperty<Configuration>(() => Config); }
+            protected set { SetProperty<Configuration>(() => Config, value); }
+        }
+        public DefaultConnectionConfig Config_connection {
+            get { return GetProperty<DefaultConnectionConfig>(() => Config_connection); }
+            protected set { SetProperty<DefaultConnectionConfig>(() => Config_connection, value); }
+        }
         public Entities Context
         {
-            get; protected set;
-            /*get { return proverkaGUModel.Context; }
-            set { proverkaGUModel.Context=value; }*/
+            get { return GetProperty<Entities>(() => Context); }
+            protected set { SetProperty<Entities>(() => Context, value); }
         }
-
         public ObservableCollection<proverkaGU> ProverkaGU
         {
-            get; protected set;
-            /*get { return proverkaGUModel.ProverkaGU;}*/
-        }
-
+            get { return GetProperty<ObservableCollection<proverkaGU>>(() => ProverkaGU); }
+            protected set { SetProperty<ObservableCollection<proverkaGU>>(() => ProverkaGU, value); }
+        } 
+        #endregion
         #region Commands
 
         [Command(CanExecuteMethodName = "CancmSaveChanges",
@@ -108,7 +113,7 @@
         [Command(CanExecuteMethodName = "CanucPassport",
         Name = "ucPassportCommand",
         UseCommandManager = true)]
-        public void ucPassport(object UNOM)
+        public void ucPassport(string UNOM)
         {
             SplashScreenServiceLoad.ShowSplashScreen("mainSplash");
             IQueryable<GUPassport> passportQuery =
@@ -132,7 +137,7 @@
                 SplashScreenServiceLoad.HideSplashScreen();
             }
         }
-        public bool CanucPassport(object UNOM)
+        public bool CanucPassport(string UNOM)
         {
             IQueryable<GUPassport> passportID =
         from passport
@@ -143,7 +148,6 @@
             if ((passportID!=null) & ( passportID.Count() > 0)) return true; else return false;
         }
         #endregion
-
         #region Methods
         public void LoadConfig()
         {

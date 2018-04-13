@@ -17,17 +17,5 @@ namespace InfConstractions.Views
         {
             InitializeComponent();
         }
-
-        private void LogViewerControlOnLogRecordDoubleClick(object sender, Orc.Controls.LogEntryDoubleClickEventArgs e)
-        {
-
-        }
-        /// <summary>
-        /// Gets or sets the property value.
-        /// </summary>
-        /// <summary>
-            /// Gets or sets the property value.
-            /// </summary>
-
     }
 }
