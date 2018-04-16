@@ -17,8 +17,7 @@
     x:Class="InfConstractions.Views.ProverkaGUView"    
     x:Name="ucProverkaGU" 
     Margin="0" d:DesignWidth="900" d:DesignHeight="797"
-    Width="auto"
-    DataContext="{dxmvvm:ViewModelSource Type={x:Type vm:ProverkaGUViewModel}}"  
+    Width="auto"  
 >
     <dxmvvm:Interaction.Behaviors>
         <dx:DXSplashScreenService SplashScreenStartupLocation="CenterOwner">

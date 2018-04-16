@@ -4,14 +4,6 @@
     using Models;
     using ViewModels;
     using System.Data.SqlClient;
-    using Catel.Logging;
-    using Catel.Services;
-    using Catel.IoC;
-    using Catel.ApiCop;
-    using Catel.ApiCop.Listeners;
-    using Catel.Extensions.Controls;
-    using Catel.Extensions;
-    using Catel.Windows;
     using Views;
     using System.Data.Entity.Core.EntityClient;
 
@@ -25,14 +17,11 @@
 
     public partial class App : Application
     {
-        public static readonly ILog Log = LogManager.GetCurrentClassLogger();      
-        public static IUIVisualizerService uiVisualizerService;
-        public static IMessageService MessageService;
         public static EntityConnection mainConnection;
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
-            LogManager.AddDebugListener();
+           // LogManager.AddDebugListener();
 #endif
 
             // To force the loading of all assemblies at startup, uncomment the lines below:
@@ -60,13 +49,13 @@
             //StyleHelper.CreateStyleForwardersForDefaultStyles();
             //uiVisualizerService.Register<MainWindowViewModel, Views.MainWindow>();
             //Catel.Windows.StyleHelper.CreateStyleForwardersForDefaultStyles("Office2016Black");
-            var serviceLocator = ServiceLocator.Default;
-            serviceLocator.AutoRegisterTypesViaAttributes = true;
-            Log.Info((string)Current.FindResource("startMessage"));
-            uiVisualizerService = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
-            MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
+            //var serviceLocator = ServiceLocator.Default;
+            //serviceLocator.AutoRegisterTypesViaAttributes = true;
+            //Log.Info((string)Current.FindResource("startMessage"));
+            //uiVisualizerService = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
+            //MessageService = this.GetDependencyResolver().Resolve<IMessageService>();
             base.OnStartup(e);
-            Log.Debug((string)Current.FindResource("App_base_OnStartup"));
+            //Log.Debug((string)Current.FindResource("App_base_OnStartup"));
             Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
         }
 
@@ -74,8 +63,8 @@
         protected override void OnExit(ExitEventArgs e)
         {
             // Get advisory report in console
-            ApiCopManager.AddListener(new ConsoleApiCopListener());
-            ApiCopManager.WriteResults();
+            //ApiCopManager.AddListener(new ConsoleApiCopListener());
+            //ApiCopManager.WriteResults();
             base.OnExit(e);
         }
     }

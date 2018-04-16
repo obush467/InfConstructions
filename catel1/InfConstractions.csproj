@@ -131,18 +131,6 @@
     <ApplicationIcon>Limewire.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Catel.Core.5.3.0\lib\net46\Catel.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Catel.Extensions.Controls, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Catel.Extensions.Controls.4.5.4\lib\net46\Catel.Extensions.Controls.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Catel.MVVM, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Catel.MVVM.5.3.0\lib\net46\Catel.MVVM.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DataAccess.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -312,11 +300,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\PasswordBoxBindingBehavior.cs" />
     <Compile Include="Config\DBConfig.cs" />
     <Compile Include="Config\Login.cs" />
     <Compile Include="Config\DefaultConnection.cs" />
     <Compile Include="Config\Logins.cs" />
     <Compile Include="Converters\DBGeographyToLatLongConverter.cs" />
+    <Compile Include="Converters\ConvertToUnsecureString.cs" />
     <Compile Include="Converters\ViewTypeToBoolConverter.cs" />
     <Compile Include="DomainObject1.cs" />
     <Compile Include="Enumerators.cs" />
@@ -337,7 +327,6 @@
     </Compile>
     <Compile Include="ViewModels\mainSplashViewModel.cs" />
     <Compile Include="ViewModels\ucAddressAssignViewModel.cs" />
-    <Compile Include="ViewModels\formLoginViewModel.cs" />
     <Compile Include="ViewModels\ProverkaGUViewModel.cs" />
     <Compile Include="ViewModels\ucLoggerViewModel.cs" />
     <Compile Include="Views\DXSplashScreen\SplashScreenView.xaml.cs">
@@ -354,9 +343,6 @@
     </Compile>
     <Compile Include="Views\ucAddressAssign.xaml.cs">
       <DependentUpon>ucAddressAssign.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\formLogin.xaml.cs">
-      <DependentUpon>formLogin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ucLogger.xaml.cs">
       <DependentUpon>ucLogger.xaml</DependentUpon>
@@ -401,10 +387,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ResourceDictionary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\formLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

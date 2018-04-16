@@ -12,37 +12,38 @@
     using DevExpress.Mvvm;
     using DevExpress.Mvvm.ViewModel;
     using DevExpress.Mvvm.POCO;
-    using Catel.Services;
-    using Catel.IoC;
     using DevExpress.Mvvm.DataAnnotations;
     using Services;
     using System.Collections.Generic;
+    using System.ComponentModel;
 
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase, IDialogService
     {
         #region Fields
         protected Guid proverkaGU_key = new Guid("99B84C49-D814-4028-8889-6ED5E7023FF5");
-        protected formLoginViewModel vm =  new formLoginViewModel();
+        //protected formLoginViewModel vm =  new formLoginViewModel();
         #endregion
         #region Services
         IOpenFileDialogService OpenFileDialogService { get { return GetService<IOpenFileDialogService>(); } }
         ISaveFileDialogService SaveFileDialogService { get { return GetService<ISaveFileDialogService>(); } }
         IDialogService DialogService { get { return GetService<IDialogService>(); } }
+        IMessageBoxService MessageService { get { return GetService<IMessageBoxService>(); } }
         public IDocumentManagerService DocumentManagerService { get { return GetService<IDocumentManagerService>(); } }
         #endregion
         #region Constructors
-        public MainWindowViewModel()
+        public MainWindowViewModel():base()
         {
             try
             {
-                vmVisibility = Visibility.Hidden;
+                
+                //vmVisibility = Visibility.Hidden;
                 sqlConnection = new SqlConnection();
                 efConnection = new EntityConnection();
-                var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
-                u.ShowDialogAsync(vm, completeLogin);
+                //var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
+                //u.ShowDialogAsync(vm, completeLogin);
             }
-            catch (Exception)
-            { }
+            catch (Exception e)
+            { MessageService.ShowMessage(e.Message); }
         }
         #endregion
         #region Properties
@@ -73,7 +74,7 @@
         {
             RaisePropertyChanged(() => mainContext);
         }
-        private void completeLogin(object sender, UICompletedEventArgs e)
+        /*private void completeLogin(object sender, UICompletedEventArgs e)
         {
             if (e.Result == true)
             {
@@ -90,9 +91,52 @@
 
             }
             else { Application.Current.Shutdown(-1); }
-        }
+        }*/
         #endregion
         #region Commands
+
+        [Command(CanExecuteMethodName = "CancmShowLoginForm",
+            Name = "cmShowLoginForm",
+            UseCommandManager = true)]
+
+        public void ShowLoginForm()
+        {
+            dxwLoginViewModel LoginViewModel = null;
+            if (LoginViewModel == null)
+                LoginViewModel = ViewModelSource.Create(() => new dxwLoginViewModel());
+            UICommand registerCommand = new UICommand()
+            {
+                Caption = "Вход",
+                IsCancel = false,
+                IsDefault = true,
+                Command = new DelegateCommand<CancelEventArgs>(
+                    x => { LoginViewModel.ConnectionStringConstructExecute(); },
+                    x => LoginViewModel.CancmConnectionStringConstructExecute(), true),              
+            };
+            UICommand cancelCommand = new UICommand()
+            {
+                Id = DevExpress.Mvvm.MessageResult.Cancel,
+                Caption = "Отмена",
+                IsCancel = true,
+                IsDefault = false,
+            };
+            UICommand result = DialogService.ShowDialog(
+                dialogCommands: new List<UICommand>() { registerCommand, cancelCommand },
+                title: "Соединение с сервером",
+                viewModel: LoginViewModel);
+            if (result == registerCommand)
+            {
+                efConnection = LoginViewModel.efConnection;
+                sqlConnection = LoginViewModel.sqlConnection;
+                mainContext = new Entities(efConnection);
+                App.mainConnection= LoginViewModel.efConnection;
+            }
+        }
+
+        public bool CancmShowLoginForm()
+        {
+            return true;
+        }
         [Command(CanExecuteMethodName = "CancmExit",
             Name = "cmExit",
             UseCommandManager = true)]
@@ -113,10 +157,10 @@
              
             DocumentManagerService.FindDocumentByIdOrCreate(proverkaGU_key, (ds) =>
             {
-                ProverkaGUViewModel _vmCreated = ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext, DocumentManagerService));
-                IDocument _docCreated = ds.CreateDocument("ProverkaGUView",_vmCreated );
+                ProverkaGUViewModel vm = ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext, DocumentManagerService));
+                IDocument _docCreated = ds.CreateDocument("ProverkaGUView",vm );
                 _docCreated.Id = proverkaGU_key;
-                _docCreated.Title = _vmCreated.Title;
+                _docCreated.Title = vm.Title;
                 return _docCreated;
             }).Show();
         }
@@ -147,6 +191,11 @@
             { return true; }
             else
             { return false; }
+        }
+
+        public UICommand ShowDialog(IEnumerable<UICommand> dialogCommands, string title, string documentType, object viewModel, object parameter, object parentViewModel)
+        {
+            return DialogService.ShowDialog(dialogCommands, title, documentType, viewModel, parameter, parentViewModel);
         }
 
         #endregion

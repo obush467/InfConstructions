@@ -6,14 +6,11 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using System.Windows.Data;
 using InfConstractions.ViewModels;
-using Catel.Logging;
 using DevExpress.Xpf.Layout;
 using DevExpress.Xpf.Docking;
 using DevExpress.Mvvm;
 using System.Data.SqlClient;
 using InfConstractions.Models;
-using Catel.IoC;
-using Catel.Windows;
 
 namespace InfConstractions.Views
 {
@@ -24,7 +21,7 @@ namespace InfConstractions.Views
             try
             {
                 InitializeComponent();
-                Visibility = Visibility.Hidden;
+               // Visibility = Visibility.Hidden;
             }
             catch (Exception e)
             { MessageBox.Show("Ошибка при старте " + e.Message ); }
@@ -48,6 +45,7 @@ namespace InfConstractions.Views
             //AddressPanel.Content = new Uri("Views\\ucAddressAssign.xaml", UriKind.Relative);
             //ap.Visibility = Visibility.Visible;
             #endregion
+            ((MainWindowViewModel)DataContext).ShowLoginForm();
 
         }
     }

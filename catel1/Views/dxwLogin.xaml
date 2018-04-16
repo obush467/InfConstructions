@@ -6,10 +6,14 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
     xmlns:vm="clr-namespace:InfConstractions.ViewModels"
+    xmlns:conv="clr-namespace:InfConstractions.Converters"
+    xmlns:b="clr-namespace:InfConstractions.Behaviors"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    DataContext="{dxmvvm:ViewModelSource vm:dxwLoginViewModel}"
     >
+    <UserControl.Resources>
+        <conv:ConvertToUnsecureString x:Key="convPassword"/>
+    </UserControl.Resources>
     <dx:DXTabControl Margin="1">
         <dx:DXTabItem Header="{Binding Mode=OneWay, Source={StaticResource tiLogin}}">
             <Grid Margin="0">
@@ -22,12 +26,12 @@
                     <ColumnDefinition Width="250" />
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="tbUserName" Margin="10,5,5,5" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap"  Text="{StaticResource ResourceKey=Auth_CaptionNameLogin_SQLServer}" />
-                <ComboBox x:Name="cbUserName" ItemsSource="{Binding Logins}" Focusable="True" Text="{Binding Path=UserName, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="5" Grid.Row="0" Grid.Column="1" IsEditable="True"/>
+                <ComboBox x:Name="cbUserName" ItemsSource="{Binding Logins}" Focusable="True" IsSynchronizedWithCurrentItem="True" Text="{Binding UserName, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="5" Grid.Row="0" Grid.Column="1" IsManipulationEnabled="True" />
                 <TextBlock x:Name="tbPassword" Margin="10,5,5,5" Grid.Row="1" Grid.Column="0" TextWrapping="Wrap"  Text="{StaticResource ResourceKey=Auth_CaptionNamePassword}"  HorizontalAlignment="Left"/>
-                <PasswordBox x:Name="pbPassword"  Margin="5" Grid.Row="1" Grid.Column="1" IsManipulationEnabled="True" >
-                    <i:Interaction.Behaviors>
-                       
-                    </i:Interaction.Behaviors>
+                <PasswordBox x:Name="pbPassword"  Margin="5" Grid.Row="1" Grid.Column="1" IsManipulationEnabled="True">
+                    <dxmvvm:Interaction.Behaviors>
+                        <b:PasswordBoxBindingBehavior Password="{Binding Password}" />
+                    </dxmvvm:Interaction.Behaviors>
                 </PasswordBox>
 
 

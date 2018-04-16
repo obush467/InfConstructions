@@ -38,8 +38,13 @@
             Title = "Проверка ГУ";
 
         }
-        public ProverkaGUViewModel():this(new Entities(App.mainConnection))
+        public ProverkaGUViewModel()
         {
+            Context = (Entities)((object[])Parameter)[1];
+        }
+        public ProverkaGUViewModel(object parameter)
+        {
+            Context = (Entities)((object[])Parameter)[1];
         }
         public ProverkaGUViewModel(Entities context, IDocumentManagerService documentManagerService) : this(context)
         {

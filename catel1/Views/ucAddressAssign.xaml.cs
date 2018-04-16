@@ -1,12 +1,9 @@
-﻿using Catel.Windows.Controls;
-namespace InfConstractions.Views
+﻿namespace InfConstractions.Views
 {
-    using Catel.Windows;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
     using InfConstractions.ViewModels;
     using System.Data.SqlClient;
-    using Catel.MVVM;
     using System.Data;
     using System.Windows;
     using System.Windows.Controls;

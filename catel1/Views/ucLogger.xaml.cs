@@ -1,7 +1,5 @@
-﻿using Catel.Data;
+﻿
 using System;
-using Catel;
-using Catel.MVVM;
 using System.IO;
 using System.Linq;
 using System.Windows;

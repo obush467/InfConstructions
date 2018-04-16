@@ -1,5 +1,4 @@
-﻿using Catel.Windows.Controls;
-using DevExpress.Utils;
+﻿using DevExpress.Utils;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraGrid.Menu;
 using DevExpress.XtraGrid.Columns;
@@ -14,7 +13,6 @@ namespace InfConstractions.Views
     using System.Data.Entity.Infrastructure;
     using System;
     using System.Collections.Generic;
-    using Catel.Logging;
     using DevExpress.XtraGrid.Views.Base;
     using System.Drawing;
 
@@ -60,13 +58,13 @@ namespace InfConstractions.Views
                     {
                         ((ProverkaGUViewModel)DataContext).Context.Entry<proverkaGU>(t).Reload();
                         ((ProverkaGUViewModel)DataContext).Context.proverkaGUs.Attach(t);
-                        LogData logd = new LogData();
-                        logd.Add("Num", t.Num);
-                        logd.Add("Okrug", t.Okrug);
-                        logd.Add("Raion", t.Raion);
-                        logd.Add("Street", t.Street);
-                        logd.Add("Dom", t.Dom);
-                        string s = string.Join(", ", logd.Values);
+                        //LogData logd = new LogData();
+                        //logd.Add("Num", t.Num);
+                        //logd.Add("Okrug", t.Okrug);
+                        //logd.Add("Raion", t.Raion);
+                        //logd.Add("Street", t.Street);
+                        //logd.Add("Dom", t.Dom);
+                        //string s = string.Join(", ", logd.Values);
                         //App.Log.Info("Внесены изменения в запись {0}",s);
                     }
                 }
