@@ -1,0 +1,90 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:InfConstractionsDX.Common"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <ImageBrush x:Key="TileBrush" TileMode="FlipX" ViewportUnits="Absolute"
+                    Viewport="0 0 32 32" ImageSource="big_smile.png" Opacity="0.4"></ImageBrush>
+    <v:String x:Key="TitleMain">Пророрлорадлвыалдовыадлвыоадлвыа</v:String>
+    <v:String x:Key="TitleLogin">Соединение с сервером</v:String>
+    <v:String x:Key="loginTitle">Соединение с сервером</v:String>
+    <v:String x:Key="Auth_typeServer">Проверка подлинности SQl Server</v:String>
+    <v:String x:Key="Auth_typeSystem">Проверка подлинности Windows</v:String>
+    <v:String x:Key="Auth_typeUniversalAD">Универсальная проверка подлинности Active Directory</v:String>
+    <v:String x:Key="Auth_typeCheckPasswordAD">Проверка пароля Active Directory</v:String>
+    <v:String x:Key="Auth_typeAutenticatioAD">Аутентификация Active Directory</v:String>
+    <v:String x:Key="Auth_CaptionServerType">Тип сервера</v:String>
+    <v:String x:Key="Auth_CaptionNameServer">Имя сервера</v:String>
+    <v:String x:Key="Auth_CaptionNameAuth_type">Проверка подлинности</v:String>
+    <v:String x:Key="Auth_CaptionNameLogin_SQLServer">Имя входа SQL Server</v:String>
+    <v:String x:Key="Auth_CaptionNameLogin_System">Имя пользователя</v:String>
+    <v:String x:Key="Auth_CaptionNamePassword">Пароль</v:String>
+    <v:String x:Key="Auth_CaptionDataBaseName">База данных</v:String>
+    <v:String x:Key="loggerTitle">Журнал</v:String>
+    <v:String x:Key="eventerTitle">Сообщения</v:String>
+    <v:String x:Key="startMessage">Запуск</v:String>
+    <v:String x:Key="App_base_OnStartup">Вызов App base.OnStartup</v:String>
+    <v:String x:Key="ucLoggerTitle">Журнал</v:String>
+    <v:String x:Key="Preloading_assemblies">Загрузка сборок</v:String>
+    <v:String x:Key="refreshServers">Загрузка списка серверов</v:String>
+    <v:String x:Key="Save">Сохранить</v:String>
+    <v:String x:Key="Cancel">Отмена</v:String>
+    <v:String x:Key="Refresh">Обновить</v:String>
+    <v:String x:Key="Export">Экспортировать</v:String>
+    <v:String x:Key="SaveAndClose">Закрыть</v:String>
+    <v:String x:Key="Direction">Направление</v:String>
+    <v:String x:Key="NullData">Не определена</v:String>
+    <v:String x:Key="fnNumber">Номер</v:String>
+    <v:String x:Key="fnStartDate">Начало</v:String>
+    <v:String x:Key="fnEndDate">Окончание</v:String>
+    <v:String x:Key="fnVisibility">Просматриваемоть</v:String>
+    <v:String x:Key="fnSidewalk_width">Ширина тротуара</v:String>
+    <v:String x:Key="fnCondition">Состояние</v:String>
+    <v:String x:Key="fnPatency">Проходимость</v:String>
+    <v:String x:Key="fnWGS84">Координаты WGS84</v:String>
+    <v:String x:Key="fnPrev">Предыдущий</v:String>
+    <v:String x:Key="fnNext">Следующий</v:String>
+    <v:String x:Key="fnAddress">Адрес</v:String>
+    <v:String x:Key="fnOkrug">Округ</v:String>
+    <v:String x:Key="fnRaion">Район</v:String>
+    <v:String x:Key="fnReconstruction">Реконструкция</v:String>
+    <v:String x:Key="fnClosed_loop">Закрытый контур</v:String>
+    <v:String x:Key="OpenPassport">Открыть паспорт</v:String>
+    <v:String x:Key="DelPassportSite">Удалить плашку</v:String>
+    <v:String x:Key="fnGround_Type">Тип поверхности</v:String>
+    <v:String x:Key="emNotNullValue">Тип поверхности</v:String>
+    <v:String x:Key="fnProgram">Программа</v:String>
+    <v:String x:Key="mnFile">_Файл</v:String>
+    <v:String x:Key="mnExit">Выход</v:String>
+    <v:String x:Key="mnClose">_Закрыть</v:String>
+    <v:String x:Key="mnWindows">_Окна</v:String>
+    <v:String x:Key="mnOpenRichEdit">Открыть Word</v:String>
+    <v:String x:Key="mnOpenSpreadSheet">Открыть Excel</v:String>
+    <v:String x:Key="tiLogin">Вход пользователя</v:String>
+    <v:String x:Key="tiConnection">Соединение</v:String>
+    <x:Array x:Key="PassportDirections" Type="sys:String" 
+            xmlns:sys="clr-namespace:System;assembly=mscorlib">
+        <sys:String>Вперёд</sys:String>
+        <sys:String>Налево</sys:String>
+        <sys:String>Направо</sys:String>
+    </x:Array>
+    <x:Array x:Key="PassportNumbers" Type="sys:String" 
+            xmlns:sys="clr-namespace:System;assembly=mscorlib">
+        <sys:String>1</sys:String>
+        <sys:String>2</sys:String>
+        <sys:String>3</sys:String>
+        <sys:String>4</sys:String>
+    </x:Array>
+    <x:Array x:Key="PassportSites" Type="sys:String" 
+            xmlns:sys="clr-namespace:System;assembly=mscorlib">
+        <sys:String>A</sys:String>
+        <sys:String>B</sys:String>
+    </x:Array>
+    <x:Array x:Key="AuthenticationTypes" Type="sys:String" 
+            xmlns:sys="clr-namespace:System;assembly=mscorlib">
+        <sys:String>Проверка подлинности SQl Server</sys:String>
+        <sys:String>Проверка подлинности Windows</sys:String>
+        <sys:String>Универсальная проверка подлинности Active Directory</sys:String>
+        <sys:String>Проверка пароля Active Directory</sys:String>
+        <sys:String>Аутентификация Active Directory</sys:String>
+    </x:Array>
+</ResourceDictionary>

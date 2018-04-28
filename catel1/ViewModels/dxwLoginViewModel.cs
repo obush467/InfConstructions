@@ -163,7 +163,7 @@ namespace InfConstractions.ViewModels
             }
             catch (Exception e)
             {
-                
+                MessageService.ShowMessage(e.Message);
             }
         }
 

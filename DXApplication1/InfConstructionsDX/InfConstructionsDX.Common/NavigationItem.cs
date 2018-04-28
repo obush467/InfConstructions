@@ -1,8 +1,7 @@
 ﻿using DevExpress.Mvvm;
-using InfConstructionsDX.Common;
 using System;
 
-namespace InfConstructionsDX.Main.ViewModels
+namespace InfConstractionsDX.Common
 {
     [Serializable]
     public class NavigationItem : INavigationItem, ISupportState<NavigationItem>

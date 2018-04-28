@@ -1,9 +1,9 @@
 ﻿using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
-using InfConstructionsDX.Common;
+using InfConstractionsDX.Common;
 using System;
 
-namespace InfConstructionsDX.Modules.ViewModels
+namespace InfConstractionsDX.Modules.ViewModels
 {
     public class ModuleViewModel : IDocumentModule, ISupportState<ModuleViewModel.Info>
     {

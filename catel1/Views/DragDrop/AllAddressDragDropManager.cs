@@ -30,8 +30,8 @@ namespace InfConstractions.Views.DragDrop
             throw new NotImplementedException();
         }
 
-        private object draggedItem;
-        private bool isEditing;
+        private object draggedItem =null;
+        private bool isEditing=true;
         private bool isDragging;
 
         #region DragEnded

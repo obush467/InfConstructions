@@ -2,17 +2,20 @@
 using DevExpress.Mvvm.ModuleInjection;
 using DevExpress.Mvvm.UI;
 using DevExpress.Xpf.Core;
-using InfConstructionsDX.Common;
-using InfConstructionsDX.Main.Properties;
-using InfConstructionsDX.Main.ViewModels;
-using InfConstructionsDX.Main.Views;
-using InfConstructionsDX.Modules.ViewModels;
-using InfConstructionsDX.Modules.Views;
+using InfConstractions.Models;
+using InfConstractionsDX.Modules.ViewModels;
+using InfConstractionsDX.Modules.Views;
+using InfConstractionsDX.Common;
+using InfConstractionsDX.Main.Properties;
+using InfConstractionsDX.Main.ViewModels;
+using InfConstractionsDX.Main.Views;
 using System.ComponentModel;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
 using System.Windows;
-using AppModules = InfConstructionsDX.Common.Modules;
+using AppModules = InfConstractionsDX.Common.Modules;
 
-namespace InfConstructionsDX.Main
+namespace InfConstractionsDX.Main
 {
     public partial class App : Application
     {
@@ -27,6 +30,11 @@ namespace InfConstructionsDX.Main
             ApplicationThemeHelper.SaveApplicationThemeName();
             base.OnExit(e);
         }
+        public static SqlConnection sqlConnection
+        {get; set ; }
+        public static EntityConnection efConnection
+        { get; set; }
+        public static Entities mainContext { get; set; }
     }
     public class Bootstrapper
     {
@@ -39,6 +47,7 @@ namespace InfConstructionsDX.Main
                 InjectModules();
             ConfigureNavigation();
             ShowMainWindow();
+            
         }
 
         protected IModuleManager Manager { get { return ModuleManager.DefaultManager; } }
@@ -46,6 +55,7 @@ namespace InfConstructionsDX.Main
         {
             var mainAssembly = typeof(MainViewModel).Assembly;
             var modulesAssembly = typeof(ModuleViewModel).Assembly;
+            var ProverkaGUAssembly = typeof(ProverkaGUViewModel).Assembly;
             var assemblies = new[] { mainAssembly, modulesAssembly };
             ViewModelLocator.Default = new ViewModelLocator(assemblies);
             ViewLocator.Default = new ViewLocator(assemblies);
@@ -55,8 +65,11 @@ namespace InfConstructionsDX.Main
             Manager.Register(Regions.MainWindow, new Module(AppModules.Main, MainViewModel.Create, typeof(MainView)));
             Manager.Register(Regions.Navigation, new Module(AppModules.Module1, () => new NavigationItem("Module1")));
             Manager.Register(Regions.Navigation, new Module(AppModules.Module2, () => new NavigationItem("Module2")));
+            Manager.Register(Regions.Navigation, new Module(AppModules.ProverkaGU, () => new NavigationItem("ProverkaGU")));
             Manager.Register(Regions.Documents, new Module(AppModules.Module1, () => ModuleViewModel.Create("Module1", "Module1 Content"), typeof(ModuleView)));
             Manager.Register(Regions.Documents, new Module(AppModules.Module2, () => ModuleViewModel.Create("Module2", "Module2 Content"), typeof(ModuleView)));
+            Manager.Register(Regions.Documents, new Module(AppModules.ProverkaGU, () => ProverkaGUViewModel.Create(), typeof(ProverkaGUView)));
+            Manager.Register(Regions.Documents, new Module("Passport", () => ucPassportViewModel.Create(), typeof(ucPassport)));
         }
         protected virtual bool RestoreState()
         {
@@ -72,6 +85,7 @@ namespace InfConstructionsDX.Main
             Manager.Inject(Regions.MainWindow, AppModules.Main);
             Manager.Inject(Regions.Navigation, AppModules.Module1);
             Manager.Inject(Regions.Navigation, AppModules.Module2);
+            
         }
         protected virtual void ConfigureNavigation()
         {
@@ -97,10 +111,10 @@ namespace InfConstructionsDX.Main
         {
             string logicalState;
             string visualState;
-            Manager.Save(out logicalState, out visualState);
+            //Manager.Save(out logicalState, out visualState);
             Settings.Default.StateVersion = StateVersion;
-            Settings.Default.LogicalState = logicalState;
-            Settings.Default.VisualState = visualState;
+            //Settings.Default.LogicalState = logicalState;
+            //Settings.Default.VisualState = visualState;
             Settings.Default.Save();
         }
     }

@@ -18,7 +18,7 @@
         // TODO: Register view model properties with the vmprop or vmpropviewmodeltomodel codesnippets
         // TODO: Register commands with the vmcommand or vmcommandwithcanexecute codesnippets
 
-        public new string Title
+        public string Title
         {
             get { return GetProperty<string>(()=>Title); }
             set { SetProperty(() => Title, value); }

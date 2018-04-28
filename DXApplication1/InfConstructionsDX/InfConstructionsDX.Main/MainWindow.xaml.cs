@@ -1,6 +1,6 @@
 ﻿using DevExpress.Xpf.Ribbon;
 
-namespace InfConstructionsDX.Main
+namespace InfConstractionsDX.Main
 {
     public partial class MainWindow : DXRibbonWindow
     {
@@ -8,5 +8,6 @@ namespace InfConstructionsDX.Main
         {
             InitializeComponent();
         }
+        
     }
 }

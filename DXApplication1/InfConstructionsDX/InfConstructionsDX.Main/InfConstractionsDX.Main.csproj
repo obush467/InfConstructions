@@ -7,12 +7,13 @@
     <ProjectGuid>{BAE72475-3547-4CDB-8855-E49EFE5EB936}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>InfConstructionsDX.Main</RootNamespace>
-    <AssemblyName>InfConstructionsDX.Main</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>InfConstractionsDX.Main</RootNamespace>
+    <AssemblyName>InfConstractionsDX.Main</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v17.1" />
@@ -42,8 +45,19 @@
     <Reference Include="DevExpress.Xpf.NavBar.v17.1" />
     <Reference Include="DevExpress.Xpf.Ribbon.v17.1" />
     <Reference Include="DevExpress.Xpf.Themes.Office2016Colorful.v17.1" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -65,11 +79,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\PasswordBoxBindingBehavior.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\dxwLoginViewModel.cs" />
+    <Compile Include="ViewModels\mainSplashViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\NavigationItem.cs" />
+    <Compile Include="Views\dxwLogin.xaml.cs">
+      <DependentUpon>dxwLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\mainSplash.xaml.cs">
+      <DependentUpon>mainSplash.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -84,6 +106,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -91,19 +114,43 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\InfConstructionsDX.Common\InfConstructionsDX.Common.csproj">
-      <Project>{3c34b84e-fbd5-4175-938e-d27582fb83b2}</Project>
-      <Name>InfConstructionsDX.Common</Name>
+    <ProjectReference Include="..\..\..\InfConstractions.Config\InfConstractionsDX.Config.csproj">
+      <Project>{5a132978-90c8-4fdb-a84f-86d5db5e9f26}</Project>
+      <Name>InfConstractionsDX.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\InfConstructionsDX.Modules\InfConstructionsDX.Modules.csproj">
-      <Project>{12409159-d021-47b1-8fee-f0ba95a669e6}</Project>
-      <Name>InfConstructionsDX.Modules</Name>
+    <ProjectReference Include="..\..\..\InfConstractionsDX.Converters\InfConstractionsDX.Converters.csproj">
+      <Project>{e9890cf8-4087-4b5a-8383-c9c5cf609c0b}</Project>
+      <Name>InfConstractionsDX.Converters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\InfConstractionsDX.Services\InfConstractionsDX.Services.csproj">
+      <Project>{82c98fd8-070a-4d13-a89d-2bc99f4a552f}</Project>
+      <Name>InfConstractionsDX.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\InfConstructions.Models\InfConstractions.Models.csproj">
+      <Project>{845D43FA-3DC7-4871-82CB-A52ED0039DE7}</Project>
+      <Name>InfConstractions.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InfConstructionsDX.Common\InfConstractionsDX.Common.csproj">
+      <Project>{BE9033F6-880E-423B-BB28-E12CB4EB6A61}</Project>
+      <Name>InfConstractionsDX.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InfConstructionsDX.Modules\InfConstractionsDX.Modules.csproj">
+      <Project>{3C8A1933-816D-44BE-931B-67331B81BD5D}</Project>
+      <Name>InfConstractionsDX.Modules</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\dxwLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\mainSplash.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>

@@ -1,65 +1,112 @@
-﻿<UserControl x:Class="InfConstructionsDX.Main.Views.MainView"
+﻿<UserControl x:Class="InfConstractionsDX.Main.Views.MainView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:common="clr-namespace:InfConstructionsDX.Common;assembly=InfConstructionsDX.Common"
-             xmlns:views="clr-namespace:InfConstructionsDX.Main.Views"
-             xmlns:viewModels="clr-namespace:InfConstructionsDX.Main.ViewModels"
+             xmlns:common="clr-namespace:InfConstractionsDX.Common;assembly=InfConstractionsDX.Common"
+             xmlns:views="clr-namespace:InfConstractionsDX.Main.Views"
+             xmlns:viewModels="clr-namespace:InfConstractionsDX.Main.ViewModels"
+             xmlns:vmModules="clr-namespace:InfConstractionsDX.Modules.ViewModels;assembly=InfConstractionsDX.Modules"
+             xmlns:vModules="clr-namespace:InfConstractionsDX.Modules.Views;assembly=InfConstractionsDX.Modules"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
              xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
              xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
-             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="600"
-             d:DataContext="{dxmvvm:ViewModelSource viewModels:MainViewModel}">
+             mc:Ignorable="d" 
+             d:DesignHeight="500" 
+             d:DesignWidth="600"
+             Loaded="mainWindow_Loaded"
+             >
     <dxmvvm:Interaction.Behaviors>
         <dxmvvm:VisualStateService/>
+        <dx:DXSplashScreenService SplashScreenStartupLocation="CenterOwner">
+            <dx:DXSplashScreenService.ViewTemplate>
+                <DataTemplate>
+                    <views:mainSplash/>
+                </DataTemplate>
+            </dx:DXSplashScreenService.ViewTemplate>
+        </dx:DXSplashScreenService>
+        <dx:DialogService DialogWindowStartupLocation="CenterOwner">
+            <dx:DialogService.ViewTemplate>
+                <DataTemplate>
+                    <views:dxwLogin/>
+                </DataTemplate>
+            </dx:DialogService.ViewTemplate>
+            <dx:DialogService.DialogStyle>
+                <Style TargetType="dx:DXDialogWindow">
+                    <Setter Property="Width" Value="350"/>
+                    <Setter Property="Height" Value="200"/>
+                    <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+                </Style>
+            </dx:DialogService.DialogStyle>
+        </dx:DialogService>
+        <dx:DXMessageBoxService/>
     </dxmvvm:Interaction.Behaviors>
-    <dxb:BarManager>
-        <DockPanel>
-            <dxr:RibbonControl DockPanel.Dock="Top" RibbonStyle="Office2010" ToolbarShowMode="Hide">
-                <dxr:RibbonDefaultPageCategory>
-                    <dxr:RibbonPage x:Name="ribbonPage_Main" Caption="View">
-                        <dxr:RibbonPageGroup x:Name="ribbonPageGroup_Main">
-                            <dxr:RibbonGalleryBarItem x:Name="ribbonGalleryBarItem_Theme">
-                                <dxmvvm:Interaction.Behaviors>
-                                    <dxr:RibbonGalleryItemThemeSelectorBehavior/>
-                                </dxmvvm:Interaction.Behaviors>
-                            </dxr:RibbonGalleryBarItem>
-                        </dxr:RibbonPageGroup>
-                    </dxr:RibbonPage>
-                </dxr:RibbonDefaultPageCategory>
-            </dxr:RibbonControl>
-            <dxdo:DockLayoutManager FloatingMode="Desktop" ClosedPanelsBarVisibility="Never">
-                <dxdo:LayoutGroup Orientation="Horizontal">
-                    <dxdo:LayoutPanel Name="Navigation" Caption="Navigation" AllowClose="False" ItemWidth="200">
-                        <dxn:NavBarControl>
-                            <dxn:NavBarControl.View>
-                                <dxn:ExplorerBarView/>
-                            </dxn:NavBarControl.View>
-                            <dxn:NavBarGroup Header="Modules" DisplaySource="Items" 
+
+    <dxb:BarManager >
+        <DockPanel >
+                <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="10" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <dxb:MainMenuControl x:Name="menuMain" Height="36" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="0">
+                    <dxb:BarSubItem Name="bsFile" CategoryName="FilesMenus" Content="{Binding Source={StaticResource mnFile}}">
+                        <dxb:BarButtonItem Content="{Binding Source={StaticResource mnOpenRichEdit}}" Command="{Binding cmOpenRichEdit}"/>
+                        <dxb:BarButtonItem Content="{Binding Source={StaticResource mnOpenSpreadSheet}}" Command="{Binding cmOpenSpreadSheet}"/>
+                        <dxb:BarButtonItem Content="{Binding Source={StaticResource mnExit}}" Command="{Binding cmExit}"/>
+                    </dxb:BarSubItem>
+                    <dxb:BarSubItem Name="bsWindows" CategoryName="WindowsMenus" Content="{Binding Source={StaticResource mnWindows}}">
+                    </dxb:BarSubItem>
+                </dxb:MainMenuControl>
+                <dxr:RibbonControl Grid.Row="1" DockPanel.Dock="Top" RibbonStyle="Office2010" ToolbarShowMode="Hide">
+                    <dxr:RibbonDefaultPageCategory Caption="defaultCategory" Name="ribbonDefaultPageCategory1">
+                        <dxr:RibbonPage x:Name="ribbonPage_Main" Caption="Вид">
+                            <dxr:RibbonPageGroup x:Name="ribbonPageGroup_Main">
+                                <dxr:RibbonGalleryBarItem x:Name="ribbonGalleryBarItem_Theme">
+                                    <dxmvvm:Interaction.Behaviors>
+                                        <dxr:RibbonGalleryItemThemeSelectorBehavior/>
+                                    </dxmvvm:Interaction.Behaviors>
+                                </dxr:RibbonGalleryBarItem>
+                            </dxr:RibbonPageGroup>
+                        </dxr:RibbonPage>
+                    </dxr:RibbonDefaultPageCategory>
+                </dxr:RibbonControl>
+                <dxdo:DockLayoutManager FloatingMode="Desktop" ClosedPanelsBarVisibility="Never">
+                    <dxdo:LayoutGroup Orientation="Horizontal">
+                        <dxdo:LayoutPanel Name="Navigation" Caption="Navigation" AllowClose="False" ItemWidth="200">
+                            <dxn:NavBarControl>
+                                <dxn:NavBarControl.View>
+                                    <dxn:ExplorerBarView/>
+                                </dxn:NavBarControl.View>
+                                <dxn:NavBarGroup Header="Modules" DisplaySource="Items" 
                                              dxmvvm:UIRegion.Region="{x:Static common:Regions.Navigation}">
-                                <dxn:NavBarGroup.ItemStyle>
-                                    <Style TargetType="dxn:NavBarItem">
-                                        <Setter Property="Content" Value="{Binding Caption}"/>
-                                    </Style>
-                                </dxn:NavBarGroup.ItemStyle>
-                            </dxn:NavBarGroup>
-                        </dxn:NavBarControl>
-                    </dxdo:LayoutPanel>
-                    <dxdo:DocumentGroup Name="Documents" DestroyOnClosingChildren="False" ClosingBehavior="HideToClosedPanelsCollection" 
+                                    <dxn:NavBarGroup.ItemStyle>
+                                        <Style TargetType="dxn:NavBarItem">
+                                            <Setter Property="Content" Value="{Binding Caption}"/>
+                                        </Style>
+                                    </dxn:NavBarGroup.ItemStyle>
+                                </dxn:NavBarGroup>
+                                <dxn:NavBarGroup Header="Задачи">
+                                    <dxn:NavBarItemControl  Content="fasdasdasdasd" Height="auto"/>
+                                    <dxn:NavBarItem Content="Проверка ГУ" Command="{Binding cmProverkaGU}"/>
+                                </dxn:NavBarGroup>
+                            </dxn:NavBarControl>
+                        </dxdo:LayoutPanel>
+                        <dxdo:DocumentGroup Name="Documents" DestroyOnClosingChildren="False" ClosingBehavior="HideToClosedPanelsCollection" 
                                         dxmvvm:UIRegion.Region="{x:Static common:Regions.Documents}">
-                        <dxdo:DocumentGroup.ItemStyle>
-                            <Style TargetType="dxdo:LayoutPanel">
-                                <Setter Property="Caption" Value="{Binding Caption}"/>
-                                <Setter Property="IsActive" Value="{Binding IsActive, Mode=TwoWay}"/>
-                            </Style>
-                        </dxdo:DocumentGroup.ItemStyle>
-                    </dxdo:DocumentGroup>
-                </dxdo:LayoutGroup>
-            </dxdo:DockLayoutManager>
+                            <dxdo:DocumentGroup.ItemStyle>
+                                <Style TargetType="dxdo:DocumentPanel">
+                                    <Setter Property="Caption" Value="{Binding Caption}"/>
+                                    <Setter Property="IsActive" Value="{Binding IsActive, Mode=TwoWay}"/>
+                                </Style>
+                            </dxdo:DocumentGroup.ItemStyle>
+                        </dxdo:DocumentGroup>
+                    </dxdo:LayoutGroup>
+                </dxdo:DockLayoutManager>
+            </Grid>
         </DockPanel>
     </dxb:BarManager>
 </UserControl>

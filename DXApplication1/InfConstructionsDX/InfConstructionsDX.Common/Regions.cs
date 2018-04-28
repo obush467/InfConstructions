@@ -1,4 +1,4 @@
-﻿namespace InfConstructionsDX.Common
+﻿namespace InfConstractionsDX.Common
 {
     public static class Regions
     {
