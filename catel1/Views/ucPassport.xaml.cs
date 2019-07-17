@@ -1,33 +1,21 @@
-﻿using System;
+﻿using DevExpress.Xpf.Grid;
+using InfConstractions.ViewModels;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Entity.Infrastructure;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using InfConstractions.Models;
-using System.Data.Entity.Infrastructure;
-using InfConstractions.ViewModels;
-using DevExpress.Xpf.Grid;
-using System.Data.Entity;
-using InfConstractions.Converters;
+using UNS.Models;
 
 namespace InfConstractions.Views
 {
     /// <summary>
     /// Логика взаимодействия для ucPassport.xaml
     /// </summary>
-    public partial class ucPassport : UserControl
+    public partial class UcPassport : UserControl
     {
         #region Constructors
-        public ucPassport()
+        public UcPassport()
         {
             InitializeComponent();
         }
@@ -38,7 +26,7 @@ namespace InfConstractions.Views
             if (DataContext != null)
             {
                 List<GUPassport> l = new List<GUPassport>();
-                DbChangeTracker tr = ((ucPassportViewModel)DataContext).Context.ChangeTracker;
+                DbChangeTracker tr = ((UcPassportViewModel)DataContext).Context.ChangeTracker;
                 tr.DetectChanges();
                 if (tr.HasChanges())
                 {
@@ -53,8 +41,8 @@ namespace InfConstractions.Views
                 ((ProverkaGUViewModel)DataContext).cmSaveChanges();
                     foreach (GUPassport t in l)
                     {
-                        ((ucPassportViewModel)DataContext).Context.Entry<GUPassport>(t).Reload();
-                        ((ucPassportViewModel)DataContext).Context.GUPassports.Attach(t);
+                        ((UcPassportViewModel)DataContext).Context.Entry<GUPassport>(t).Reload();
+                        ((UcPassportViewModel)DataContext).Context.GUPassports.Attach(t);
                         /*LogData logd = new LogData();
                         logd.Add("Num", t.Num);
                         logd.Add("Okrug", t.Okrug);
@@ -90,7 +78,7 @@ namespace InfConstractions.Views
             sitesGrid.SetCellValue(e.RowHandle, "Site_Number", "w");
             sitesGrid.SetCellValue(e.RowHandle, "Content_Text", "vzzxc");
             sitesGrid.SetCellValue(e.RowHandle, "Content_Transliteration", "vzzxc");*/
-                    }
+        }
         private void TableView_ValidateRow(object sender, GridRowValidationEventArgs e)
         {
 
@@ -103,7 +91,7 @@ namespace InfConstractions.Views
 
         private void TextEdit_Drop(object sender, DragEventArgs e)
         {
-           
+
 
         }
 

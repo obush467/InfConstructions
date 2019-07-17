@@ -1,19 +1,27 @@
-﻿using System;
-using Microsoft.Office.Interop.Word;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Drawing;
 using System.IO;
-using PassportOperator;
 
 namespace PassportOperator
 {
     public class MATCPassportExporter
     {
-        public MATCPassportExporter(string template= "e:\\паспортГУ1.dotx")
+        public MATCPassportExporter(string template = "e:\\паспортГУ1.dotx")
         { Template = template; }
         private Application wordApp;
-        public Application WordApp { get { if (wordApp == null) {
+        public Application WordApp
+        {
+            get
+            {
+                if (wordApp == null)
+                {
                     wordApp = new Application(); WordApp.Visible = true;
-                    return wordApp; } else { return wordApp; } }} 
+                    return wordApp;
+                }
+                else { return wordApp; }
+            }
+        }
         public MATCPassport Passport { get; set; }
         public string Template { get; set; }
         public Document ConvertToWord(MATCPassport _passport)
@@ -75,11 +83,11 @@ namespace PassportOperator
                 r.Cells[2].Range.Text = field.Arrow;
                 r.Cells[3].Range.Text = field.Name;
                 r.Cells[4].Range.Text = field.Transliteration;
-                
+
             }
             return doc;
         }
-        public void ExportToDOCX(MATCPassport _passport,DirectoryInfo directory,Func<MATCPassport,string> NamingFunc,bool autoSave=true)
+        public void ExportToDOCX(MATCPassport _passport, DirectoryInfo directory, Func<MATCPassport, string> NamingFunc, bool autoSave = true)
         {
             Document doc = ConvertToWord(_passport);
             if (autoSave)

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data.Entity.Spatial;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace InfConstractions.Converters
@@ -22,7 +18,7 @@ namespace InfConstractions.Converters
             else
                 if ((value is DbGeography) & ((DbGeography)value).SpatialTypeName == "Point")
             {
-                string s = ((DbGeography)value).Latitude.ToString().Replace(",",".") + "," + ((DbGeography)value).Longitude.ToString().Replace(",", ".");
+                string s = ((DbGeography)value).Latitude.ToString().Replace(",", ".") + "," + ((DbGeography)value).Longitude.ToString().Replace(",", ".");
                 if (s.Length != 0)
                 {
                     return s;
@@ -45,8 +41,8 @@ namespace InfConstractions.Converters
             {
                 if (value != null)
                 {
-                    var l=value.ToString().Split(',').Reverse();
-                    string p = "POINT(" + l.ElementAt(0).ToString()+" " + l.ElementAt(1).ToString()+ ")";
+                    var l = value.ToString().Split(',').Reverse();
+                    string p = "POINT(" + l.ElementAt(0).ToString() + " " + l.ElementAt(1).ToString() + ")";
                     DbGeography res = DbGeography.PointFromText(p, 4326);
                     return res;
                 }
@@ -56,4 +52,4 @@ namespace InfConstractions.Converters
         }
     }
 }
-    
+

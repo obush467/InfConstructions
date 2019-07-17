@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace InfConstractions.Converters
@@ -16,7 +12,7 @@ namespace InfConstractions.Converters
         {
             if (targetType == typeof(SecureString))
                 if (value != null) { return Unsecure(value); };
-                return null;
+            return null;
         }
         private string Unsecure(object value)
         {

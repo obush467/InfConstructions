@@ -2,7 +2,7 @@
 
 namespace commonB1.Config
 {
-    public class filesOperateParameters:ConfigurationElement
+    public class filesOperateParameters : ConfigurationElement
     {
         [ConfigurationProperty("Name", DefaultValue = "", IsKey = true, IsRequired = true)]
         public string Name
@@ -17,7 +17,7 @@ namespace commonB1.Config
             set { base["DeleteDuplicates"] = value; }
         }
 
-        [ConfigurationProperty("DeleteEmptyFolders", DefaultValue =  true, IsKey = false, IsRequired = true)]
+        [ConfigurationProperty("DeleteEmptyFolders", DefaultValue = true, IsKey = false, IsRequired = true)]
         public bool DeleteEmptyFolders
         {
             get { return ((bool)(base["DeleteEmptyFolders"])); }

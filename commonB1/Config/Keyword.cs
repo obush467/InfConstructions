@@ -2,7 +2,7 @@
 
 namespace commonB1.Config
 {
-    public class Keyword:ConfigurationElement
+    public class Keyword : ConfigurationElement
     {
         [ConfigurationProperty("Name", DefaultValue = "", IsKey = true, IsRequired = true)]
         public string Name

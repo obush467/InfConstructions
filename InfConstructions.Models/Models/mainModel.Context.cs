@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InfConstractions.Models
+namespace UNS.Models.Models
 {
     using System;
     using System.Data.Entity;

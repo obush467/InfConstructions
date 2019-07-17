@@ -1,17 +1,10 @@
-﻿using DevExpress.Xpf.Grid;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using DevExpress.Xpf.Core;
+﻿using DevExpress.Xpf.Core;
+using DevExpress.Xpf.Grid;
 using DevExpress.Xpf.Grid.DragDrop;
-using System.Collections;
-using System.Windows.Input;
-using DevExpress.Mvvm.UI.Interactivity;
-using DevExpress.Utils.MVVM;
+using System;
+using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace InfConstractions.Views.DragDrop
@@ -20,7 +13,8 @@ namespace InfConstractions.Views.DragDrop
     {
         public AllAddressDragDropManager(TreeListView tl) : base(tl)
         {
-            TreeListView.DragEnter += TreeListView_DragEnter;        }
+            TreeListView.DragEnter += TreeListView_DragEnter;
+        }
         public AllAddressDragDropManager() : base(new TreeListView())
         {
             TreeListView.DragEnter += TreeListView_DragEnter;
@@ -30,15 +24,15 @@ namespace InfConstractions.Views.DragDrop
             throw new NotImplementedException();
         }
 
-        private object draggedItem =null;
-        private bool isEditing=true;
+        private object draggedItem = null;
+        private bool isEditing = true;
         private bool isDragging;
 
         #region DragEnded
         public static readonly RoutedEvent DragEndedEvent =
             EventManager.RegisterRoutedEvent("DragEnded", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(AllAddressDragDropManager));
-        
-        
+
+
         public static void AddDragEndedHandler(DependencyObject d, RoutedEventHandler handler)
         {
             UIElement uie = d as UIElement;
@@ -58,25 +52,25 @@ namespace InfConstractions.Views.DragDrop
             
         }*/
 
-        private void rrrrrr (object sender, DevExpress.Xpf.Grid.DragDrop.DragLeaveEventArgs e)
+        private void rrrrrr(object sender, DevExpress.Xpf.Grid.DragDrop.DragLeaveEventArgs e)
         {
             throw new NotImplementedException();
         }
 
-       /* protected override void OnDetaching()
-        {
-            base.OnDetaching();
+        /* protected override void OnDetaching()
+         {
+             base.OnDetaching();
 
-            AssociatedObject.AllowDrop = false;
-            AssociatedObject.DragEnter -= OnDragEnter;
-            AssociatedObject.DragLeave -= OnDragLeave;
-            AssociatedObject.Drop -= OnDrop;
-            AssociatedObject.PreviewMouseLeftButtonDown -= OnMouseLeftButtonDown;
-            AssociatedObject.MouseMove -= OnMouseMove;
-            draggedItem = null;
-            isEditing = false;
-            isDragging = false;
-        }*/
+             AssociatedObject.AllowDrop = false;
+             AssociatedObject.DragEnter -= OnDragEnter;
+             AssociatedObject.DragLeave -= OnDragLeave;
+             AssociatedObject.Drop -= OnDrop;
+             AssociatedObject.PreviewMouseLeftButtonDown -= OnMouseLeftButtonDown;
+             AssociatedObject.MouseMove -= OnMouseMove;
+             draggedItem = null;
+             isEditing = false;
+             isDragging = false;
+         }*/
 
         private void OnDrop(object sender, DragEventArgs e)
         {
@@ -87,12 +81,12 @@ namespace InfConstractions.Views.DragDrop
         {
             if (isEditing) return;
 
-           // TreeListView row = UIHelpers.TryFindFromPoint<TreeListView>((UIElement)sender, e.GetPosition(AssociatedObject));
-           //// if (row == null || row.IsEditing) return;
+            // TreeListView row = UIHelpers.TryFindFromPoint<TreeListView>((UIElement)sender, e.GetPosition(AssociatedObject));
+            //// if (row == null || row.IsEditing) return;
 
             //set flag that indicates we're capturing mouse movements
             isDragging = true;
-           //// draggedItem = row.SelectedRows;
+            //// draggedItem = row.SelectedRows;
         }
 
         private void OnDragLeave(object sender, DragEventArgs e)
@@ -115,7 +109,7 @@ namespace InfConstractions.Views.DragDrop
         private void RaiseDragEndedEvent()
         {
             var args = new RoutedEventArgs(AllAddressDragDropManager.DragEndedEvent);
-           // AssociatedObject.RaiseEvent(args);
+            // AssociatedObject.RaiseEvent(args);
         }
         #endregion
         public void OnStartDrag(object sender, TreeListStartDragEventArgs e)
@@ -136,7 +130,7 @@ namespace InfConstractions.Views.DragDrop
             Popup.SetSize(new Size(50, 50));
             Popup.Placement = System.Windows.Controls.Primitives.PlacementMode.RelativePoint;
             //if (!isDragging || e.LeftButton != MouseButtonState.Pressed)
-                //return;
+            //return;
             Popup.DataContext = draggedItem;
             //display the popup if it hasn't been opened yet
             if (!Popup.IsOpen)
@@ -149,10 +143,10 @@ namespace InfConstractions.Views.DragDrop
             }
 
             var popupSize = new Size(Popup.ActualWidth, Popup.ActualHeight);
-          //  Popup.PlacementRectangle = new Rect(e.GetPosition(AssociatedObject), popupSize);
+            //  Popup.PlacementRectangle = new Rect(e.GetPosition(AssociatedObject), popupSize);
 
             //make sure the row under the grid is being selected
-           // var position = e.GetPosition(AssociatedObject);
+            // var position = e.GetPosition(AssociatedObject);
             //var row = UIHelpers.TryFindFromPoint<TreeListView>(AssociatedObject, position);
             ///////if (row != null) AssociatedObject.SelectedRows = row.Item;
         }

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-using System.Text;
-
-namespace commonB1
+﻿namespace commonB1
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using System.IO;
 
     namespace Perestanovki
     {
@@ -101,7 +95,6 @@ namespace commonB1
 
             public virtual List<object[]> PermutationsCalculate_List(List<String> list)
             {
-                List<String> wl = new List<String>();
                 String[] wArr = list.ToArray();
                 int n = wArr.Length;
                 this.Generate(0, n, wArr);

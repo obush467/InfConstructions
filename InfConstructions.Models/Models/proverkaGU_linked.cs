@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InfConstractions.Models
+namespace UNS.Models
 {
-   // [MetadataType(typeof(proverkaGUMetadata))]
+    // [MetadataType(typeof(proverkaGUMetadata))]
     public partial class proverkaGU
     {
         public string Link { get { return "\\\\moscow.gbumac.ru\\МАЦ\\Мониторинг\\Каталог_ГУ\\Проверка_паспортов_ГУ\\Документы\\" + Num; } }

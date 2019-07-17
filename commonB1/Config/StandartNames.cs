@@ -2,8 +2,8 @@
 
 namespace commonB1.Config
 {
-    [ConfigurationCollection(typeof(StandartName),AddItemName="StandartName")]
-    public class StandartNames:ConfigurationElementCollection
+    [ConfigurationCollection(typeof(StandartName), AddItemName = "StandartName")]
+    public class StandartNames : ConfigurationElementCollection
     {
         protected override ConfigurationElement CreateNewElement()
         {

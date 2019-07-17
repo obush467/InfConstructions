@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Activities;
-using System.Text.RegularExpressions;
+﻿using System.Activities;
+using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace commonB1.Activityes
 {
 
-    public sealed  class caDistributeByNumber : CodeActivity<FileInfo>
+    public sealed class CaDistributeByNumber : CodeActivity<FileInfo>
     {
         // Определите входной аргумент действия типа string
         public InArgument<string> FileNumberRegExp { get; set; }
         public InArgument<string> FullFilePath { get; set; }
         public InArgument<bool> FileNamePriority { get; set; }
         public InArgument<bool> DirectoryNamePriorityFirst { get; set; }
-        public SortedDictionary<string,List<FileInfo>> List { get; set; }
+        public SortedDictionary<string, List<FileInfo>> List { get; set; }
         public OutArgument<string> Number { get; set; }
 
         // Если действие возвращает значение, создайте класс, производный от CodeActivity<TResult>

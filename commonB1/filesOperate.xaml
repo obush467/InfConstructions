@@ -155,33 +155,33 @@
                                         <Variable x:TypeArguments="si:FileInfo" Name="wFileInfo" />
                                         <Variable x:TypeArguments="x:String" Name="Number" />
                                       </Sequence.Variables>
-                                      <local:caDistributeByNumber List="{x:Null}" sap2010:WorkflowViewState.IdRef="caDistributeByNumber_1">
-                                        <local:caDistributeByNumber.DirectoryNamePriorityFirst>
+                                      <local:CaDistributeByNumber List="{x:Null}" sap2010:WorkflowViewState.IdRef="caDistributeByNumber_1">
+                                        <local:CaDistributeByNumber.DirectoryNamePriorityFirst>
                                           <InArgument x:TypeArguments="x:Boolean">
                                             <mca:CSharpValue x:TypeArguments="x:Boolean">DirectoryNamePriorityFirst</mca:CSharpValue>
                                           </InArgument>
-                                        </local:caDistributeByNumber.DirectoryNamePriorityFirst>
-                                        <local:caDistributeByNumber.FileNamePriority>
+                                        </local:CaDistributeByNumber.DirectoryNamePriorityFirst>
+                                        <local:CaDistributeByNumber.FileNamePriority>
                                           <InArgument x:TypeArguments="x:Boolean">
                                             <mca:CSharpValue x:TypeArguments="x:Boolean">FileNamePriority</mca:CSharpValue>
                                           </InArgument>
-                                        </local:caDistributeByNumber.FileNamePriority>
-                                        <local:caDistributeByNumber.FileNumberRegExp>
+                                        </local:CaDistributeByNumber.FileNamePriority>
+                                        <local:CaDistributeByNumber.FileNumberRegExp>
                                           <InArgument x:TypeArguments="x:String">
                                             <mca:CSharpValue x:TypeArguments="x:String">FileNumberRegExp</mca:CSharpValue>
                                           </InArgument>
-                                        </local:caDistributeByNumber.FileNumberRegExp>
-                                        <local:caDistributeByNumber.FullFilePath>
+                                        </local:CaDistributeByNumber.FileNumberRegExp>
+                                        <local:CaDistributeByNumber.FullFilePath>
                                           <InArgument x:TypeArguments="x:String">
                                             <mca:CSharpValue x:TypeArguments="x:String">item.FullName</mca:CSharpValue>
                                           </InArgument>
-                                        </local:caDistributeByNumber.FullFilePath>
-                                        <local:caDistributeByNumber.Number>
+                                        </local:CaDistributeByNumber.FullFilePath>
+                                        <local:CaDistributeByNumber.Number>
                                           <OutArgument x:TypeArguments="x:String">
                                             <mca:CSharpReference x:TypeArguments="x:String">Number</mca:CSharpReference>
                                           </OutArgument>
-                                        </local:caDistributeByNumber.Number>
-                                      </local:caDistributeByNumber>
+                                        </local:CaDistributeByNumber.Number>
+                                      </local:CaDistributeByNumber>
                                       <If sap2010:WorkflowViewState.IdRef="If_1">
                                         <If.Condition>
                                           <InArgument x:TypeArguments="x:Boolean">
@@ -232,23 +232,23 @@
                       </State>
                     </Transition.To>
                     <Transition.Action>
-                      <local:caLoadInDirectoryFiles sap2010:WorkflowViewState.IdRef="caLoadInDirectoryFiles_3" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger">
-                        <local:caLoadInDirectoryFiles.FileNumberRegExp>
+                      <local:CaLoadInDirectoryFiles sap2010:WorkflowViewState.IdRef="caLoadInDirectoryFiles_3" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger">
+                        <local:CaLoadInDirectoryFiles.FileNumberRegExp>
                           <InArgument x:TypeArguments="x:String">
                             <mca:CSharpValue x:TypeArguments="x:String">FileNumberRegExp</mca:CSharpValue>
                           </InArgument>
-                        </local:caLoadInDirectoryFiles.FileNumberRegExp>
-                        <local:caLoadInDirectoryFiles.InDirectory>
+                        </local:CaLoadInDirectoryFiles.FileNumberRegExp>
+                        <local:CaLoadInDirectoryFiles.InDirectory>
                           <InArgument x:TypeArguments="x:String">
                             <mca:CSharpValue x:TypeArguments="x:String">InDirectory</mca:CSharpValue>
                           </InArgument>
-                        </local:caLoadInDirectoryFiles.InDirectory>
-                        <local:caLoadInDirectoryFiles.List>
+                        </local:CaLoadInDirectoryFiles.InDirectory>
+                        <local:CaLoadInDirectoryFiles.List>
                           <OutArgument x:TypeArguments="scg:List(si:FileInfo)">
                             <mca:CSharpReference x:TypeArguments="scg:List(si:FileInfo)">InFilesList</mca:CSharpReference>
                           </OutArgument>
-                        </local:caLoadInDirectoryFiles.List>
-                      </local:caLoadInDirectoryFiles>
+                        </local:CaLoadInDirectoryFiles.List>
+                      </local:CaLoadInDirectoryFiles>
                     </Transition.Action>
                     <Transition.Condition>
                       <mca:CSharpValue x:TypeArguments="x:Boolean">1==1</mca:CSharpValue>

@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.Windows;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
-namespace InfConstractions.Models
+namespace UNS.Models
 {
     [MetadataType(typeof(GUPassport_SiteMetadata))]
     public partial class GUPassport_Site
     {
-        public Action<object, PropertyChangedEventArgs> PropertyChanged { get;  set; }
+        public Action<object, PropertyChangedEventArgs> PropertyChanged { get; set; }
 
         internal sealed class GUPassport_SiteMetadata
         {
@@ -42,9 +37,10 @@ namespace InfConstractions.Models
         public class AtLeastChooseOneItem : ValidationAttribute
         {
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-            { return new ValidationResult("fsdfsdfsdfsd");
+            {
+                return new ValidationResult("fsdfsdfsdfsd");
             }
-                }
+        }
 
     }
 }

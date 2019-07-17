@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace InfConstractions.Config
 {
@@ -17,6 +12,6 @@ namespace InfConstractions.Config
         }
         public Login(string name)
         { Name = name; }
-        public Login():base() { }
+        public Login() : base() { }
     }
 }

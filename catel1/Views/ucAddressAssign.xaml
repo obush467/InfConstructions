@@ -21,7 +21,7 @@
     Width="auto"
     x:Class="InfConstractions.Views.ucAddressAssign"
     x:Name="AddressAssign"
-    DataContext="{dxmvvm:ViewModelSource Type={x:Type vm:ucAddressAssignViewModel}}"
+    DataContext="{dxmvvm:ViewModelSource Type={x:Type vm:UcAddressAssignViewModel}}"
     Visibility="Visible" Loaded="AddressAssign_Loaded">
     <Grid Margin="0" x:Name="mainGrid">
         <Grid.RowDefinitions>

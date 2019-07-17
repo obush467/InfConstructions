@@ -1,11 +1,7 @@
 ﻿namespace InfConstractions
 {
-    using System.Windows;
-    using Models;
-    using ViewModels;
-    using System.Data.SqlClient;
-    using Views;
     using System.Data.Entity.Core.EntityClient;
+    using System.Windows;
 
 
 
@@ -21,7 +17,7 @@
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
-           // LogManager.AddDebugListener();
+            // LogManager.AddDebugListener();
 #endif
 
             // To force the loading of all assemblies at startup, uncomment the lines below:

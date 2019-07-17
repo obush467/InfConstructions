@@ -1,14 +1,8 @@
-﻿using System.IO;
+﻿using System;
 using System.Activities;
 using System.Activities.DurableInstancing;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
 using System.Runtime.DurableInstancing;
 using System.Threading;
-using System.ServiceModel.Activities.Description;
 
 namespace smFilestestApp
 {
@@ -23,12 +17,14 @@ namespace smFilestestApp
         public Class1()
         {
 
-            activity = new Workflow1();
-            activity.DisplayName = "qqqqqqqqqqqqqqq";
-            activity.argument1 = "rrrrrrrrrrrrrrrrrrrrrrr";
-            
+            activity = new Workflow1
+            {
+                DisplayName = "qqqqqqqqqqqqqqq",
+                argument1 = "rrrrrrrrrrrrrrrrrrrrrrr"
+            };
+
             //t = new WorkflowApplication(wq);
-           // t.InstanceStore = store;
+            // t.InstanceStore = store;
 
             InstanceHandle handle = store.CreateInstanceHandle();
             InstanceView view = store.Execute(handle, new CreateWorkflowOwnerCommand(), TimeSpan.FromSeconds(30));
@@ -47,19 +43,20 @@ namespace smFilestestApp
         }
         public void StartAndUnloadInstance()
         {
-            WorkflowApplication application = new WorkflowApplication(activity);
-
-            application.InstanceStore = store;
-
-            //returning IdleAction.Unload instructs the WorkflowApplication to persists application state and remove it from memory  
-            application.PersistableIdle = (e) =>
+            WorkflowApplication application = new WorkflowApplication(activity)
             {
-                return PersistableIdleAction.Unload;
-            };
+                InstanceStore = store,
 
-            application.Unloaded = (e) =>
-            {
-                instanceUnloaded.Set();
+                //returning IdleAction.Unload instructs the WorkflowApplication to persists application state and remove it from memory  
+                PersistableIdle = (e) =>
+                {
+                    return PersistableIdleAction.Unload;
+                },
+
+                Unloaded = (e) =>
+                {
+                    instanceUnloaded.Set();
+                }
             };
 
 

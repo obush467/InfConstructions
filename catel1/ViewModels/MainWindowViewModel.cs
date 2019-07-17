@@ -1,21 +1,16 @@
 ﻿namespace InfConstractions.ViewModels
 {
-    using System.Threading.Tasks;
-    using System.Data.Entity;
-    using System.Linq;
-    using System.Data.SqlClient;
-    using System.Windows;
-    using Models;
-    using System.Data.Entity.Core.EntityClient;
-    using System;
-    using DevExpress.Xpf.Docking;
     using DevExpress.Mvvm;
-    using DevExpress.Mvvm.ViewModel;
-    using DevExpress.Mvvm.POCO;
     using DevExpress.Mvvm.DataAnnotations;
-    using Services;
+    using DevExpress.Mvvm.POCO;
+    using DevExpress.Mvvm.ViewModel;
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Data.Entity.Core.EntityClient;
+    using System.Data.SqlClient;
+    using System.Windows;
+    using UNS.Models;
 
     public class MainWindowViewModel : ViewModelBase, IDialogService
     {
@@ -31,14 +26,14 @@
         public IDocumentManagerService DocumentManagerService { get { return GetService<IDocumentManagerService>(); } }
         #endregion
         #region Constructors
-        public MainWindowViewModel():base()
+        public MainWindowViewModel() : base()
         {
             try
             {
-                
+
                 //vmVisibility = Visibility.Hidden;
-                sqlConnection = new SqlConnection();
-                efConnection = new EntityConnection();
+                SqlConnection = new SqlConnection();
+                EfConnection = new EntityConnection();
                 //var u = this.GetDependencyResolver().Resolve<IUIVisualizerService>();
                 //u.ShowDialogAsync(vm, completeLogin);
             }
@@ -48,31 +43,31 @@
         #endregion
         #region Properties
         public string Title { get { return "InfConstractions"; } }
-        public Entities mainContext
+        public Entities MainContext
         {
-            get { return GetProperty<Entities>(() => mainContext); }
-            private set { SetProperty<Entities>(() => mainContext, value); }
+            get { return GetProperty<Entities>(() => MainContext); }
+            private set { SetProperty<Entities>(() => MainContext, value); }
         }
-        public SqlConnection sqlConnection
+        public SqlConnection SqlConnection
         {
-            get { return GetProperty<SqlConnection>(()=> sqlConnection); }
-            private set { SetProperty<SqlConnection>(()=> sqlConnection, value); }
+            get { return GetProperty<SqlConnection>(() => SqlConnection); }
+            private set { SetProperty<SqlConnection>(() => SqlConnection, value); }
         }
-        public EntityConnection efConnection
+        public EntityConnection EfConnection
         {
-            get { return GetProperty<EntityConnection>(() => efConnection); }
-            private set { SetProperty<EntityConnection>(() => efConnection, value); }
+            get { return GetProperty<EntityConnection>(() => EfConnection); }
+            private set { SetProperty<EntityConnection>(() => EfConnection, value); }
         }
-        public Visibility vmVisibility
+        public Visibility VmVisibility
         {
-            get { return GetProperty(() => vmVisibility); }
-            set { SetProperty<Visibility>(() => vmVisibility, value); }
+            get { return GetProperty(() => VmVisibility); }
+            set { SetProperty<Visibility>(() => VmVisibility, value); }
         }
         #endregion
         #region Methods
         void Update_mainContext()
         {
-            RaisePropertyChanged(() => mainContext);
+            RaisePropertyChanged(() => MainContext);
         }
         /*private void completeLogin(object sender, UICompletedEventArgs e)
         {
@@ -111,7 +106,7 @@
                 IsDefault = true,
                 Command = new DelegateCommand<CancelEventArgs>(
                     x => { LoginViewModel.ConnectionStringConstructExecute(); },
-                    x => LoginViewModel.CancmConnectionStringConstructExecute(), true),              
+                    x => LoginViewModel.CancmConnectionStringConstructExecute(), true),
             };
             UICommand cancelCommand = new UICommand()
             {
@@ -126,10 +121,10 @@
                 viewModel: LoginViewModel);
             if (result == registerCommand)
             {
-                efConnection = LoginViewModel.efConnection;
-                sqlConnection = LoginViewModel.sqlConnection;
-                mainContext = new Entities(efConnection);
-                App.mainConnection= LoginViewModel.efConnection;
+                EfConnection = LoginViewModel.efConnection;
+                SqlConnection = LoginViewModel.sqlConnection;
+                MainContext = new Entities(EfConnection);
+                App.mainConnection = LoginViewModel.efConnection;
             }
         }
 
@@ -154,11 +149,11 @@
             UseCommandManager = true)]
         public void ProverkaGU()
         {
-             
+
             DocumentManagerService.FindDocumentByIdOrCreate(proverkaGU_key, (ds) =>
             {
-                ProverkaGUViewModel vm = ViewModelSource.Create(() => new ProverkaGUViewModel(mainContext, DocumentManagerService));
-                IDocument _docCreated = ds.CreateDocument("ProverkaGUView",vm );
+                ProverkaGUViewModel vm = ViewModelSource.Create(() => new ProverkaGUViewModel(MainContext, DocumentManagerService));
+                IDocument _docCreated = ds.CreateDocument("ProverkaGUView", vm);
                 _docCreated.Id = proverkaGU_key;
                 _docCreated.Title = vm.Title;
                 return _docCreated;
@@ -166,7 +161,7 @@
         }
         public bool CancmProverkaGU()
         {
-            if (efConnection!=null && efConnection.State != System.Data.ConnectionState.Closed)
+            if (EfConnection != null && EfConnection.State != System.Data.ConnectionState.Closed)
             { return true; }
             else
             { return false; }
@@ -179,7 +174,7 @@
             DialogService.ShowDialog(null, "dsfdsfds", ViewModelSource.Create(() => new dxwLoginViewModel()));
             DocumentManagerService.FindDocumentByIdOrCreate(proverkaGU_key, (ds) =>
             {
-                IDocument doc1 = ds.CreateDocument("ucWord", ViewModelSource.Create(() => new ucWordViewModel()));
+                IDocument doc1 = ds.CreateDocument("ucWord", ViewModelSource.Create(() => new UcWordViewModel()));
                 doc1.Id = proverkaGU_key.ToString();
                 doc1.Title = "Документ Word";
                 return doc1;
@@ -187,7 +182,7 @@
         }
         public bool CancmOpenRichEdit()
         {
-            if (efConnection!=null && efConnection.State != System.Data.ConnectionState.Closed)
+            if (EfConnection != null && EfConnection.State != System.Data.ConnectionState.Closed)
             { return true; }
             else
             { return false; }

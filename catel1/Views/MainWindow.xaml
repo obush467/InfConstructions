@@ -17,7 +17,7 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     Title="{Binding Title}"
     Visibility="{Binding vmVisibility,Mode=TwoWay}" 
-    Loaded="mainWindow_Loaded"
+    Loaded="MainWindow_Loaded"
     DataContext="{dxmvvm:ViewModelSource Type=vm:MainWindowViewModel}"
     >
     <dxmvvm:Interaction.Behaviors>

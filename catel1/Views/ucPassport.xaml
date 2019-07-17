@@ -14,7 +14,7 @@
     xmlns:Converters="clr-namespace:InfConstractions.Converters"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
-    x:Class="InfConstractions.Views.ucPassport"
+    x:Class="InfConstractions.Views.UcPassport"
     xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
     mc:Ignorable="d" 
     d:DesignHeight="900" 
@@ -199,7 +199,7 @@
                         SelectedItem="{Binding SelectedAddress, Mode=OneWayToSource}" 
                         SelectionMode="None">
                             <dxg:TreeListControl.DataContext>
-                                <ViewModels:ucAddressAssignViewModel/>
+                                <ViewModels:UcAddressAssignViewModel/>
                             </dxg:TreeListControl.DataContext>
                             <dxg:TreeListControl.View>
                                 <dxg:TreeListView x:Name="trlAddressView1" 

@@ -1,10 +1,10 @@
-﻿using System;
-using DevExpress.Mvvm;
-using System.Data.SqlClient;
-using System.Data.Entity.Core.EntityClient;
-using System.Collections.ObjectModel;
+﻿using DevExpress.Mvvm;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
 using System.Windows.Input;
 
 
@@ -15,8 +15,6 @@ namespace InfConstractions.ViewModels
     using System.ComponentModel;
     using System.Data;
     using System.Data.Sql;
-    using System.Runtime.InteropServices;
-    using System.Security;
 
     public class dxwLoginViewModel : ViewModelBase
 
@@ -34,12 +32,14 @@ namespace InfConstractions.ViewModels
             sqlConnection = new SqlConnection();
             efConnection = new EntityConnection();
 
-            AuthenticationTypes = new List<string>();
-            AuthenticationTypes.Add("Проверка подлинности SQl Server");
-            AuthenticationTypes.Add("Проверка подлинности Windows");
-            AuthenticationTypes.Add("Универсальная проверка подлинности Active Directory");
-            AuthenticationTypes.Add("Проверка пароля Active Directory");
-            AuthenticationTypes.Add("Аутентификация Active Directory");
+            AuthenticationTypes = new List<string>
+            {
+                "Проверка подлинности SQl Server",
+                "Проверка подлинности Windows",
+                "Универсальная проверка подлинности Active Directory",
+                "Проверка пароля Active Directory",
+                "Аутентификация Active Directory"
+            };
             PropertyChanged += OnPropertyChanged1;
             LoadConfig();
         }
@@ -52,12 +52,14 @@ namespace InfConstractions.ViewModels
         public string Password
         {
             get { return GetProperty(() => Password); }
-            protected set { SetProperty(() => Password,value); RaisePropertyChanged("Password");
+            protected set
+            {
+                SetProperty(() => Password, value); RaisePropertyChanged("Password");
                 sqlConnectionStringBuilder.Password = Password;
             }
         }
         public SqlConnectionStringBuilder sqlConnectionStringBuilder;
-               public SqlConnection sqlConnection
+        public SqlConnection sqlConnection
         {
             get { return GetProperty<SqlConnection>(() => sqlConnection); }
             protected set { SetProperty<SqlConnection>(() => sqlConnection, value); }
@@ -67,13 +69,15 @@ namespace InfConstractions.ViewModels
             get { return GetProperty<EntityConnection>(() => efConnection); }
             protected set { SetProperty<EntityConnection>(() => efConnection, value); }
         }
-        public ObservableCollection<string> ServersCollection {
+        public ObservableCollection<string> ServersCollection
+        {
             get { return GetProperty<ObservableCollection<string>>(() => ServersCollection); }
             protected set { SetProperty<ObservableCollection<string>>(() => ServersCollection, value); }
         }
 
-        public List<string> AuthenticationTypes {
-            get { return GetProperty< List <string >> (() => AuthenticationTypes); }
+        public List<string> AuthenticationTypes
+        {
+            get { return GetProperty<List<string>>(() => AuthenticationTypes); }
             protected set { SetProperty<List<string>>(() => AuthenticationTypes, value); }
         }
 
@@ -159,7 +163,7 @@ namespace InfConstractions.ViewModels
                         ServersCollection.Add(serverName);
                     }
                 }
-               
+
             }
             catch (Exception e)
             {
@@ -203,30 +207,30 @@ namespace InfConstractions.ViewModels
             sqlConnectionStringBuilder.MultipleActiveResultSets = true;
             sqlConnectionStringBuilder.ApplicationName = App.Current.MainWindow.Title;
             if (sqlConnection.State != ConnectionState.Closed)
-                { sqlConnection.Close(); }
-                try
-                {
-                    sqlConnection.ConnectionString = sqlConnectionStringBuilder.ConnectionString;
-                    sqlConnection.Open();
-                    efConnectionStringBuilder.Provider = "System.Data.SqlClient";
-                    efConnectionStringBuilder.Metadata = @"res://*/Models.mainModel.csdl|res://*/Models.mainModel.ssdl|res://*/Models.mainModel.msl";
-                    efConnectionStringBuilder.ProviderConnectionString = sqlConnection.ConnectionString;
-                    efConnection = new EntityConnection(efConnectionStringBuilder.ToString());
-                    efConnection.Open();
-                    //App.mainConnection = efConnection;
-                    SaveConfig();
-                    //await this.SaveAndCloseViewModelAsync();
-                }
-                catch (SqlException e)
-                {
-                    MessageResult r = MessageService.ShowMessage( "Неудачная попытка соединения с сервером. Попробовать повторно?" + e.Message, "Ошибка", MessageButton.YesNo);
-                    if (r.HasFlag(MessageResult.No)) { this.CommandBindings[1].Command.Execute(null); }
-                }
-                finally
-                {
-                    //App.uiVisualizerService.Unregister(typeof(formLoginViewModel));
-                }
+            { sqlConnection.Close(); }
+            try
+            {
+                sqlConnection.ConnectionString = sqlConnectionStringBuilder.ConnectionString;
+                sqlConnection.Open();
+                efConnectionStringBuilder.Provider = "System.Data.SqlClient";
+                efConnectionStringBuilder.Metadata = @"res://*/Models.mainModel.csdl|res://*/Models.mainModel.ssdl|res://*/Models.mainModel.msl";
+                efConnectionStringBuilder.ProviderConnectionString = sqlConnection.ConnectionString;
+                efConnection = new EntityConnection(efConnectionStringBuilder.ToString());
+                efConnection.Open();
+                //App.mainConnection = efConnection;
+                SaveConfig();
+                //await this.SaveAndCloseViewModelAsync();
             }
+            catch (SqlException e)
+            {
+                MessageResult r = MessageService.ShowMessage("Неудачная попытка соединения с сервером. Попробовать повторно?" + e.Message, "Ошибка", MessageButton.YesNo);
+                if (r.HasFlag(MessageResult.No)) { this.CommandBindings[1].Command.Execute(null); }
+            }
+            finally
+            {
+                //App.uiVisualizerService.Unregister(typeof(formLoginViewModel));
+            }
+        }
         public bool CancmConnectionStringConstructExecute()
         {
             return true;

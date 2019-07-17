@@ -1,14 +1,10 @@
 ﻿namespace InfConstractions.Views
 {
-    using System.Collections.ObjectModel;
-    using System.Windows.Input;
-    using InfConstractions.ViewModels;
-    using System.Data.SqlClient;
+    using DevExpress.Data;
     using System.Data;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
-    using DevExpress.Data;
 
     public partial class ucAddressAssign
     {
@@ -28,7 +24,7 @@
                 e.Effects = DragDropEffects.None;
         }
 
-        
+
         private void textBlock_Drop(object sender, DragEventArgs e)
         {
 

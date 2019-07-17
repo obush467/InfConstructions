@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Activities;
+﻿using System.Activities;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace commonB1.Activityes
 {
 
-    public sealed class caLoadInDirectoryFiles : CodeActivity
+    public sealed class CaLoadInDirectoryFiles : CodeActivity
     {
         // Определите входной аргумент действия типа string
         public InArgument<string> InDirectory { get; set; }
@@ -21,12 +21,12 @@ namespace commonB1.Activityes
         protected override void Execute(CodeActivityContext context)
         {
             // Получите значение входного аргумента Text во время выполнения
-           var _InDirectory = context.GetValue(this.InDirectory);
+            var _InDirectory = context.GetValue(this.InDirectory);
             DirectoryInfo _wDir = new DirectoryInfo(_InDirectory);
             Regex reg = new Regex(FileNumberRegExp.Get(context));
-            List<FileInfo> filelist = (_wDir.GetFiles("*",SearchOption.AllDirectories).Where(path => reg.IsMatch(path.Name)).ToList());
+            List<FileInfo> filelist = (_wDir.GetFiles("*", SearchOption.AllDirectories).Where(path => reg.IsMatch(path.Name)).ToList());
             List.Set(context, filelist);
-           // return filelist;
+            // return filelist;
 
         }
     }

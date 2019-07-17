@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevExpress.Mvvm.UI;
+﻿using DevExpress.Mvvm.UI;
 using System.Windows;
-using InfConstractions.Models;
-using InfConstractions.ViewModels;
-using InfConstractions.Services;
-using DevExpress.Mvvm;
-using DevExpress.Utils.MVVM.Services;
-using DevExpress.Mvvm.POCO;
 
 namespace InfConstractions.Services
 {
     public interface ITitleService
     {
-       string Title { get; set; }
+        string Title { get; set; }
     }
     public class TitleService : ServiceBase, ITitleService
     {
@@ -26,6 +15,6 @@ namespace InfConstractions.Services
         { }
 
         public string Title
-        { get;set;}
+        { get; set; }
     }
 }

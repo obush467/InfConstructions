@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Activities;
-using System.IO;
+﻿using System.Activities;
 
 namespace smFilestestApp
 {
@@ -19,9 +14,9 @@ namespace smFilestestApp
         {
             // Получите значение входного аргумента Text во время выполнения
             string name = context.GetValue(this.Name);
-            
 
-            
+
+
         }
     }
 }

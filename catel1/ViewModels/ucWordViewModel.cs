@@ -1,14 +1,13 @@
-﻿using System;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 
 namespace InfConstractions.ViewModels
 
 {
-    public class ucWordViewModel : ViewModelBase
+    public class UcWordViewModel : ViewModelBase
     {
-        public ucWordViewModel() { }
-        public static ucWordViewModel Create()
-        { return ViewModelSource.Create(() => new ucWordViewModel()); }
+        public UcWordViewModel() { }
+        public static UcWordViewModel Create()
+        { return ViewModelSource.Create(() => new UcWordViewModel()); }
     }
 }

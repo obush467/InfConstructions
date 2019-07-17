@@ -13,12 +13,11 @@ using System.Threading.Tasks;
 
 namespace commonB1
 {
-    public class filesWorker
+    public class FilesWorker
     {
         public List<FileInfo> Files = new List<FileInfo>();
 
         public delegate Collection<FileInfo> IntFilter(int i);
-        IntFilter RRRRR = new IntFilter((int g) => new Collection<FileInfo>());
         public void StartFilesOperate()
         {
             filesOperate Act1 = new filesOperate();
@@ -37,22 +36,24 @@ namespace commonB1
             Act1.NotRenamedFilesExtensionsRegExp = "jpg";
             CompileExpressions(Act1);
             WorkflowApplication wfApp =
-            new WorkflowApplication(Act1);
-            wfApp.Completed = delegate (WorkflowApplicationCompletedEventArgs e)
+            new WorkflowApplication(Act1)
             {
-                syncEvent.Set();
-            };
+                Completed = delegate (WorkflowApplicationCompletedEventArgs e)
+                {
+                    syncEvent.Set();
+                },
 
-            wfApp.Aborted = delegate (WorkflowApplicationAbortedEventArgs e)
-            {
-                Console.WriteLine(e.Reason);
-                syncEvent.Set();
-            };
+                Aborted = delegate (WorkflowApplicationAbortedEventArgs e)
+                {
+                    Console.WriteLine(e.Reason);
+                    syncEvent.Set();
+                },
 
-            wfApp.OnUnhandledException = delegate (WorkflowApplicationUnhandledExceptionEventArgs e)
-            {
-                Console.WriteLine(e.UnhandledException.ToString());
-                return UnhandledExceptionAction.Terminate;
+                OnUnhandledException = delegate (WorkflowApplicationUnhandledExceptionEventArgs e)
+                {
+                    Console.WriteLine(e.UnhandledException.ToString());
+                    return UnhandledExceptionAction.Terminate;
+                }
             };
 
             wfApp.Run();
@@ -119,15 +120,15 @@ namespace commonB1
         }
 
         public List<List<String>> PermutationsCalculate_full(List<String> Permutating)
-        { 
-            byCountComparer bc = new byCountComparer();
+        {
+            ByCountComparer bc = new ByCountComparer();
             List<List<String>> _result = CombinationList(Permutating);
             _result.Sort(0, _result.Count, bc);
             return _result;
         }
 
         public async void Loadqq()
-        { var t = await LoadAsync("U:\\Паспорта_и_Макеты", "\\d{5}ДУ\\d{6}"); }
+        { await LoadAsync("U:\\Паспорта_и_Макеты", "\\d{5}ДУ\\d{6}"); }
 
         /// <summary>
         /// Загружает в список FileInfo отобранные по регулярке файлы
@@ -204,7 +205,7 @@ namespace commonB1
 
 
                     if (A[k] == n)
-                    { p = p - 1; }
+                    { p -= 1; }
                     else
                     { p = k; }
 
@@ -250,7 +251,7 @@ namespace commonB1
 
 
                     if (A[k] == n)
-                    { p = p - 1; }
+                    { p -= 1; }
                     else
                     { p = k; }
 
@@ -264,7 +265,7 @@ namespace commonB1
             return a2;
         }
     }
-    public class byCountComparer : IComparer<List<String>>
+    public class ByCountComparer : IComparer<List<String>>
     {
         public int Compare(List<String> l1, List<String> l2)
         {

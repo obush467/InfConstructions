@@ -3,33 +3,27 @@
     using DevExpress.Mvvm;
     using DevExpress.Mvvm.DataAnnotations;
     using DevExpress.Mvvm.POCO;
-    using DevExpress.Utils.MVVM.Services;
-    using Models;
-    using Services;
+    using DevExpress.Xpf.Docking;
+    using Microsoft.Office.Interop.Word;
+    using PassportOperator;
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
+    using System.ComponentModel;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using System.Windows;
-    using Microsoft.Office.Interop.Word;
     using System.IO;
-    using PassportOperator;
-    using static Models.GUPassport_Site;
-    using System.ComponentModel;
-    using DevExpress.Xpf.Docking;
+    using System.Linq;
+    using UNS.Models;
 
-    public class ucPassportViewModel : ViewModelBase, INotifyCollectionChanged
+    public class UcPassportViewModel : ViewModelBase, INotifyCollectionChanged
     {
         #region Services
-        public IMessageBoxService MessageService { get { return GetService<IMessageBoxService>(); } }       
+        public IMessageBoxService MessageService { get { return GetService<IMessageBoxService>(); } }
         #endregion
         #region Fields
         private Guid passportID;
-        protected IQueryable<GUPassport_Site> queryPassportSites
+        protected IQueryable<GUPassport_Site> QueryPassportSites
         {
             get
             {
@@ -39,7 +33,7 @@
                        select site;
             }
         }
-        protected IQueryable<GUPassport_State> queryPassportStates
+        protected IQueryable<GUPassport_State> QueryPassportStates
         {
             get
             {
@@ -52,10 +46,10 @@
 
         #endregion
         #region Events
-        public event NotifyCollectionChangedEventHandler CollectionChanged; 
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
         #endregion
         #region Event_Handlers
-        private void passportStatesChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void PassportStatesChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
             {
@@ -104,7 +98,7 @@
         {
 
         }
-        private void passportSitesChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void PassportSitesChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
             {
@@ -122,57 +116,62 @@
                     Context.GUPassport_Sites.Remove(oldItem);
                 }
             }
-        } 
+        }
         #endregion
         #region Constractors
-        public ucPassportViewModel()
+        public UcPassportViewModel()
         {
         }
-        public ucPassportViewModel(Guid passportID) : this(new Entities(App.mainConnection), passportID)
+        public UcPassportViewModel(Guid passportID) : this(new Entities(App.mainConnection), passportID)
         { }
-        public ucPassportViewModel(Entities _context,Guid _passportID)
+        public UcPassportViewModel(Entities _context, Guid _passportID)
         {
             passportID = _passportID;
             Context = _context;
             Context.GUPassport_Sites.Load();
             Passport = _context.GUPassports.Where<GUPassport>(p => (p.id == passportID)).First<GUPassport>();
             Refresh();
-            PassportSites.CollectionChanged += passportSitesChanged;
-            PassportStates.CollectionChanged += passportStatesChanged;
-            PassportSites.CollectionChanged+= CollectionChanged;
+            PassportSites.CollectionChanged += PassportSitesChanged;
+            PassportStates.CollectionChanged += PassportStatesChanged;
+            PassportSites.CollectionChanged += CollectionChanged;
             PassportSites.CollectionChanged += SitesCollectionChanged;
 
             Address = Context.ObjectFullAddress4(Passport.HouseID, " ", true, true, true).First().fullAdress;
-            Raion= Context.AdminAreas.Where(a => a.ID == Passport.AdmidArea_ID).First();
-            Okrug =Context.AdminAreas.Where(a => a.ID == Raion.Parent_ID).First();
-    }      
-        public static ucPassportViewModel Create()
-        { return ViewModelSource.Create(() => new ucPassportViewModel()); }
-        public static ucPassportViewModel Create(Entities context,Guid passportID) 
-        { return ViewModelSource.Create(() => new ucPassportViewModel(context,passportID)); }
-        public static ucPassportViewModel Create(Guid passportID)
-        { return ViewModelSource.Create(() => new ucPassportViewModel(passportID)); }
+            Raion = Context.AdminAreas.Where(a => a.ID == Passport.AdmidArea_ID).First();
+            Okrug = Context.AdminAreas.Where(a => a.ID == Raion.Parent_ID).First();
+        }
+        public static UcPassportViewModel Create()
+        { return ViewModelSource.Create(() => new UcPassportViewModel()); }
+        public static UcPassportViewModel Create(Entities context, Guid passportID)
+        { return ViewModelSource.Create(() => new UcPassportViewModel(context, passportID)); }
+        public static UcPassportViewModel Create(Guid passportID)
+        { return ViewModelSource.Create(() => new UcPassportViewModel(passportID)); }
         #endregion
         #region Properties  
-        public bool EnableEdit { get
+        public bool EnableEdit
+        {
+            get
             {
                 switch (PassportStates.Where(s => (s.NextID == null)).FirstOrDefault().State)
                 {
                     case "согласован":
                         return false;
-                        //break;
+                    //break;
                     case "исключён":
                         return false;
-                        //break;
+                    //break;
                     case "аннулирован":
                         return false;
-                        //break;
+                    //break;
                     default: return true;
                 }
-            } private set { } }
-        public string Title {
+            }
+            private set { }
+        }
+        public string Title
+        {
             get { return GetProperty(() => Title); }
-            private set {SetProperty(() => Title, value); }
+            private set { SetProperty(() => Title, value); }
         }
         public Entities Context
         {
@@ -189,28 +188,34 @@
             get { return GetProperty(() => Address); }
             private set { SetProperty(() => Address, value); }
         }
-        public ObservableCollection<GUPassport_Site> PassportSites {
+        public ObservableCollection<GUPassport_Site> PassportSites
+        {
             get { return GetProperty(() => PassportSites); }
             private set { SetProperty(() => PassportSites, value); }
         }
-        public ObservableCollection<GUPassport_State> PassportStates {
+        public ObservableCollection<GUPassport_State> PassportStates
+        {
             get { return GetProperty(() => PassportStates); }
             private set { SetProperty(() => PassportStates, value); }
         }
-        public ObservableCollection<Ground_Type> Ground_Types {
+        public ObservableCollection<Ground_Type> Ground_Types
+        {
             get { return GetProperty(() => Ground_Types); }
             private set { SetProperty(() => Ground_Types, value); }
         }
-        public ObservableCollection<Program> Programs {
+        public ObservableCollection<Program> Programs
+        {
             get { return GetProperty(() => Programs); }
             private set { SetProperty(() => Programs, value); }
         }
-        public object NullDate { get { return null;} }
-        public AdminArea Okrug {
+        public object NullDate { get { return null; } }
+        public AdminArea Okrug
+        {
             get { return GetProperty(() => Okrug); }
             private set { SetProperty(() => Okrug, value); }
         }
-        public AdminArea Raion {
+        public AdminArea Raion
+        {
             get { return GetProperty(() => Raion); }
             private set { SetProperty(() => Raion, value); }
         }
@@ -221,7 +226,7 @@
             Passport = Context.GUPassports.Where<GUPassport>(p => (p.id == Passport.id)).First<GUPassport>();
             Programs = new ObservableCollection<Program>(Context.Programs.ToList());
             PassportSites = new ObservableCollection<GUPassport_Site>(Context.GetGUPassport_Sites(Passport.id));
-            PassportStates = new ObservableCollection<GUPassport_State>(queryPassportStates.ToList());
+            PassportStates = new ObservableCollection<GUPassport_State>(QueryPassportStates.ToList());
             Ground_Types = new ObservableCollection<Ground_Type>(Context.Ground_Types.ToList());
         }
         public void RollBackChandes()
@@ -248,7 +253,7 @@
         [Command(CanExecuteMethodName = "CancmClose",
             Name = "CloseCommand",
             UseCommandManager = true)]
-        public void cmClose()
+        public void CmClose()
         {
             //TODO: Хз, так не работает
             //IDocumentManagerService s = GetService<IDocumentManagerService>();
@@ -263,8 +268,8 @@
         [Command(CanExecuteMethodName = "CancmSaveChanges",
             Name = "SaveChangesCommand",
             UseCommandManager = true)]
-        public void cmSaveChanges ()
-        {Context.SaveChanges();}
+        public void CmSaveChanges()
+        { Context.SaveChanges(); }
 
         public bool CancmSaveChanges()
         {
@@ -273,7 +278,7 @@
         [Command(CanExecuteMethodName = "CancmCancel",
            Name = "CancelCommand",
            UseCommandManager = true)]
-        public void cmCancel()
+        public void CmCancel()
         { RollBackChandes(); }
 
         public bool CancmCancel()
@@ -284,12 +289,12 @@
         [Command(CanExecuteMethodName = "CancmRefresh",
             Name = "RefreshCommand",
             UseCommandManager = true)]
-        public void cmRefresh()
+        public void CmRefresh()
         {
             Refresh();
         }
         public bool CancmRefresh()
-        {           
+        {
             return true;
         }
 
@@ -299,33 +304,37 @@
         public void GenerateDOCX()
         {
             PassportOperator.MATCPassportExporter _exporter = new MATCPassportExporter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "паспортГУ1.dotx"));
-            PassportOperator.MATCPassport _expassport = new PassportOperator.MATCPassport();
-            _expassport.UNIU = Passport.UNOM;
-            _expassport.CreateDate = Passport.startdate.ToShortDateString();
-            _expassport.Okrug = Okrug.shortName;
-            _expassport.Raion = Raion.shortName;
-            _expassport.Address = Address;
-            _expassport.Visibility = Passport.Visibility;
-            _expassport.Sidewalk_width = Passport.Sidewalk_width;
-            _expassport.Traffic = Passport.Patency;
-            _expassport.State = Passport.Condition;
-            if ( String.IsNullOrWhiteSpace(Passport.Electricity_connection))
+            PassportOperator.MATCPassport _expassport = new PassportOperator.MATCPassport
+            {
+                UNIU = Passport.UNOM,
+                CreateDate = Passport.startdate.ToShortDateString(),
+                Okrug = Okrug.shortName,
+                Raion = Raion.shortName,
+                Address = Address,
+                Visibility = Passport.Visibility,
+                Sidewalk_width = Passport.Sidewalk_width,
+                Traffic = Passport.Patency,
+                State = Passport.Condition
+            };
+            if (String.IsNullOrWhiteSpace(Passport.Electricity_connection))
                 _expassport.Electricity_connection = "Нет";
             else _expassport.Electricity_connection = Passport.Electricity_connection;
             _expassport.Closed_loop = Passport.Closed_loop;
             _expassport.Reconstruction = Passport.Reconstruction;
             _expassport.Type_of_surface = Ground_Types.FirstOrDefault(p => p.id == Passport.Ground_Type_ID).GroundName;
-            if (Passport.Foto!=null) _expassport.Foto = new MemoryStream(Passport.Foto);
+            if (Passport.Foto != null) _expassport.Foto = new MemoryStream(Passport.Foto);
             if (Passport.Plan != null) _expassport.Plan = new MemoryStream(Passport.Plan);
             foreach (GUPassport_Site s in PassportSites)
             {
-                MATCPassport_InformationField f = new MATCPassport_InformationField();
-                f.Name = s.Content_Text;
-                f.Transliteration = s.Content_Transliteration;
-                f.Arrow = "блок " + s.Block_Number + " сторона " + s.Site_Number + " ряд " + s.Row_Number + " стрелка: "+s.Content_Direction;
+                MATCPassport_InformationField f = new MATCPassport_InformationField
+                {
+                    Name = s.Content_Text,
+                    Transliteration = s.Content_Transliteration,
+                    Arrow = "блок " + s.Block_Number + " сторона " + s.Site_Number + " ряд " + s.Row_Number + " стрелка: " + s.Content_Direction
+                };
                 _expassport.Information_fields.Add(f);
             }
-            Document d=_exporter.ConvertToWord(_expassport);
+            Document d = _exporter.ConvertToWord(_expassport);
         }
         public bool CanGenerateDOCX()
         {
@@ -337,9 +346,9 @@
         [Command(CanExecuteMethodName = "CancmCancelChangeAddress",
             Name = "CancelChangeAddressCommand",
             UseCommandManager = true)]
-        public void cmCancelChangeAddress()
+        public void CmCancelChangeAddress()
         {
-            
+
         }
         public bool CancmCancelChangeAddress()
         {
@@ -349,7 +358,7 @@
         [Command(CanExecuteMethodName = "CancmChangeAddress",
         Name = "ChangeAddressCommand",
         UseCommandManager = true)]
-        public void cmChangeAddress(ALLAddressObjectsFull address)
+        public void CmChangeAddress(ALLAddressObjectsFull address)
         {
             Passport.HouseID = address.ID;
         }

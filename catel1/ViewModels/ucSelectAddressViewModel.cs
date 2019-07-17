@@ -1,9 +1,8 @@
-﻿using System;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 
 namespace InfConstractions.ViewModels
 {
-    public class ucSelectAddressViewModel : ViewModelBase
+    public class UcSelectAddressViewModel : ViewModelBase
     {
     }
 }

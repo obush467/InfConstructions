@@ -14,7 +14,7 @@
         <dxre:DefaultBarItemDataTemplates x:Key="defaultBarItemTemplates"/>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <ViewModels:ucWordViewModel/>
+        <ViewModels:UcWordViewModel/>
     </UserControl.DataContext>
         <DockPanel>
                 <dxr:RibbonControl x:Name="ribbonControl1" DockPanel.Dock="Top" RibbonStyle="Office2010">
